@@ -3,574 +3,1400 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📊 Calcolatore Risparmi PWA</title> <meta name="theme-color" content="#007bff"> <meta name="description" content="Calcolatore di risparmi mensili personale con storico e backup.">
-
-    <link id="manifest-link" rel="manifest">
-    <link rel="icon" href="https://em-content.zobj.net/source/apple/419/bar-chart_1f4ca.png" type="image/png">
+    <title>Budget Bulldog (Material - Storico)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
 
     <style>
-        /* CSS Completo (identico alla versione precedente corretta) */
+        /* --- Material Design CSS Variables --- */
         :root {
-            --primary-color: #007bff;
-            --secondary-color: #6c757d;
-            --background-color: #f8f9fa;
-            --text-color: #333;
-            --card-background: #ffffff;
-            --border-color: #dee2e6;
-            --danger-color: #dc3545;
-            --success-color: #28a745;
-            --info-color: #17a2b8;
-            --warning-color: #ffc107;
-            --light-gray: #e9ecef;
+            --font-family: 'Roboto', sans-serif;
+            --border-radius: 15px; /* Aumentato per angoli più tondi (come richiesto) */
+            --spacing-xs: 4px;
+            --spacing-s: 8px;
+            --spacing-m: 16px;
+            --spacing-l: 24px;
+            --spacing-xl: 32px;
+
+            /* Light Theme Palette (Example: Blue & Amber) */
+            --md-primary: #1976D2; /* Blue 700 */
+            --md-primary-dark: #0D47A1; /* Blue 900 */
+            --md-primary-light: #64B5F6; /* Blue 300 */
+            --md-accent: #FFAB00; /* Amber A400 */
+            --md-text-primary: rgba(0, 0, 0, 0.87);
+            --md-text-secondary: rgba(0, 0, 0, 0.60);
+            --md-text-disabled: rgba(0, 0, 0, 0.38);
+            --md-divider: rgba(0, 0, 0, 0.12);
+            --md-background: #F5F5F5; /* Grey 100 */
+            --md-surface: #FFFFFF; /* Card background */
+            --md-error: #D32F2F; /* Red 700 */
+            --md-on-primary: #FFFFFF;
+            --md-on-secondary: #FFFFFF;
+            --md-on-accent: rgba(0,0,0,0.87); /* Text on accent */
+            --md-on-surface: rgba(0, 0, 0, 0.87);
+            --md-on-error: #FFFFFF;
+            --md-input-fill: rgba(0, 0, 0, 0.06); /* Filled input background */
+            --md-input-border-hover: rgba(0, 0, 0, 0.42);
+            --md-input-border-focus: var(--md-primary);
+             --md-mascot-fill: #8D6E63; /* Brown 400 */
+
+            /* Elevations (Box Shadows) */
+            --elevation-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            --elevation-2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+            --elevation-4: 0 4px 8px rgba(0,0,0,0.19), 0 3px 6px rgba(0,0,0,0.23); /* App Bar */
+            --elevation-8: 0 8px 17px rgba(0,0,0,0.2), 0 6px 6px rgba(0,0,0,0.23); /* Raised button hover */
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; background-color: var(--background-color); color: var(--text-color); line-height: 1.6; padding: 20px; }
-        .container { max-width: 900px; margin: 20px auto; background-color: var(--card-background); padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
-        h1 { color: var(--primary-color); margin-bottom: 25px; text-align: center; font-size: 2rem; }
-        h2 { color: var(--primary-color); margin-top: 30px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; font-size: 1.6rem; }
-        h2 span { margin-bottom: 10px; flex-grow: 1; }
-        h3 { color: var(--secondary-color); margin-top: 25px; margin-bottom: 15px; font-size: 1.3rem; }
-        .form-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.95rem; color: var(--secondary-color); }
-        input[type="text"], input[type="number"], select { width: 100%; padding: 12px 15px; border: 1px solid var(--border-color); border-radius: 5px; font-size: 1rem; margin-bottom: 5px; transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
-        input:focus, select:focus { border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); outline: none; }
-        input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
-        input[type=number] { -moz-appearance: textfield; }
-        button { display: inline-block; background-color: var(--primary-color); color: white; padding: 10px 18px; border: none; border-radius: 5px; cursor: pointer; font-size: 0.95rem; font-weight: 500; transition: background-color 0.2s ease, transform 0.1s ease; margin-top: 5px; margin-right: 5px; vertical-align: bottom; }
-        button:last-of-type { margin-right: 0; }
-        button:hover { background-color: #0056b3; transform: translateY(-1px); }
-        button:active { transform: translateY(0px); }
-        button#calcola { width: 100%; font-size: 1.15rem; padding: 12px 20px; margin-top: 25px; margin-bottom: 15px; background-color: var(--success-color); margin-right: 0; }
-        button#calcola:hover { background-color: #218838; }
-        .remove-btn { background-color: var(--danger-color); padding: 4px 8px; font-size: 0.8rem; font-weight: bold; line-height: 1; margin: 0; }
-        .remove-btn:hover { background-color: #c82333; }
-        #spese-fisse-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; align-items: end; margin-bottom: 20px; }
-        #spese-fisse-container .form-group { margin-bottom: 0; }
-        #spese-fisse-container button#aggiungi-spesa { grid-column: span 1; align-self: end; width: 100%; padding: 12px; font-size: 1rem; }
-        #controlli-ordinamento { text-align: right; margin-bottom: 10px; }
-        #controlli-ordinamento small { margin-right: 10px; font-size: 0.9em; color: var(--secondary-color); }
-        #controlli-ordinamento button { background-color: var(--secondary-color); font-size: 0.8rem; padding: 5px 10px; margin-left: 5px; vertical-align: middle; }
-        #controlli-ordinamento button:hover { background-color: #5a6268; }
-        #controlli-ordinamento button.active { background-color: var(--primary-color); font-weight: bold; }
-        #lista-spese { list-style: none; padding: 0; margin-top: 15px; }
-        #lista-spese li { display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 10px; align-items: center; padding: 12px 5px; border-bottom: 1px solid var(--border-color); margin-bottom: 5px; background-color: #fff; transition: background-color 0.2s; }
-        #lista-spese li:hover { background-color: #f8f9fa; }
-        #lista-spese li span { overflow-wrap: break-word; word-break: break-word; font-size: 0.95rem;}
-        #lista-spese li .spesa-importo { text-align: right; font-weight: 600; color: var(--primary-color); }
-        #lista-spese li .spesa-categoria { font-style: italic; color: var(--secondary-color); font-size: 0.85em; }
-        #lista-spese li .remove-btn { justify-self: end; }
-        #totale-spese-fisse { text-align: right; font-weight: bold; font-size: 1.1rem; margin-top: 15px; padding-top: 10px; border-top: 2px solid var(--primary-color); color: var(--primary-color);}
-        #riepilogo-categorie { margin-top: 25px; margin-bottom: 20px; padding: 20px; background-color: var(--light-gray); border-radius: 8px; border: 1px solid var(--border-color);}
-        #riepilogo-categorie h3 { margin-top: 0; color: var(--secondary-color); text-align: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; font-size: 1.2rem;}
-        #lista-categorie-somma { list-style: none; padding: 0; margin-top: 15px; }
-        #lista-categorie-somma li { display: flex; justify-content: space-between; padding: 10px 5px; border-bottom: 1px dotted var(--border-color); font-size: 0.95rem; }
-        #lista-categorie-somma li:last-child { border-bottom: none; }
-        #lista-categorie-somma span:last-child { font-weight: 600; color: var(--primary-color);}
-        #risultati { margin-top: 30px; padding: 25px; background-color: var(--light-gray); border-radius: 8px; border: 1px solid var(--border-color); display: none; }
-        #risultati h2#titolo-riepilogo { text-align: center; font-size: 1.5rem; color: var(--primary-color); border-bottom: none; margin-bottom: 20px; }
-        #risultati p { font-size: 1.1rem; margin-bottom: 14px; display: flex; justify-content: space-between; flex-wrap: wrap; align-items: center; padding: 5px 0; }
-        #risultati p span:first-child { color: var(--secondary-color); font-weight: 500;}
-        #risultati p span:last-child { font-weight: 600; text-align: right; margin-left: 10px; }
-        #risultati hr { border: 0; border-top: 1px solid var(--border-color); margin: 20px 0; }
-        #risultati p.debito-precedente span:last-child { color: var(--danger-color); font-style: italic; }
-        #messaggio-finale { border-top: 1px solid var(--border-color); padding-top: 15px; }
-        #debiti-mese-container { margin-top: 25px; padding: 20px; border: 1px dashed var(--info-color); border-radius: 8px; display: none; background-color: #f8fcff; }
-        #debiti-mese-container h3 { font-size: 1.2rem; color: var(--info-color); text-align: center; }
-        #form-aggiungi-debito { display: flex; gap: 15px; margin-bottom: 15px; align-items: flex-end; flex-wrap: wrap;}
-        #form-aggiungi-debito .form-group { flex: 1; min-width: 150px; margin-bottom: 0;}
-        #form-aggiungi-debito button { padding: 12px 15px; height: fit-content; background-color: var(--info-color); }
-        #form-aggiungi-debito button:hover { background-color: #138496; }
-        #debiti-mese-container h4 { font-size: 1rem; color: var(--secondary-color); margin-top: 20px; margin-bottom: 10px; }
-        #lista-debiti-riporto { list-style: none; padding: 0; max-height: 150px; overflow-y: auto; margin-bottom: 10px; border: 1px solid var(--border-color); border-radius: 5px; background-color: #fff;}
-        #lista-debiti-riporto li { display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; border-bottom: 1px dotted var(--border-color); font-size: 0.9rem;}
-        #lista-debiti-riporto li:last-child { border-bottom: none; }
-        #lista-debiti-riporto li span:first-child { flex-grow: 1; margin-right: 10px;}
-        #lista-debiti-riporto li span:nth-child(2) { font-weight: 600; color: var(--primary-color); white-space: nowrap; }
-        #lista-debiti-riporto li .remove-debito-btn { font-size: 0.7rem; padding: 3px 6px; margin-left: 10px; }
-        #totale-debiti-riporto { font-weight: bold; font-size: 1.1rem; color: var(--danger-color); }
-        #storico-container { margin-top: 30px; padding: 20px; background-color: #fff; border: 1px solid var(--border-color); border-radius: 8px; }
-        #storico-container h3 { margin-top: 0; text-align: center; color: var(--secondary-color); border-bottom: 1px solid var(--border-color); padding-bottom: 10px; font-size: 1.3rem;}
-        #seleziona-mese-storico { margin-bottom: 20px; max-width: 300px; display: block; margin-left: auto; margin-right: auto; }
-        #dettaglio-storico { background-color: var(--light-gray); padding: 20px; border-radius: 5px; display: none; margin-top: 15px; border: 1px solid var(--border-color);}
-        #dettaglio-storico h4 { text-align: center; margin-bottom: 15px; color: var(--primary-color); font-size: 1.2rem; }
-        #dettaglio-storico p { font-size: 1rem; margin-bottom: 10px; display: flex; justify-content: space-between; flex-wrap: wrap; }
-        #dettaglio-storico p span:first-child { color: var(--secondary-color); font-weight: 500;}
-        #dettaglio-storico p span:last-child { font-weight: 600; text-align: right; margin-left: 10px; }
-        #dettaglio-storico p.debito-precedente span:last-child, #dettaglio-storico p.debito-riporto span:last-child { color: var(--danger-color); font-style: italic; }
-        #dettaglio-storico hr { border: 0; border-top: 1px solid var(--border-color); margin: 15px 0; }
-        #backup-restore-container { margin-top: 30px; padding: 25px; background-color: var(--light-gray); border: 1px solid var(--border-color); border-radius: 8px; text-align: center; }
-        #backup-restore-container h3 { margin-top: 0; text-align: center; color: var(--secondary-color); border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-bottom: 20px; font-size: 1.3rem; }
-        #backup-restore-container button { margin: 10px 15px; background-color: var(--info-color); font-size: 1rem; padding: 10px 20px; }
-        #backup-restore-container button:hover { background-color: #138496; }
-        #backup-restore-container button#importa-btn { background-color: var(--warning-color); color: #333; }
-        #backup-restore-container button#importa-btn:hover { background-color: #e0a800; }
-        #importa-file-input { display: none; }
-        .backup-warning { font-size: 0.9em; color: var(--danger-color); margin-top: 20px; font-weight: 600; display: block; background-color: rgba(220, 53, 69, 0.1); padding: 10px; border-radius: 5px; border: 1px solid rgba(220, 53, 69, 0.3); }
-        .positivo { color: var(--success-color) !important; }
-        .negativo { color: var(--danger-color) !important; font-weight: bold; }
-        .warning { color: var(--warning-color) !important; font-weight: bold; }
+
+        body.dark-mode {
+             /* Dark Theme Palette */
+            --md-primary: #90CAF9; /* Blue 200 */
+            --md-primary-dark: #64B5F6; /* Blue 300 */
+            --md-primary-light: #E3F2FD; /* Blue 50 */
+            --md-accent: #FFD180; /* Amber A100 */
+            --md-text-primary: rgba(255, 255, 255, 0.87);
+            --md-text-secondary: rgba(255, 255, 255, 0.60);
+            --md-text-disabled: rgba(255, 255, 255, 0.38);
+            --md-divider: rgba(255, 255, 255, 0.12);
+            --md-background: #121212; /* Standard dark background */
+            --md-surface: #1E1E1E; /* Card background (slightly lighter dark) */
+            --md-error: #EF9A9A; /* Red 200 */
+            --md-on-primary: rgba(0, 0, 0, 0.87); /* Text on light primary */
+            --md-on-secondary: rgba(0, 0, 0, 0.87);
+            --md-on-accent: rgba(0,0,0,0.87);
+            --md-on-surface: rgba(255, 255, 255, 0.87);
+            --md-on-error: rgba(0, 0, 0, 0.87);
+             --md-input-fill: rgba(255, 255, 255, 0.09);
+             --md-input-border-hover: rgba(255, 255, 255, 0.7);
+             --md-input-border-focus: var(--md-primary);
+             --md-mascot-fill: #BCAAA4; /* Brown 200 */
+
+             /* Dark Elevations (subtler shadows, often rely on surface brightness) */
+            --elevation-1: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.4); /* Darker shadows */
+            --elevation-2: 0 3px 6px rgba(0,0,0,0.3), 0 3px 6px rgba(0,0,0,0.4);
+            --elevation-4: 0 4px 8px rgba(0,0,0,0.4), 0 3px 6px rgba(0,0,0,0.4);
+            --elevation-8: 0 8px 17px rgba(0,0,0,0.5), 0 6px 6px rgba(0,0,0,0.4);
+        }
+
+        /* --- Base Styles --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px; /* Base font size */
+             scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--md-background);
+            color: var(--md-text-primary);
+            line-height: 1.5; /* Material default */
+            transition: background-color 0.3s ease, color 0.3s ease;
+            padding-top: 72px; /* Space for fixed AppBar (56px + padding) */
+            padding-bottom: var(--spacing-xl);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 500; /* Medium weight for headers */
+        }
+
+        /* --- Layout & Containers --- */
+        .app-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-m);
+        }
+
+        .app-bar {
+            background-color: var(--md-primary);
+            color: var(--md-on-primary);
+            padding: var(--spacing-s) var(--spacing-m);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--elevation-4);
+            position: fixed; /* Fixed App Bar */
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            height: 56px; /* Standard height */
+        }
+
+        .app-bar h1 {
+            font-size: 1.25rem; /* 20sp */
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-s);
+        }
+
+        .mascot { /* Applied to IMG or SVG */
+            width: 32px;
+            height: 32px;
+            fill: var(--md-mascot-fill); /* Fill for SVG */
+            background-color: var(--md-on-primary); /* Circle behind mascot (IMG/SVG) */
+            padding: 2px;
+            border-radius: 50%;
+            object-fit: contain; /* Helps if PNG is not square */
+        }
+
+        /* --- Material Icon Button --- */
+        .btn-icon {
+            background-color: transparent;
+            border: none;
+            border-radius: 50%;
+            padding: var(--spacing-s); /* 8dp padding for 40dp touch target */
+            cursor: pointer;
+            color: var(--md-on-primary); /* Icon color on primary background */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            outline: none;
+            position: relative;
+            overflow: hidden; /* For ripple */
+             transition: background-color 0.2s ease;
+        }
+         .btn-icon:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Subtle hover for dark icons */
+         }
+         body.dark-mode .btn-icon:hover {
+             background-color: rgba(0, 0, 0, 0.1); /* Subtle hover for light icons */
+         }
+
+        .btn-icon .material-symbols-outlined {
+            font-size: 24px; /* Standard icon size */
+            pointer-events: none; /* Prevent icon stealing clicks */
+        }
+
+
+        /* --- Cards --- */
+        .card {
+            background-color: var(--md-surface);
+            color: var(--md-on-surface);
+            border-radius: var(--border-radius); /* Usa la variabile aggiornata (15px) */
+            padding: var(--spacing-l);
+            margin-bottom: var(--spacing-l);
+            box-shadow: var(--elevation-1);
+            transition: background-color 0.3s ease, box-shadow 0.2s ease;
+        }
+        .card:hover {
+             /* Optional: slightly raise card on hover */
+             /* box-shadow: var(--elevation-2); */
+        }
+
+        .card h2 {
+            font-size: 1.25rem; /* 20sp */
+            font-weight: 500;
+            margin-bottom: var(--spacing-m);
+            padding-bottom: var(--spacing-s);
+             border-bottom: 1px solid var(--md-divider);
+            color: var(--md-primary); /* Use primary color for header */
+        }
+        body.dark-mode .card h2 {
+            color: var(--md-primary-light);
+        }
+
+        /* --- Forms & Text Fields (Simulated Filled Style) --- */
+        .form-group {
+            /* Imposta lo spazio verticale tra i gruppi di input/label */
+            margin-bottom: var(--spacing-l); /* Spazio standard (24px) tra i fieldset */
+            position: relative;
+        }
+
+        /* Label sopra l'input */
+        .form-group label {
+            display: block;
+            margin-bottom: var(--spacing-xs);
+            font-size: 0.75rem; /* 12sp */
+            color: var(--md-text-secondary);
+            padding-left: var(--spacing-m); /* Align with input padding */
+        }
+
+        .text-field-container {
+             background-color: var(--md-input-fill);
+             border-top-left-radius: var(--border-radius); /* Usa la variabile aggiornata (15px) */
+             border-top-right-radius: var(--border-radius); /* Usa la variabile aggiornata (15px) */
+             padding: var(--spacing-s) var(--spacing-m); /* Padding standard dentro il campo */
+             border-bottom: 1px solid var(--md-input-border-hover);
+             transition: border-color 0.2s ease, background-color 0.3s ease;
+             position: relative;
+             overflow: hidden;
+        }
+        .text-field-container:hover {
+            border-bottom-color: var(--md-text-primary);
+        }
+        .text-field-container input:focus + .underline {
+             transform: scaleX(1);
+        }
+
+
+         input[type="text"],
+         input[type="number"],
+         input[type="password"],
+         input[type="file"],
+         select {
+             display: block;
+             width: 100%;
+             padding: var(--spacing-s) 0; /* Padding verticale dentro l'input effettivo */
+             border: none;
+             background-color: transparent; /* Input è trasparente */
+             color: var(--md-on-surface);
+             font-size: 1rem; /* 16sp */
+             outline: none;
+             line-height: 1.5;
+             appearance: none; /* Remove default styling */
+             border-radius: 0; /* Assicurati che l'input stesso non sia arrotondato */
+         }
+         /* Style select arrow */
+         select {
+             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23${(getComputedStyle(document.documentElement).getPropertyValue('--md-text-secondary') || '000000').substring(1)}'%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E");
+             background-repeat: no-repeat;
+             background-position: right var(--spacing-m) center;
+             background-size: 1.5em;
+             padding-right: calc(var(--spacing-m) * 2 + 1.5em); /* Make space for arrow */
+         }
+
+         /* Underline for focus indicator */
+         .underline {
+             position: absolute;
+             bottom: 0;
+             left: 0;
+             right: 0;
+             height: 2px;
+             background-color: var(--md-input-border-focus);
+             transform: scaleX(0);
+             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+         }
+
+         /* Basic file input styling */
+         input[type="file"] {
+            color: var(--md-text-secondary);
+            padding: var(--spacing-s) 0;
+         }
+         input[type="file"]::file-selector-button {
+             padding: var(--spacing-xs) var(--spacing-s);
+             border: 1px solid var(--md-divider);
+             border-radius: var(--border-radius); /* Usa la variabile aggiornata (15px) */
+             background-color: var(--md-surface);
+             color: var(--md-primary);
+             font-weight: 500;
+             cursor: pointer;
+             margin-right: var(--spacing-m);
+         }
+         input[type="file"]::file-selector-button:hover {
+            background-color: rgba(0,0,0,0.04);
+         }
+         body.dark-mode input[type="file"]::file-selector-button {
+            background-color: var(--md-input-fill);
+            border-color: var(--md-divider);
+            color: var(--md-primary-light);
+         }
+          body.dark-mode input[type="file"]::file-selector-button:hover {
+             background-color: rgba(255,255,255,0.1);
+          }
+
+
+        /* --- Buttons --- */
+        .btn {
+            display: inline-block;
+            min-width: 64px;
+            padding: 0 var(--spacing-m);
+            height: 36px;
+            line-height: 36px;
+            border: none;
+            border-radius: var(--border-radius); /* Usa la variabile aggiornata (15px) */
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.089em;
+            transition: background-color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            outline: none;
+            vertical-align: middle;
+            margin-right: var(--spacing-s);
+            margin-top: var(--spacing-s);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Ripple Effect Placeholder */
+        .btn::after { content: ''; position: absolute; top: 50%; left: 50%; width: 5px; height: 5px; background: rgba(255, 255, 255, 0.3); opacity: 0; border-radius: 100%; transform: scale(1, 1) translate(-50%); transform-origin: 50% 50%; }
+        .btn:focus:not(:active)::after { animation: ripple-focus 1s ease-out infinite; }
+        .btn:active::after { animation: ripple 0.5s ease-out; }
+        body.dark-mode .btn::after { background: rgba(0, 0, 0, 0.2); }
+        @keyframes ripple { 0% { transform: scale(0, 0) translate(-50%); opacity: 1; } 100% { transform: scale(20, 20) translate(-50%); opacity: 0; } }
+        @keyframes ripple-focus { 0% { transform: scale(1, 1) translate(-50%); background: rgba(255, 255, 255, 0.1); opacity: 1; } 50% { transform: scale(1.2, 1.2) translate(-50%); background: rgba(255, 255, 255, 0.15); opacity: 0.5; } 100% { transform: scale(1, 1) translate(-50%); background: rgba(255, 255, 255, 0.1); opacity: 1; } }
+        body.dark-mode @keyframes ripple-focus { 0% { transform: scale(1, 1) translate(-50%); background: rgba(0, 0, 0, 0.1); opacity: 1; } 50% { transform: scale(1.2, 1.2) translate(-50%); background: rgba(0, 0, 0, 0.15); opacity: 0.5; } 100% { transform: scale(1, 1) translate(-50%); background: rgba(0, 0, 0, 0.1); opacity: 1; } }
+
+        /* Raised Button */
+        .btn-raised { box-shadow: var(--elevation-2); background-color: var(--md-primary); color: var(--md-on-primary); }
+        .btn-raised:hover { box-shadow: var(--elevation-4); background-color: var(--md-primary-dark); }
+        .btn-raised:active { box-shadow: var(--elevation-8); }
+         .btn-raised.btn-secondary { background-color: var(--md-accent); color: var(--md-on-accent); }
+         .btn-raised.btn-secondary:hover { background-color: #FFA000; } /* Amber 700 approx */
+         .btn-raised.btn-danger { background-color: var(--md-error); color: var(--md-on-error); }
+         .btn-raised.btn-danger:hover { background-color: #C62828; } /* Red 800 approx */
+
+         /* Outlined Button */
+         .btn-outline { background-color: transparent; border: 1px solid var(--md-divider); color: var(--md-primary); padding: 0 calc(var(--spacing-m) - 1px); }
+         .btn-outline:hover { background-color: rgba(var(--md-primary-rgb, 25, 118, 210), 0.04); border-color: var(--md-primary); }
+         body.dark-mode .btn-outline:hover { background-color: rgba(var(--md-primary-rgb-dark, 144, 202, 249), 0.08); border-color: var(--md-primary); }
+          .btn-outline.btn-danger { color: var(--md-error); border-color: var(--md-error); }
+          .btn-outline.btn-danger:hover { background-color: rgba(var(--md-error-rgb, 211, 47, 47), 0.04); }
+          body.dark-mode .btn-outline.btn-danger { border-color: var(--md-error); color: var(--md-error); }
+           body.dark-mode .btn-outline.btn-danger:hover { background-color: rgba(var(--md-error-rgb-dark, 239, 154, 154), 0.08); }
+
+         /* Text Button (for sorting) */
+         .btn-text { background-color: transparent; color: var(--md-primary); min-width: auto; padding: 0 var(--spacing-s); }
+         .btn-text:hover { background-color: rgba(var(--md-primary-rgb, 25, 118, 210), 0.04); }
+         body.dark-mode .btn-text:hover { background-color: rgba(var(--md-primary-rgb-dark, 144, 202, 249), 0.08); }
+          .btn-text.active { background-color: rgba(var(--md-primary-rgb, 25, 118, 210), 0.12); font-weight: 700; }
+           body.dark-mode .btn-text.active { background-color: rgba(var(--md-primary-rgb-dark, 144, 202, 249), 0.16); }
+
+
+        /* --- Summary Section --- */
+        .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--spacing-m); text-align: center; }
+        .summary-item { background-color: var(--md-input-fill); padding: var(--spacing-m); border-radius: var(--border-radius); /* Usa la variabile aggiornata (15px) */ color: var(--md-on-surface); }
+        .summary-item h3 { font-size: 0.875rem; color: var(--md-text-secondary); margin-bottom: var(--spacing-xs); font-weight: 400; }
+        .summary-item p { font-size: 1.5rem; font-weight: 500; color: var(--md-primary); }
+        body.dark-mode .summary-item p { color: var(--md-primary-light); }
+         .summary-item p.negative { color: var(--md-error); }
+
+
+        /* --- Lists & Tables --- */
+        .item-list { list-style: none; padding: 0; margin-top: var(--spacing-m); }
+        .item-list li { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: var(--spacing-m) 0; border-bottom: 1px solid var(--md-divider); min-height: 56px; }
+        .item-list li:last-child { border-bottom: none; }
+        .item-list .item-details { flex-grow: 1; margin-right: var(--spacing-m); padding-bottom: var(--spacing-xs); }
+        .item-list .item-name { font-weight: 500; font-size: 1rem; color: var(--md-text-primary); }
+         .item-list .item-category { font-size: 0.875rem; color: var(--md-text-secondary); margin-left: var(--spacing-s); display: inline-block; }
+        .item-list .item-amount { font-weight: 500; font-size: 1rem; min-width: 80px; text-align: right; color: var(--md-text-primary); margin-left: auto; padding-left: var(--spacing-m); }
+         .item-list .btn-delete-item { background-color: transparent; border: none; border-radius: 50%; padding: var(--spacing-xs); cursor: pointer; color: var(--md-text-secondary); display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; margin-left: var(--spacing-s); transition: background-color 0.2s ease, color 0.2s ease; flex-shrink: 0; }
+         .item-list .btn-delete-item:hover { background-color: rgba(var(--md-error-rgb, 211, 47, 47), 0.1); color: var(--md-error); }
+          body.dark-mode .item-list .btn-delete-item:hover { background-color: rgba(var(--md-error-rgb-dark, 239, 154, 154), 0.15); }
+         .item-list .btn-delete-item .material-symbols-outlined { font-size: 20px; }
+
+        .list-total { text-align: right; margin-top: var(--spacing-m); font-size: 1.1rem; font-weight: 500; padding-top: var(--spacing-m); border-top: 1px solid var(--md-divider); color: var(--md-text-secondary); }
+         .list-total span { font-weight: 700; color: var(--md-text-primary); }
+
+        .category-subtotal { margin-top: var(--spacing-m); padding-top: var(--spacing-s); border-top: 1px dashed var(--md-divider); }
+        .category-subtotal h4 { font-size: 0.875rem; font-weight: 700; margin-bottom: var(--spacing-xs); color: var(--md-text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
+        .category-subtotal .item-list { margin-top: 0; }
+        .category-subtotal-amount { text-align: right; font-weight: 500; font-size: 0.875rem; margin-top: var(--spacing-s); color: var(--md-text-secondary); }
+         .category-subtotal-amount span { font-weight: 700; color: var(--md-text-primary); }
+
+        /* --- Sorting Controls --- */
+        .sort-controls { margin-bottom: var(--spacing-m); padding-bottom: var(--spacing-m); border-bottom: 1px solid var(--md-divider); display: flex; align-items: center; gap: var(--spacing-s); flex-wrap: wrap; }
+        .sort-controls span { font-weight: 500; margin-right: var(--spacing-s); font-size: 0.875rem; color: var(--md-text-secondary); }
+         .sort-controls .btn-text { margin: 0; }
+
+
+        /* --- Snackbar Notification --- */
+        #notification { position: fixed; bottom: var(--spacing-l); left: var(--spacing-l); background-color: #323232; color: rgba(255, 255, 255, 0.87); padding: var(--spacing-m) var(--spacing-l); border-radius: var(--border-radius); /* Usa la variabile aggiornata (15px) */ box-shadow: var(--elevation-4); z-index: 1000; opacity: 0; transform: translateY(100%); transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: none; font-size: 0.875rem; max-width: calc(100% - var(--spacing-l) * 2); }
+        #notification.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+         #notification.error { background-color: var(--md-error); color: var(--md-on-error); }
+         #notification.success { background-color: #4CAF50; color: #FFFFFF; }
+
+        /* --- Responsiveness --- */
         @media (max-width: 768px) {
-             h1 { font-size: 1.8rem; } h2 { font-size: 1.4rem; } h3 { font-size: 1.2rem; }
-             #lista-spese li { grid-template-columns: 1fr auto; gap: 5px 15px; padding: 10px; }
-             #lista-spese li .spesa-nome { grid-column: 1 / 3; font-weight: bold; } #lista-spese li .spesa-categoria { grid-column: 1 / 1; grid-row: 2; font-size: 0.8em; }
-             #lista-spese li .spesa-importo { grid-column: 2 / 2; grid-row: 2; text-align: right; font-size: 0.9em;}
-             #lista-spese li .remove-btn { grid-column: 3 / 3; grid-row: 1 / 3; align-self: center; justify-self: end;}
-             #spese-fisse-container { grid-template-columns: 1fr; } #spese-fisse-container button#aggiungi-spesa { margin-top: 10px; }
-             #form-aggiungi-debito { flex-direction: column; align-items: stretch; } #form-aggiungi-debito .form-group { min-width: unset; }
-             #backup-restore-container button { display: block; width: 80%; margin: 10px auto; }
+             body { padding-top: 64px; }
+             .app-bar { height: 56px; }
+             .app-bar h1 { font-size: 1.125rem; }
+             .card { padding: var(--spacing-m); }
+             .summary-grid { grid-template-columns: 1fr 1fr; }
+
+             /* Rimosse regole per #form-id > div { flex-direction: column; } */
+             /* Rimosse regole specifiche per #form-id .form-group { margin-bottom: ... } dentro questa media query */
+             /* La spaziatura verticale è ora gestita dalla regola globale .form-group */
+
+             /* Riduci padding interno dei campi di testo su mobile per compattezza */
+             /* Manteniamo questo perché migliora la densità su mobile */
+             #main-income-form .text-field-container,
+             #fixed-expense-form .text-field-container,
+             #extra-income-form .text-field-container,
+             #debt-form .text-field-container {
+                 padding-top: var(--spacing-xs);    /* 4px */
+                 padding-bottom: var(--spacing-xs); /* 4px */
+             }
         }
-        @media (max-width: 600px) {
-            .container { padding: 15px; } h1 { font-size: 1.6rem; } h2 { font-size: 1.3rem; } h3 { font-size: 1.1rem; }
-            input[type="text"], input[type="number"], select, button { font-size: 0.95rem; padding: 10px 12px; }
-            button#calcola { font-size: 1.1rem; padding: 10px 15px; } .remove-btn { padding: 3px 6px; font-size: 0.7rem;}
-            #risultati p, #dettaglio-storico p { font-size: 1rem; flex-direction: column; align-items: flex-start; margin-bottom: 15px; border-bottom: 1px dashed var(--border-color); padding-bottom: 10px; }
-            #risultati p:last-of-type, #dettaglio-storico p:last-of-type { border-bottom: none; }
-            #risultati p span:last-child, #dettaglio-storico p span:last-child { margin-top: 5px; text-align: left; margin-left: 0; font-size: 1.05em; }
-            #controlli-ordinamento { text-align: center; margin-bottom: 20px; } #controlli-ordinamento button { margin: 5px; padding: 4px 8px; font-size: 0.75rem;}
-            #riepilogo-categorie { padding: 15px; } #lista-categorie-somma li { font-size: 0.9rem;}
-            #lista-spese { font-size: 0.9rem;} #lista-spese li .spesa-importo { font-size: 0.85em;}
+
+        @media (max-width: 480px) {
+             html { font-size: 15px; }
+             body { padding-top: 56px; }
+             .app-container { padding: 0 var(--spacing-s); }
+             .card { padding: var(--spacing-m); margin-bottom: var(--spacing-m); }
+             .summary-grid { grid-template-columns: 1fr; }
+             .btn { width: 100%; margin-right: 0; margin-bottom: var(--spacing-m); }
+             .btn-icon, .sort-controls .btn-text, .item-list .btn-delete-item { width: auto; margin-bottom: var(--spacing-s); /* Reset margin bottom for inline buttons */ }
+             .sort-controls { justify-content: center; }
+             #notification { left: var(--spacing-m); bottom: var(--spacing-m); width: calc(100% - var(--spacing-m) * 2); }
+             .item-list .item-details { width: calc(100% - 50px); margin-right: var(--spacing-s); }
+             .item-list .item-amount { padding-left: var(--spacing-s); }
+             .item-list .btn-delete-item { margin-left: var(--spacing-xs); }
+
+             /* Assicurati che il margine globale si applichi anche qui */
+             /* La regola globale .form-group { margin-bottom: var(--spacing-l); } è sufficiente */
+             /* .form-group { margin-bottom: var(--spacing-l); } */ /* Non serve ripetere se globale è già --spacing-l */
         }
+
+        /* Helper to get RGB values for rgba backgrounds */
+        :root { --md-primary-rgb: 25, 118, 210; --md-error-rgb: 211, 47, 47; }
+        body.dark-mode { --md-primary-rgb-dark: 144, 202, 249; --md-error-rgb-dark: 239, 154, 154; }
+
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>📊 Calcolatore Risparmi PWA</h1>
+    <header class="app-bar">
+        <h1>
+            <svg class="mascot" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                 <path d="M50 10 C 20 10, 10 40, 10 50 C 10 70, 20 90, 50 90 C 80 90, 90 70, 90 50 C 90 40, 80 10, 50 10 Z" fill="var(--md-mascot-fill)" stroke="var(--md-text-secondary)" stroke-width="1"/>
+                 <circle cx="35" cy="40" r="5" fill="var(--md-text-primary)"/>
+                 <circle cx="65" cy="40" r="5" fill="var(--md-text-primary)"/>
+                 <path d="M40 65 Q 50 75, 60 65" stroke="var(--md-text-primary)" stroke-width="3" fill="none"/>
+                 <path d="M30 80 C 35 85, 65 85, 70 80 Q 50 75, 30 80 Z" fill="#ffbaba"/> <path d="M45 55 Q 50 60, 55 55" stroke="var(--md-text-primary)" stroke-width="3" fill="none"/> <path d="M20 30 Q 15 20, 25 20" stroke="var(--md-text-primary)" stroke-width="2" fill="none"/> <path d="M80 30 Q 85 20, 75 20" stroke="var(--md-text-primary)" stroke-width="2" fill="none"/> </svg>
+            <span>Budget Bulldog</span>
+        </h1>
+        <button class="btn-icon" id="theme-switcher" title="Cambia Tema">
+            <span class="material-symbols-outlined" id="theme-icon">light_mode</span>
+        </button>
+    </header>
 
-        <div class="form-group"> <label for="stipendio">Stipendio Mensile Netto (€):</label> <input type="text" inputmode="decimal" id="stipendio" placeholder="Es: 1500 / 1500,50" required> </div>
-         <div class="form-group"> <label for="risparmio-desiderato">Quanto vuoi risparmiare (€):</label> <input type="text" inputmode="decimal" id="risparmio-desiderato" placeholder="Es: 200 / 200,00" required> </div>
+    <div class="app-container">
 
-         <h2> <span>Spese Fisse Mensili</span> <div id="controlli-ordinamento"> <small>Ordina per:</small> <button type="button" data-sort="nome">Nome</button> <button type="button" data-sort="categoria">Categoria</button> <button type="button" data-sort="importo">Importo</button> </div> </h2>
-         <p style="margin-bottom: 15px; font-size: 0.9em; color: var(--secondary-color);">Inserisci le tue spese ricorrenti.</p>
-         <div id="spese-fisse-container"> <div class="form-group"> <label for="nome-spesa">Nome Spesa</label> <input type="text" id="nome-spesa" placeholder="Es: Affitto"> </div> <div class="form-group"> <label for="categoria-spesa">Categoria</label> <input type="text" id="categoria-spesa" placeholder="Es: Casa, Utenze"> </div> <div class="form-group"> <label for="importo-spesa">Importo (€)</label> <input type="text" inputmode="decimal" id="importo-spesa" placeholder="Es: 550,50"> </div> <button type="button" id="aggiungi-spesa">Aggiungi Spesa</button> </div>
-         <ul id="lista-spese"></ul>
-         <p id="totale-spese-fisse">Totale Spese Fisse: <span id="totale-fisse-valore">0.00</span></p>
+        <main>
+            <section class="card">
+                <h2>Riepilogo Mensile (<span id="current-month-display"></span>)</h2>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <h3>💰 Entrate Princ. Tot.</h3> <p id="summary-salary">€ 0.00</p>
+                    </div>
+                     <div class="summary-item">
+                        <h3>🏦 Risparmio Prev.</h3>
+                        <p id="summary-savings-goal">€ 0.00</p>
+                    </div>
+                     <div class="summary-item">
+                        <h3>💸 Spese Fisse Tot.</h3>
+                        <p id="summary-fixed-total">€ 0.00</p>
+                    </div>
+                    <div class="summary-item">
+                        <h3>➕ Entrate Extra</h3>
+                        <p id="summary-extra-income">€ 0.00</p>
+                    </div>
+                     <div class="summary-item">
+                        <h3>📉 Debiti Mese Prec.</h3>
+                        <p id="summary-prev-debt">€ 0.00</p>
+                    </div>
+                     <div class="summary-item">
+                        <h3>✅ Spendibile</h3>
+                        <p id="summary-spendable">€ 0.00</p>
+                    </div>
+                </div>
+            </section>
 
-         <div id="riepilogo-categorie" style="display: none;"> <h3>Spese per Categoria</h3> <ul id="lista-categorie-somma"></ul> </div>
+             <section class="card">
+                <h2>🎯 Obiettivi Mensili</h2>
+                <form id="goals-form">
+                     <div class="form-group">
+                        <label for="savings-goal">Quanto vuoi Risparmiare questo mese (€)</label>
+                         <div class="text-field-container">
+                            <input type="number" id="savings-goal" step="0.01" min="0" required> <div class="underline"></div>
+                         </div>
+                    </div>
+                     <div class="form-group">
+                        <label for="immediate-deduction">Importo da "Mettere da Parte" subito (€)</label>
+                         <div class="text-field-container">
+                            <input type="number" id="immediate-deduction" step="0.01" min="0" required> <div class="underline"></div>
+                         </div>
+                         <small style="color: var(--md-text-secondary); display: block; margin-top: 4px; font-size: 0.75rem; padding-left: var(--spacing-m);">Questo importo viene sottratto dallo 'Spendibile' ma non è considerato risparmio formale.</small>
+                    </div>
+                    <button type="submit" class="btn btn-raised btn-secondary">Salva Obiettivi</button>
+                </form>
+            </section>
+            <section class="card">
+                <h2>💰 Gestione Entrate Principali</h2>
+                <form id="main-income-form">
+                     <div class="form-group"> <label for="main-income-desc">Descrizione Entrata (es. Stipendio, Tredicesima)</label>
+                         <div class="text-field-container">
+                            <input type="text" id="main-income-desc" required>
+                             <div class="underline"></div>
+                         </div>
+                    </div>
+                    <div class="form-group"> <label for="main-income-amount">Importo (€)</label>
+                        <div class="text-field-container">
+                            <input type="number" id="main-income-amount" step="0.01" min="0" required>
+                             <div class="underline"></div>
+                         </div>
+                    </div>
+                    <button type="submit" class="btn btn-raised btn-primary">Aggiungi Entrata Principale</button>
+                </form>
+                <ul id="main-income-list" class="item-list" style="margin-top: var(--spacing-l);">
+                    <li style="color: var(--md-text-secondary); justify-content: center;">Nessuna entrata principale inserita per questo mese.</li>
+                </ul>
+                <div id="main-income-total" class="list-total" style="display: none;">
+                    Totale Entrate Principali: <span>€ 0.00</span>
+                 </div>
+            </section>
+            <section class="card">
+                <h2>Spese Fisse Mensili</h2>
+                <form id="fixed-expense-form">
+                     <div class="form-group"> <label for="fixed-expense-name">Nome Spesa</label>
+                         <div class="text-field-container">
+                            <input type="text" id="fixed-expense-name" required>
+                             <div class="underline"></div>
+                         </div>
+                    </div>
+                     <div class="form-group"> <label for="fixed-expense-amount">Importo (€)</label>
+                         <div class="text-field-container">
+                            <input type="number" id="fixed-expense-amount" step="0.01" min="0" required>
+                             <div class="underline"></div>
+                        </div>
+                    </div>
+                    <div class="form-group"> <label for="fixed-expense-category">Categoria</label>
+                         <div class="text-field-container">
+                            <input type="text" id="fixed-expense-category" list="category-suggestions" required>
+                             <div class="underline"></div>
+                         </div>
+                         <datalist id="category-suggestions">
+                             </datalist>
+                    </div>
+                    <button type="submit" class="btn btn-raised btn-primary">Aggiungi Spesa Fissa</button>
+                </form>
 
-        <button id="calcola">Calcola Bilancio Mensile</button>
+                <div class="sort-controls" style="margin-top: var(--spacing-l);">
+                    <span>Ordina per:</span>
+                    <button class="btn btn-text" data-sort="name">Nome</button>
+                    <button class="btn btn-text" data-sort="category">Categoria</button>
+                    <button class="btn btn-text" data-sort="amount">Costo</button>
+                     <button class="btn btn-text" data-sort="default">Default</button>
+                </div>
 
-        <div id="risultati">
-            <h2 id="titolo-riepilogo">Riepilogo Mensile</h2>
-            <p>Stipendio Inserito: <span id="res-stipendio">0.00 €</span></p>
-            <p>Obiettivo Risparmio: <span id="res-obiettivo-risparmio">0.00 €</span></p>
-            <p>Totale Spese Fisse: <span id="res-totale-spese">0.00 €</span></p>
-            <p class="debito-precedente" style="display: none;">(-) Debiti Mese Precedente: <span id="res-debiti-precedenti">0.00 €</span></p>
-            <hr style="margin: 15px 0; border-color: var(--border-color);">
-            <p>Importo Accantonato (Risparmio): <span id="res-risparmio-effettivo" class="positivo">0.00 €</span></p>
-            <p>Importo Rimanente per Spese Variabili: <span id="res-importo-spendibile">0.00 €</span></p>
-            <p id="messaggio-finale" style="margin-top: 15px; text-align: center; font-style: italic;"></p>
-         </div>
+                <div id="fixed-expenses-list-container">
+                    <p style="color: var(--md-text-secondary); text-align: center;">Nessuna spesa fissa inserita.</p>
+                </div>
+                 <div id="fixed-expenses-total" class="list-total" style="display: none;">
+                    Totale Spese Fisse: <span>€ 0.00</span>
+                 </div>
+            </section>
 
-        <div id="debiti-mese-container">
-              <h3>Aggiungi Debito/Spesa da Scalare il Mese Prossimo</h3>
-              <p style="font-size: 0.9em; color: var(--secondary-color); margin-bottom: 15px;">Questi importi verranno sottratti dal budget disponibile del mese successivo.</p>
-              <div id="form-aggiungi-debito"> <div class="form-group"> <label for="descrizione-debito">Descrizione</label> <input type="text" id="descrizione-debito" placeholder="Es: Cena extra"> </div> <div class="form-group"> <label for="importo-debito">Importo (€)</label> <input type="text" inputmode="decimal" id="importo-debito" placeholder="Es: 50,00"> </div> <button type="button" id="aggiungi-debito">Aggiungi Debito</button> </div>
-              <h4>Debiti da Riportare (<span id="mese-debiti-label">Mese Corrente</span>):</h4> <ul id="lista-debiti-riporto"></ul> <p style="text-align: right; margin-top:10px; border-top: 1px solid var(--border-color); padding-top: 10px;"> Totale da Scalare il Mese Prossimo: <span id="totale-debiti-riporto">0.00 €</span> </p>
-         </div>
+            <section class="card">
+                <h2>Entrate Extra del Mese</h2>
+                <form id="extra-income-form">
+                    <div class="form-group"> <label for="extra-income-desc">Descrizione</label>
+                         <div class="text-field-container">
+                            <input type="text" id="extra-income-desc" required>
+                             <div class="underline"></div>
+                         </div>
+                    </div>
+                    <div class="form-group"> <label for="extra-income-amount">Importo (€)</label>
+                        <div class="text-field-container">
+                            <input type="number" id="extra-income-amount" step="0.01" min="0" required>
+                             <div class="underline"></div>
+                         </div>
+                    </div>
+                    <button type="submit" class="btn btn-raised btn-primary">Aggiungi Entrata Extra</button>
+                </form>
+                <ul id="extra-income-list" class="item-list">
+                    <li style="color: var(--md-text-secondary); justify-content: center;">Nessuna entrata extra inserita.</li>
+                </ul>
+                <div id="extra-income-total" class="list-total" style="display: none;">
+                    Totale Entrate Extra: <span>€ 0.00</span>
+                 </div>
+            </section>
 
-        <div id="storico-container" style="display: none;">
-             <h3>Storico Riepiloghi Mensili</h3>
-             <div class="form-group"> <label for="seleziona-mese-storico">Visualizza Riepilogo Mese:</label> <select id="seleziona-mese-storico"> <option value="">-- Seleziona un mese --</option> </select> </div>
-             <div id="dettaglio-storico"> </div>
-         </div>
+            <section class="card">
+                <h2>Debiti/Accantonamenti per il Mese Prossimo</h2>
+                 <p style="color: var(--md-text-secondary); font-size: 0.875rem; margin-bottom: var(--spacing-m);">
+                     Inserisci qui importi spesi o promessi questo mese che verranno detratti dallo stipendio del *prossimo* mese (es. un prestito a breve termine, un acquisto importante da coprire dopo).
+                 </p>
+                <form id="debt-form">
+                    <div class="form-group"> <label for="debt-desc">Descrizione Debito/Accantonamento</label>
+                        <div class="text-field-container">
+                            <input type="text" id="debt-desc" required>
+                             <div class="underline"></div>
+                         </div>
+                    </div>
+                    <div class="form-group"> <label for="debt-amount">Importo (€)</label>
+                        <div class="text-field-container">
+                            <input type="number" id="debt-amount" step="0.01" min="0" required>
+                             <div class="underline"></div>
+                         </div>
+                    </div>
+                    <button type="submit" class="btn btn-raised btn-primary">Aggiungi Debito/Acc.</button>
+                </form>
+                <ul id="debt-list" class="item-list">
+                     <li style="color: var(--md-text-secondary); justify-content: center;">Nessun debito/accantonamento per il prossimo mese inserito.</li>
+                </ul>
+                 <div id="debt-total" class="list-total" style="display: none;">
+                    Totale Debiti/Acc. per Mese Prossimo: <span>€ 0.00</span>
+                 </div>
+            </section>
 
-        <div id="backup-restore-container">
-             <h3>Backup e Ripristino Dati</h3>
-             <button type="button" id="esporta-btn">Esporta Dati Cifrati</button>
-             <button type="button" id="importa-btn">Importa Dati Cifrati</button>
-             <input type="file" id="importa-file-input" accept=".txt,.json,.enc">
-             <small class="backup-warning">
-                 <strong>Attenzione:</strong> La cifratura usata è molto semplice (XOR) e <strong>NON SICURA</strong> per dati sensibili reali. Serve solo come offuscamento di base. Ricorda la password usata!
-             </small>
-         </div>
+            <section class="card">
+                <h2>Impostazioni e Gestione Dati</h2>
+                <div class="form-group">
+                    <label for="backup-password">Password per Backup/Ripristino</label>
+                     <div class="text-field-container">
+                        <input type="password" id="backup-password" placeholder="Inserisci una password robusta" required>
+                        <div class="underline"></div>
+                     </div>
+                    <small style="color: var(--md-text-secondary); display: block; margin-top: 4px; font-size: 0.75rem; padding-left: var(--spacing-m);">Necessaria per cifrare/decifrare il file di backup. Conservala!</small>
+                </div>
+                 <div class="form-group">
+                    <button id="export-data" class="btn btn-outline">Esporta Backup Cifrato</button>
+                 </div>
+                 <hr style="border:none; border-bottom: 1px solid var(--md-divider); margin: var(--spacing-l) 0;">
+                <div class="form-group">
+                    <label for="import-file">Importa Backup Cifrato (.bbbackup)</label>
+                     <div class="text-field-container">
+                         <input type="file" id="import-file" accept=".bbbackup">
+                     </div>
+                </div>
+                 <button id="import-data" class="btn btn-outline">Importa Dati</button>
 
-    </div>
+                <hr style="border: none; border-bottom: 1px solid var(--md-divider); margin: var(--spacing-l) 0;">
+
+                <button id="delete-all-data" class="btn btn-raised btn-danger">Cancella Tutti i Dati</button>
+                <small style="color: var(--md-error); display: block; margin-top: var(--spacing-s); font-weight: bold; font-size: 0.875rem;">Attenzione: Questa azione è irreversibile!</small>
+            </section>
+        </main>
+
+    </div> <div id="notification">Messaggio notifica</div>
 
     <script>
-        // --- Elementi DOM ---
-        const stipendioInput = document.getElementById('stipendio');
-        const risparmioDesideratoInput = document.getElementById('risparmio-desiderato');
-        const nomeSpesaInput = document.getElementById('nome-spesa');
-        const categoriaSpesaInput = document.getElementById('categoria-spesa');
-        const importoSpesaInput = document.getElementById('importo-spesa');
-        const aggiungiSpesaBtn = document.getElementById('aggiungi-spesa');
-        const listaSpeseUl = document.getElementById('lista-spese');
-        const totaleFisseValoreSpan = document.getElementById('totale-fisse-valore'); // Span per il valore
-        // Riferimento all'intero paragrafo non più necessario se si corregge l'HTML
-        // const totaleSpeseFisseP = document.getElementById('totale-spese-fisse');
-        const calcolaBtn = document.getElementById('calcola');
-        const risultatiDiv = document.getElementById('risultati');
-        const titoloRiepilogoH2 = document.getElementById('titolo-riepilogo');
-        const controlliOrdinamentoDiv = document.getElementById('controlli-ordinamento');
-        const riepilogoCategorieDiv = document.getElementById('riepilogo-categorie');
-        const listaCategorieSommaUl = document.getElementById('lista-categorie-somma');
-        const debitiMeseContainerDiv = document.getElementById('debiti-mese-container');
-        const descrizioneDebitoInput = document.getElementById('descrizione-debito');
-        const importoDebitoInput = document.getElementById('importo-debito');
-        const aggiungiDebitoBtn = document.getElementById('aggiungi-debito');
-        const listaDebitiRiportoUl = document.getElementById('lista-debiti-riporto');
-        const totaleDebitiRiportoSpan = document.getElementById('totale-debiti-riporto');
-        const meseDebitiLabelSpan = document.getElementById('mese-debiti-label');
-        const storicoContainerDiv = document.getElementById('storico-container');
-        const selezionaMeseStoricoSelect = document.getElementById('seleziona-mese-storico');
-        const dettaglioStoricoDiv = document.getElementById('dettaglio-storico');
-        const esportaBtn = document.getElementById('esporta-btn');
-        const importaBtn = document.getElementById('importa-btn');
-        const importaFileInput = document.getElementById('importa-file-input');
-        const resStipendioSpan = document.getElementById('res-stipendio');
-        const resObiettivoRisparmioSpan = document.getElementById('res-obiettivo-risparmio');
-        const resTotaleSpeseSpan = document.getElementById('res-totale-spese');
-        const resDebitiPrecedentiSpan = document.getElementById('res-debiti-precedenti');
-        const resDebitiPrecedentiP = document.querySelector('#risultati p.debito-precedente');
-        const resRisparmioEffettivoSpan = document.getElementById('res-risparmio-effettivo');
-        const resImportoSpendibileSpan = document.getElementById('res-importo-spendibile');
-        const messaggioFinaleP = document.getElementById('messaggio-finale');
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- ELEMENT REFERENCES ---
+            const themeSwitcher = document.getElementById('theme-switcher');
+            const themeIcon = document.getElementById('theme-icon');
+            const currentMonthDisplay = document.getElementById('current-month-display');
 
-        // --- Stato Applicazione ---
-        let speseFisse = [];
-        let nextSpesaId = 0;
-        let currentSort = { key: 'nome', ascending: true };
+            // Summary elements
+            const summarySalary = document.getElementById('summary-salary'); // Ora mostra Totale Entrate Principali
+            const summarySavingsGoal = document.getElementById('summary-savings-goal');
+            const summaryFixedTotal = document.getElementById('summary-fixed-total');
+            const summaryExtraIncome = document.getElementById('summary-extra-income');
+            const summaryPrevDebt = document.getElementById('summary-prev-debt');
+            const summarySpendable = document.getElementById('summary-spendable');
 
-        // --- Chiavi Local Storage ---
-        const LS_PREFIX = 'calcolatoreRisparmiStoricoPlus_V2_';
-        const LS_STIPENDIO_KEY = LS_PREFIX + 'stipendioInput';
-        const LS_RISPARMIO_KEY = LS_PREFIX + 'risparmioInput';
-        const LS_SPESE_KEY = LS_PREFIX + 'speseFisse';
-        const LS_STORICO_RIEPILOGHI_KEY = LS_PREFIX + 'storicoRiepiloghi';
+            // Forms & Inputs (Aggiornati)
+            const goalsForm = document.getElementById('goals-form'); // Nuovo form
+            const savingsGoalInput = document.getElementById('savings-goal'); // Spostato
+            const immediateDeductionInput = document.getElementById('immediate-deduction'); // Spostato
 
-        // --- Funzioni Helper ---
-        function formatCurrency(value) { const numericValue = Number(value); if (isNaN(numericValue)) return "0,00 €"; return numericValue.toLocaleString('it-IT', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
-        function parseLocaleFloat(value) { if (typeof value === 'number') return isNaN(value) ? 0 : value; if (typeof value !== 'string' || value.trim() === '') return 0; let cleaned = value.trim().replace(/\s/g, '').replace('€', ''); const hasComma = cleaned.includes(','); const hasDot = cleaned.includes('.'); if (hasComma && hasDot) cleaned = cleaned.replace(/\./g, '').replace(',', '.'); else if (hasComma) cleaned = cleaned.replace(',', '.'); else if (hasDot) { const dotCount = (cleaned.match(/\./g) || []).length; if (dotCount > 1) { const lastDotIndex = cleaned.lastIndexOf('.'); cleaned = cleaned.substring(0, lastDotIndex).replace(/\./g, '') + cleaned.substring(lastDotIndex); } } const result = parseFloat(cleaned); return isNaN(result) ? 0 : result; }
-        function getCurrentMonthKey() { const now = new Date(); const year = now.getFullYear(); const month = (now.getMonth() + 1).toString().padStart(2, '0'); return `${year}-${month}`; }
-        function getDisplayDate(date = new Date()) { const monthName = date.toLocaleString('it-IT', { month: 'long' }); const year = date.getFullYear(); return `${monthName.charAt(0).toUpperCase() + monthName.slice(1)} ${year}`; }
-        function getPreviousMonthKey(currentKey) { const [year, month] = currentKey.split('-').map(Number); let prevMonth = month - 1; let prevYear = year; if (prevMonth === 0) { prevMonth = 12; prevYear--; } return `${prevYear}-${prevMonth.toString().padStart(2, '0')}`; }
+            const mainIncomeForm = document.getElementById('main-income-form'); // Nuovo form entrate principali
+            const mainIncomeDescInput = document.getElementById('main-income-desc');
+            const mainIncomeAmountInput = document.getElementById('main-income-amount');
+            const mainIncomeList = document.getElementById('main-income-list'); // Nuova lista
+            const mainIncomeTotalEl = document.getElementById('main-income-total').querySelector('span'); // Nuovo totale
 
-        // --- Cifratura XOR Semplice (NON SICURA!) ---
-        function simpleXORCipher(text, key) { if (!key) return text; let result = ''; for (let i = 0; i < text.length; i++) { result += String.fromCharCode(text.charCodeAt(i) ^ key.charCodeAt(i % key.length)); } return result; }
-        function safeBase64Encode(str) { try { return btoa(unescape(encodeURIComponent(str))); } catch (e) { console.error("Errore in safeBase64Encode:", e); return null; } }
-        function safeBase64Decode(b64) { try { return decodeURIComponent(escape(atob(b64))); } catch (e) { console.error("Errore in safeBase64Decode:", e); return null; } }
-        function encryptData(text, key) { const xorResult = simpleXORCipher(text, key); return safeBase64Encode(xorResult); }
-        function decryptData(base64Data, key) { const decodedText = safeBase64Decode(base64Data); if (decodedText === null) return null; return simpleXORCipher(decodedText, key); }
+            const fixedExpenseForm = document.getElementById('fixed-expense-form');
+            const fixedExpenseNameInput = document.getElementById('fixed-expense-name');
+            const fixedExpenseAmountInput = document.getElementById('fixed-expense-amount');
+            const fixedExpenseCategoryInput = document.getElementById('fixed-expense-category');
+            const categorySuggestions = document.getElementById('category-suggestions');
+            const fixedExpensesListContainer = document.getElementById('fixed-expenses-list-container');
+            const fixedExpensesTotalEl = document.getElementById('fixed-expenses-total').querySelector('span');
+            const sortControls = document.querySelector('.sort-controls');
 
-        // --- Funzioni Local Storage ---
-        function salvaDatiInput() { try { localStorage.setItem(LS_STIPENDIO_KEY, stipendioInput.value); localStorage.setItem(LS_RISPARMIO_KEY, risparmioDesideratoInput.value); } catch (error) { console.error("Errore salvataggio input:", error); } }
-        function salvaSpese() { try { localStorage.setItem(LS_SPESE_KEY, JSON.stringify(speseFisse)); } catch (error) { console.error("Errore salvataggio spese:", error); } }
-        function salvaRiepilogoMensile(monthKey, summaryData) { try { let storico = JSON.parse(localStorage.getItem(LS_STORICO_RIEPILOGHI_KEY) || '{}'); storico[monthKey] = summaryData; localStorage.setItem(LS_STORICO_RIEPILOGHI_KEY, JSON.stringify(storico)); } catch (error) { console.error(`Errore salvataggio storico per ${monthKey}:`, error); } }
+            const extraIncomeForm = document.getElementById('extra-income-form');
+            const extraIncomeDescInput = document.getElementById('extra-income-desc');
+            const extraIncomeAmountInput = document.getElementById('extra-income-amount');
+            const extraIncomeList = document.getElementById('extra-income-list');
+            const extraIncomeTotalEl = document.getElementById('extra-income-total').querySelector('span');
 
-        function caricaDati() {
-            stipendioInput.value = localStorage.getItem(LS_STIPENDIO_KEY) || '';
-            risparmioDesideratoInput.value = localStorage.getItem(LS_RISPARMIO_KEY) || '';
-            const savedSpese = localStorage.getItem(LS_SPESE_KEY);
-            if (savedSpese) { try { speseFisse = JSON.parse(savedSpese); nextSpesaId = speseFisse.reduce((maxId, spesa) => Math.max(maxId, spesa.id || 0), 0) + 1; } catch (error) { console.error("Errore caricamento spese:", error); speseFisse = []; localStorage.removeItem(LS_SPESE_KEY); } } else { speseFisse = []; }
-            sortSpese();
-            aggiornaTotaleSpeseFisse(); // Aggiorna il totale
-            calcolaESmostraSommeCategorie();
-            risultatiDiv.style.display = 'none';
+            const debtForm = document.getElementById('debt-form');
+            const debtDescInput = document.getElementById('debt-desc');
+            const debtAmountInput = document.getElementById('debt-amount');
+            const debtList = document.getElementById('debt-list');
+            const debtTotalEl = document.getElementById('debt-total').querySelector('span');
 
-            // Gestione Visibilità Sezione Debiti al caricamento (LOGICA AGGIORNATA)
-            const currentMonthKey = getCurrentMonthKey();
-            const storico = JSON.parse(localStorage.getItem(LS_STORICO_RIEPILOGHI_KEY) || '{}');
-            if (storico[currentMonthKey]) {
-                console.log(`Trovato riepilogo per ${currentMonthKey}, mostro sezione debiti.`);
-                renderDebitiDaRiportareUI(currentMonthKey); // Mostra debiti esistenti
-                debitiMeseContainerDiv.style.display = 'block'; // Mostra sezione
-            } else {
-                console.log(`Nessun riepilogo per ${currentMonthKey}, sezione debiti nascosta.`);
-                debitiMeseContainerDiv.style.display = 'none'; // Tieni nascosta
-            }
+            // Settings & Data elements
+            const backupPasswordInput = document.getElementById('backup-password');
+            const exportButton = document.getElementById('export-data');
+            const importFileInpit = document.getElementById('import-file'); // Typo nella variabile originale, corretto qui
+            const importButton = document.getElementById('import-data');
+            const deleteAllButton = document.getElementById('delete-all-data');
 
-            caricaStorico();
-        }
+            // Notification element
+            const notification = document.getElementById('notification');
 
-        // --- Funzioni Gestione Spese e Categorie ---
-        function aggiornaTotaleSpeseFisse() {
-            const totale = speseFisse.reduce((sum, spesa) => sum + (spesa.importo || 0), 0);
-            // Aggiorna solo lo span del valore, l'HTML è stato corretto
-            totaleFisseValoreSpan.textContent = formatCurrency(totale);
-            return totale;
-        }
-        function renderListaSpese() { listaSpeseUl.innerHTML = ''; if (speseFisse.length === 0) { listaSpeseUl.innerHTML = '<li style="font-style: italic; color: var(--secondary-color); border: none; display: block; text-align: center;">Nessuna spesa fissa inserita.</li>'; return; } speseFisse.forEach(spesa => { const li = document.createElement('li'); const categoriaText = spesa.categoria ? spesa.categoria : '-'; li.innerHTML = `<span class="spesa-nome">${spesa.nome}</span> <span class="spesa-categoria">${categoriaText}</span> <span class="spesa-importo">${formatCurrency(spesa.importo)}</span> <button class="remove-btn" data-id="${spesa.id}" aria-label="Rimuovi ${spesa.nome}">X</button>`; listaSpeseUl.appendChild(li); li.querySelector('.remove-btn').addEventListener('click', (e) => { rimuoviSpesa(parseInt(e.target.dataset.id)); }); }); }
-        function calcolaESmostraSommeCategorie() { const sommeCategorie = {}; speseFisse.forEach(spesa => { if (spesa.categoria && spesa.categoria.trim() !== '') { const catKey = spesa.categoria.trim(); sommeCategorie[catKey] = (sommeCategorie[catKey] || 0) + spesa.importo; } }); const categorieOrdinate = Object.keys(sommeCategorie).sort((a, b) => a.localeCompare(b, 'it')); listaCategorieSommaUl.innerHTML = ''; if (categorieOrdinate.length > 0) { categorieOrdinate.forEach(cat => { const li = document.createElement('li'); li.innerHTML = `<span>${cat}</span> <span>${formatCurrency(sommeCategorie[cat])}</span>`; listaCategorieSommaUl.appendChild(li); }); riepilogoCategorieDiv.style.display = 'block'; } else { riepilogoCategorieDiv.style.display = 'none'; } }
-        function aggiungiSpesa() { const nome = nomeSpesaInput.value.trim(); const categoria = categoriaSpesaInput.value.trim(); const importo = parseLocaleFloat(importoSpesaInput.value); if (nome === '' || isNaN(importo) || importo <= 0) { alert('Inserisci nome e importo valido.'); return; } const nuovaSpesa = { id: nextSpesaId++, nome, categoria, importo }; speseFisse.push(nuovaSpesa); salvaSpese(); sortSpese(); aggiornaTotaleSpeseFisse(); calcolaESmostraSommeCategorie(); nomeSpesaInput.value = ''; categoriaSpesaInput.value = ''; importoSpesaInput.value = ''; nomeSpesaInput.focus(); risultatiDiv.style.display = 'none'; debitiMeseContainerDiv.style.display = 'none'; }
-        function rimuoviSpesa(id) { speseFisse = speseFisse.filter(spesa => spesa.id !== id); salvaSpese(); sortSpese(); aggiornaTotaleSpeseFisse(); calcolaESmostraSommeCategorie(); risultatiDiv.style.display = 'none'; debitiMeseContainerDiv.style.display = 'none'; }
+             // --- FOCUS/BLUR for Underline Animation ---
+             const inputs = document.querySelectorAll('.text-field-container input');
+             inputs.forEach(input => {
+                 input.addEventListener('focus', () => {
+                    input.parentElement.classList.add('focused'); // Classe non usata, ma potenzialmente utile
+                    input.parentElement.querySelector('.underline')?.classList.add('active'); // Anima linea
+                 });
+                 input.addEventListener('blur', () => {
+                     input.parentElement.classList.remove('focused');
+                     input.parentElement.querySelector('.underline')?.classList.remove('active'); // Rimuovi animazione linea
+                 });
+             });
 
 
-        // --- Funzioni Gestione Debiti da Riportare ---
-        function renderDebitiDaRiportareUI(monthKey) {
-             listaDebitiRiportoUl.innerHTML = ''; let totaleDebiti = 0; let storico = JSON.parse(localStorage.getItem(LS_STORICO_RIEPILOGHI_KEY) || '{}');
-             const debitiQuestoMese = storico[monthKey]?.debitiDaRiportare || [];
-             debitiQuestoMese.forEach(debito => { const li = document.createElement('li'); li.innerHTML = `<span>${debito.descrizione || 'N/D'}</span> <span>${formatCurrency(debito.importo)}</span> <button class="remove-btn remove-debito-btn" data-id="${debito.id}" data-monthkey="${monthKey}" aria-label="Rimuovi ${debito.descrizione}">X</button>`; listaDebitiRiportoUl.appendChild(li); totaleDebiti += debito.importo; li.querySelector('.remove-debito-btn').addEventListener('click', (e) => { rimuoviDebitoDaRiportare(e.target.dataset.monthkey, parseInt(e.target.dataset.id)); }); });
-             totaleDebitiRiportoSpan.textContent = formatCurrency(totaleDebiti);
-             const [year, month] = monthKey.split('-'); meseDebitiLabelSpan.textContent = getDisplayDate(new Date(year, month - 1, 1));
-        }
-        function aggiungiDebitoDaRiportare() {
-            const descrizione = descrizioneDebitoInput.value.trim(); const importo = parseLocaleFloat(importoDebitoInput.value); const currentMonthKey = getCurrentMonthKey();
-            if (importo <= 0) { alert("Importo debito non valido."); return; }
-            let storico = JSON.parse(localStorage.getItem(LS_STORICO_RIEPILOGHI_KEY) || '{}');
-            if (!storico[currentMonthKey]) { alert("Calcola prima il bilancio per questo mese."); return; }
-            const nuovoDebito = { id: Date.now(), descrizione: descrizione || `Debito del ${new Date().toLocaleDateString('it-IT')}`, importo: importo };
-            if (!Array.isArray(storico[currentMonthKey].debitiDaRiportare)) { storico[currentMonthKey].debitiDaRiportare = []; }
-            storico[currentMonthKey].debitiDaRiportare.push(nuovoDebito);
-            localStorage.setItem(LS_STORICO_RIEPILOGHI_KEY, JSON.stringify(storico));
-            renderDebitiDaRiportareUI(currentMonthKey);
-            descrizioneDebitoInput.value = ''; importoDebitoInput.value = ''; descrizioneDebitoInput.focus();
-        }
-         function rimuoviDebitoDaRiportare(monthKey, debitoId) {
-             let storico = JSON.parse(localStorage.getItem(LS_STORICO_RIEPILOGHI_KEY) || '{}');
-             if (storico[monthKey]?.debitiDaRiportare) {
-                 storico[monthKey].debitiDaRiportare = storico[monthKey].debitiDaRiportare.filter(d => d.id !== debitoId);
-                 localStorage.setItem(LS_STORICO_RIEPILOGHI_KEY, JSON.stringify(storico));
-                 if (monthKey === getCurrentMonthKey()) { renderDebitiDaRiportareUI(monthKey); }
-             } else { console.error(`Impossibile rimuovere debito: dati non trovati per ${monthKey}`); }
-         }
-
-        // --- Funzioni Ordinamento ---
-        function updateSortButtonsUI() { controlliOrdinamentoDiv.querySelectorAll('button').forEach(btn => { btn.classList.toggle('active', btn.dataset.sort === currentSort.key); }); }
-        function sortSpese(sortKey = currentSort.key) { if (sortKey === currentSort.key) currentSort.ascending = !currentSort.ascending; else { currentSort.key = sortKey; currentSort.ascending = true; } const direction = currentSort.ascending ? 1 : -1; speseFisse.sort((a, b) => { let valA, valB; switch (currentSort.key) { case 'categoria': valA = (a.categoria || '').toLowerCase(); valB = (b.categoria || '').toLowerCase(); break; case 'importo': valA = a.importo || 0; valB = b.importo || 0; break; default: valA = (a.nome || '').toLowerCase(); valB = (b.nome || '').toLowerCase(); break; } if (valA < valB) return -1 * direction; if (valA > valB) return 1 * direction; if (currentSort.key !== 'nome') { const nameA = (a.nome || '').toLowerCase(); const nameB = (b.nome || '').toLowerCase(); if (nameA < nameB) return -1 * direction; if (nameA > nameB) return 1 * direction; } return 0; }); updateSortButtonsUI(); renderListaSpese(); }
-
-        // --- Funzione Calcolo Principale ---
-        function calcolaBilancio() {
-            messaggioFinaleP.className = '';
-            const stipendio = parseLocaleFloat(stipendioInput.value); const risparmioDesiderato = parseLocaleFloat(risparmioDesideratoInput.value);
-            if (stipendio <= 0) { alert('Inserisci stipendio valido.'); return; } if (risparmioDesiderato < 0 || isNaN(risparmioDesiderato)) { alert('Inserisci obiettivo risparmio valido.'); return; }
-            const currentMonthKey = getCurrentMonthKey(); const previousMonthKey = getPreviousMonthKey(currentMonthKey);
-            let debitoPrecedente = 0; let storico = JSON.parse(localStorage.getItem(LS_STORICO_RIEPILOGHI_KEY) || '{}');
-            if (storico[previousMonthKey]?.debitiDaRiportare) { debitoPrecedente = (storico[previousMonthKey].debitiDaRiportare || []).reduce((sum, debito) => sum + (debito.importo || 0), 0); }
-            const totaleSpese = aggiornaTotaleSpeseFisse(); const risparmioEffettivo = risparmioDesiderato; const importoSpendibile = stipendio - risparmioEffettivo - totaleSpese - debitoPrecedente;
-            const displayDate = getDisplayDate(); titoloRiepilogoH2.textContent = `Riepilogo Mensile - ${displayDate}`;
-            resStipendioSpan.textContent = formatCurrency(stipendio); resObiettivoRisparmioSpan.textContent = formatCurrency(risparmioDesiderato); resTotaleSpeseSpan.textContent = formatCurrency(totaleSpese);
-            if (debitoPrecedente > 0) { resDebitiPrecedentiSpan.textContent = formatCurrency(debitoPrecedente); resDebitiPrecedentiP.style.display = 'flex'; } else { resDebitiPrecedentiP.style.display = 'none'; }
-            resRisparmioEffettivoSpan.textContent = formatCurrency(risparmioEffettivo); resRisparmioEffettivoSpan.className = risparmioEffettivo > 0 ? 'positivo' : '';
-            resImportoSpendibileSpan.textContent = formatCurrency(importoSpendibile); resImportoSpendibileSpan.className = importoSpendibile >= 0 ? 'positivo' : 'negativo';
-            if (importoSpendibile >= 0) { messaggioFinaleP.textContent = "✅ Budget disponibile."; messaggioFinaleP.className = 'positivo'; if (importoSpendibile === 0 && (totaleSpese > 0 || risparmioEffettivo > 0 || debitoPrecedente > 0)) { messaggioFinaleP.textContent = "⚠️ Budget a zero."; messaggioFinaleP.className = 'warning'; } } else { messaggioFinaleP.className = 'negativo'; messaggioFinaleP.textContent = stipendio < totaleSpese + debitoPrecedente ? "🛑 Spese+debiti sup. stipendio." : "📉 Budget insufficiente."; }
-            const debitiDaRiportareSalvati = storico[currentMonthKey]?.debitiDaRiportare || [];
-            const riepilogoCorrente = { displayDate, stipendio, obiettivoRisparmio: risparmioDesiderato, totaleSpese, debitoPrecedente, risparmioEffettivo, importoSpendibile, resStipendioStr: resStipendioSpan.textContent, resObiettivoRisparmioStr: resObiettivoRisparmioSpan.textContent, resTotaleSpeseStr: resTotaleSpeseSpan.textContent, resDebitoPrecedenteStr: formatCurrency(debitoPrecedente), resRisparmioEffettivoStr: resRisparmioEffettivoSpan.textContent, resImportoSpendibileStr: resImportoSpendibileSpan.textContent, messaggioFinale: messaggioFinaleP.textContent, messaggioClass: messaggioFinaleP.className, debitiDaRiportare: debitiDaRiportareSalvati, timestamp: Date.now() };
-            salvaRiepilogoMensile(currentMonthKey, riepilogoCorrente);
-            risultatiDiv.style.display = 'block';
-            renderDebitiDaRiportareUI(currentMonthKey);
-            debitiMeseContainerDiv.style.display = 'block';
-            calcolaESmostraSommeCategorie();
-            caricaStorico();
-        }
-
-        // --- Funzioni Storico ---
-        function caricaStorico() { try { let storico = JSON.parse(localStorage.getItem(LS_STORICO_RIEPILOGHI_KEY) || '{}'); const mesiSalvati = Object.keys(storico).sort().reverse(); selezionaMeseStoricoSelect.innerHTML = '<option value="">-- Seleziona un mese --</option>'; if (mesiSalvati.length > 0) { mesiSalvati.forEach(monthKey => { const option = document.createElement('option'); option.value = monthKey; const [year, month] = monthKey.split('-'); const dateFromKey = new Date(year, month - 1, 1); option.textContent = getDisplayDate(dateFromKey); selezionaMeseStoricoSelect.appendChild(option); }); storicoContainerDiv.style.display = 'block'; } else { storicoContainerDiv.style.display = 'none'; } } catch (error) { console.error("Errore caricamento storico:", error); storicoContainerDiv.style.display = 'none'; } }
-        function mostraDettaglioStorico(monthKey) { if (!monthKey) { dettaglioStoricoDiv.style.display = 'none'; return; } try { let storico = JSON.parse(localStorage.getItem(LS_STORICO_RIEPILOGHI_KEY) || '{}'); const datiMese = storico[monthKey]; if (datiMese) { const totaleDebitiRiportatiDaMese = (datiMese.debitiDaRiportare || []).reduce((sum, d) => sum + (d.importo || 0), 0); dettaglioStoricoDiv.innerHTML = `<h4>Riepilogo ${datiMese.displayDate || monthKey}</h4><p>Stipendio: <span>${datiMese.resStipendioStr || 'N/A'}</span></p><p>Obiettivo Risparmio: <span>${datiMese.resObiettivoRisparmioStr || 'N/A'}</span></p><p>Totale Spese Fisse: <span>${datiMese.resTotaleSpeseStr || 'N/A'}</span></p>${datiMese.debitoPrecedente > 0 ? `<p class="debito-precedente">(-) Debiti Mese Prec.: <span>${formatCurrency(datiMese.debitoPrecedente)}</span></p>` : ''}<hr><p>Risparmio Effettivo: <span class="${datiMese.risparmioEffettivo > 0 ? 'positivo' : ''}">${datiMese.resRisparmioEffettivoStr || 'N/A'}</span></p><p>Importo Spendibile: <span class="${datiMese.importoSpendibile >= 0 ? 'positivo' : 'negativo'}">${datiMese.resImportoSpendibileStr || 'N/A'}</span></p>${totaleDebitiRiportatiDaMese > 0 ? `<p class="debito-riporto">(-) Debiti Riportati al Mese Succ.: <span>${formatCurrency(totaleDebitiRiportatiDaMese)}</span></p>` : ''}<p style="text-align:center; font-style: italic; margin-top: 10px;" class="${datiMese.messaggioClass || ''}">${datiMese.messaggioFinale || ''}</p>`; dettaglioStoricoDiv.style.display = 'block'; } else { dettaglioStoricoDiv.innerHTML = '<p>Dati non trovati.</p>'; dettaglioStoricoDiv.style.display = 'block'; } } catch (error) { console.error("Errore visualizzazione storico:", error); dettaglioStoricoDiv.innerHTML = '<p>Errore caricamento dati.</p>'; dettaglioStoricoDiv.style.display = 'block'; } }
-
-        // --- Funzioni Backup/Restore ---
-        function esportaDatiCifrati() {
-            const password = prompt("Crea una password per cifrare il backup (RICORDALA!):", "");
-            if (!password) { alert("Esportazione annullata."); return; }
-            const datiDaEsportare = { version: 1, inputs: { stipendio: stipendioInput.value, risparmio: risparmioDesideratoInput.value }, spese: speseFisse, storico: JSON.parse(localStorage.getItem(LS_STORICO_RIEPILOGHI_KEY) || '{}') };
-            try {
-                const jsonData = JSON.stringify(datiDaEsportare); const encryptedData = encryptData(jsonData, password);
-                if (!encryptedData) throw new Error("Encryption failed");
-                const blob = new Blob([encryptedData], { type: 'text/plain;charset=utf-8' }); const link = document.createElement('a'); link.href = URL.createObjectURL(blob);
-                const timestamp = new Date().toISOString().slice(0, 10).replace(/-/g, ''); link.download = `backup_calcolatore_risparmi_${timestamp}.txt`;
-                link.style.display = 'none'; document.body.appendChild(link); link.click(); document.body.removeChild(link); URL.revokeObjectURL(link.href);
-                alert("Dati esportati con successo!");
-            } catch (error) { console.error("Errore esportazione:", error); alert("Errore durante l'esportazione."); }
-        }
-        function importaDatiCifrati(event) {
-            const file = event.target.files[0]; if (!file) { return; }
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const encryptedData = e.target.result; const password = prompt("Inserisci la password del file di backup:", "");
-                if (!password) { importaFileInput.value = ''; return; }
-                try {
-                    const decryptedJson = decryptData(encryptedData, password);
-                    if (!decryptedJson) throw new Error("Decryption failed (password errata?).");
-                    const datiImportati = JSON.parse(decryptedJson);
-                    if (!datiImportati?.inputs || !datiImportati?.spese || !datiImportati?.storico) throw new Error("Formato file non valido.");
-                    const conferma = confirm("ATTENZIONE: Sovrascrivere tutti i dati attuali? Continuare?");
-                    if (!conferma) { importaFileInput.value = ''; return; }
-                    stipendioInput.value = datiImportati.inputs.stipendio || ''; risparmioDesideratoInput.value = datiImportati.inputs.risparmio || '';
-                    speseFisse = Array.isArray(datiImportati.spese) ? datiImportati.spese : [];
-                    const storicoImportato = typeof datiImportati.storico === 'object' && datiImportati.storico !== null ? datiImportati.storico : {};
-                    localStorage.setItem(LS_STIPENDIO_KEY, stipendioInput.value); localStorage.setItem(LS_RISPARMIO_KEY, risparmioDesideratoInput.value); localStorage.setItem(LS_SPESE_KEY, JSON.stringify(speseFisse)); localStorage.setItem(LS_STORICO_RIEPILOGHI_KEY, JSON.stringify(storicoImportato));
-                    alert("Dati importati! L'applicazione verrà ricaricata."); location.reload();
-                } catch (error) { console.error("Errore importazione:", error); alert(`Errore importazione: ${error.message}.`); importaFileInput.value = ''; }
+            // --- APPLICATION STATE (Nuova Struttura) ---
+            let appData = {
+                monthHistory: {}, // Oggetto per storico { "AAAA-MM": { dati mese } }
+                settings: {
+                    theme: 'light',
+                    fixedExpensesSort: 'default',
+                }
             };
-            reader.onerror = function() { alert("Errore lettura file."); importaFileInput.value = ''; };
-            reader.readAsText(file);
-        }
 
-         // --- Funzioni PWA ---
-         function generateManifest() {
-            // Crea un'icona SVG semplice con l'emoji
-            const emoji = "📊";
-            const iconSize = 512; // Dimensione desiderata per SVG
-            const svgIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${iconSize} ${iconSize}" width="${iconSize}" height="${iconSize}">
-                                <rect width="100%" height="100%" fill="#007bff"/> <text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-size="${iconSize * 0.7}" fill="#ffffff">${emoji}</text>
-                             </svg>`;
-            // Codifica l'SVG in Base64 per usarlo come Data URI
-            const svgIconBase64 = btoa(unescape(encodeURIComponent(svgIcon)));
-            const iconDataUri = `data:image/svg+xml;base64,${svgIconBase64}`;
+             // --- UTILITY FUNCTIONS (Invariate) ---
+            const formatCurrency = (amount) => {
+                return new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(amount || 0);
+            };
 
-            const manifest = {
-                "name": "Calcolatore Risparmi Personale",
-                "short_name": "Risparmi",
-                "description": "Calcolatore di risparmi mensili personale con storico e backup.",
-                "start_url": ".", // Inizia dalla directory corrente
-                "display": "standalone", // Aspetto da app
-                "background_color": "#ffffff",
-                "theme_color": "#007bff", // Colore primario
-                "icons": [
-                    {
-                        "src": iconDataUri,
-                        "sizes": "192x192", // Dimensione comune per Android
-                        "type": "image/svg+xml",
-                        "purpose": "any maskable" // Adatta a forme diverse
-                    },
-                     {
-                        "src": iconDataUri,
-                        "sizes": "512x512", // Dimensione più grande
-                        "type": "image/svg+xml",
-                        "purpose": "any maskable"
+            const generateId = () => {
+                return Date.now().toString(36) + Math.random().toString(36).substring(2);
+            };
+
+             const showNotification = (message, type = 'info', duration = 3000) => {
+                notification.textContent = message;
+                notification.className = '';
+                notification.classList.add('show');
+                if (type === 'error') { notification.classList.add('error'); }
+                else if (type === 'success') { notification.classList.add('success'); }
+                setTimeout(() => { notification.classList.remove('show'); }, duration);
+            };
+
+            // --- HELPER FUNCTIONS per la Nuova Struttura ---
+            const getCurrentYearMonth = () => {
+                const now = new Date();
+                return `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}`;
+            };
+
+             const getPreviousYearMonth = (currentYYYYMM) => {
+                if (!currentYYYYMM || typeof currentYYYYMM !== 'string' || !currentYYYYMM.includes('-')) { return null; }
+                const parts = currentYYYYMM.split('-');
+                let year = parseInt(parts[0], 10);
+                let month = parseInt(parts[1], 10);
+                month--;
+                if (month === 0) { month = 12; year--; }
+                return `${year}-${month.toString().padStart(2, '0')}`;
+            };
+
+             const getCurrentMonthData = (createIfNeeded = true) => {
+                const currentYYYYMM = getCurrentYearMonth();
+                if (!appData.monthHistory) { appData.monthHistory = {}; } // Sicurezza extra
+
+                if (!appData.monthHistory[currentYYYYMM] && createIfNeeded) {
+                    appData.monthHistory[currentYYYYMM] = {
+                        mainIncomes: [], savingsGoal: 0, immediateDeduction: 0,
+                        fixedExpenses: [], extraIncome: [], debtsIncurred: []
+                    };
+                    console.log(`Inizializzati dati per il mese: ${currentYYYYMM}`);
+
+                    // Copia spese fisse dal mese precedente se esiste
+                    const prevYYYYMM = getPreviousYearMonth(currentYYYYMM);
+                    if (appData.monthHistory[prevYYYYMM] && appData.monthHistory[prevYYYYMM].fixedExpenses) {
+                        try {
+                            // Deep copy JSON per evitare riferimento diretto all'array precedente
+                             appData.monthHistory[currentYYYYMM].fixedExpenses = JSON.parse(JSON.stringify(appData.monthHistory[prevYYYYMM].fixedExpenses));
+                             console.log(`Copiate ${appData.monthHistory[currentYYYYMM].fixedExpenses.length} spese fisse da ${prevYYYYMM}`);
+                        } catch (e) {
+                             console.error("Errore nella copia profonda delle spese fisse:", e);
+                             appData.monthHistory[currentYYYYMM].fixedExpenses = []; // Fallback a vuoto
+                        }
                     }
-                ]
+                }
+                // Ritorna i dati del mese corrente (o undefined se non esiste e createIfNeeded è false)
+                return appData.monthHistory[currentYYYYMM];
             };
-            // Crea il Data URI per il manifest
-            const manifestJsonString = JSON.stringify(manifest);
-            const manifestBase64 = btoa(unescape(encodeURIComponent(manifestJsonString)));
-            const manifestDataUri = `data:application/manifest+json;base64,${manifestBase64}`;
-
-            // Imposta l'href del link nel <head>
-            const manifestLink = document.getElementById('manifest-link');
-            if (manifestLink) {
-                 manifestLink.setAttribute('href', manifestDataUri);
-                 console.log("Manifest link impostato.");
-            } else {
-                console.error("Elemento link manifest non trovato.");
-            }
-         }
-
-         function registerServiceWorker() {
-             if ('serviceWorker' in navigator) {
-                 // Definisci il codice del Service Worker come stringa
-                  const swCodeString = `
-                    const CACHE_NAME = 'risparmi-app-cache-v1';
-                    // Aggiungi qui l'URL/nome del file HTML stesso se vuoi che funzioni offline
-                    // Assumendo che il file si chiami 'index.html' o sia alla radice '/'
-                    const urlsToCache = [
-                        './' // Cache della pagina principale
-                        // Aggiungi qui altri asset se li avessi (es. CSS esterni, JS esterni - ma non è il caso)
-                    ];
-
-                    self.addEventListener('install', event => {
-                        console.log('Service Worker: Installazione...');
-                        event.waitUntil(
-                            caches.open(CACHE_NAME)
-                                .then(cache => {
-                                    console.log('Service Worker: Cache aperta, aggiungo URLS:', urlsToCache);
-                                    // Usa addAll che fallisce se anche un solo URL non è raggiungibile
-                                    // Usa cache.add() per singolo URL se serve più controllo
-                                    return cache.addAll(urlsToCache).catch(error => {
-                                        console.error('Service Worker: Impossibile aggiungere alla cache durante install:', error);
-                                        // Potresti voler gestire questo errore in modo specifico
-                                    });
-                                })
-                                .then(() => {
-                                     console.log('Service Worker: Installazione completata.');
-                                     // Forza l'attivazione del nuovo SW subito (utile per aggiornamenti)
-                                     return self.skipWaiting();
-                                })
-                        );
-                    });
-
-                     self.addEventListener('activate', event => {
-                         console.log('Service Worker: Attivazione...');
-                         // Rimuovi vecchie cache se necessario (non implementato qui per semplicità)
-                         // Forza il controllo delle pagine aperte da parte del nuovo SW
-                         event.waitUntil(self.clients.claim());
-                         console.log('Service Worker: Attivazione completata.');
-                     });
 
 
-                    self.addEventListener('fetch', event => {
-                         // Strategia: Cache first, poi network
-                         // console.log('Service Worker: Fetching', event.request.url);
-                         // Ignora richieste non GET (es. POST per backup non va cachato)
-                         if (event.request.method !== 'GET') {
-                            return;
-                         }
-                         // Ignora richieste a domini esterni se non vuoi cacharle
-                         // if (!event.request.url.startsWith(self.location.origin)) {
-                         //    return;
-                         // }
+            // --- DATA PERSISTENCE (LocalStorage - Invariato nel concetto) ---
+            const saveData = () => {
+                try {
+                    localStorage.setItem('budgetBulldogDataMaterial', JSON.stringify(appData));
+                    console.log("Data saved successfully (Material - Storico).");
+                } catch (error) {
+                    console.error("Error saving data to localStorage:", error);
+                    showNotification("Errore nel salvataggio dei dati!", 'error');
+                }
+            };
 
-                        event.respondWith(
-                            caches.match(event.request)
-                                .then(response => {
-                                    if (response) {
-                                        // console.log('Service Worker: Trovato nella cache:', event.request.url);
-                                        return response; // Servi dalla cache
-                                    }
-                                    // console.log('Service Worker: Non trovato in cache, fetching dal network:', event.request.url);
-                                    return fetch(event.request).then(
-                                         // Opzionale: Aggiungi alla cache la risposta di rete se vuoi aggiornare la cache dinamicamente
-                                         // function(networkResponse) {
-                                         //   if(!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
-                                         //     return networkResponse;
-                                         //   }
-                                         //   var responseToCache = networkResponse.clone();
-                                         //   caches.open(CACHE_NAME)
-                                         //     .then(function(cache) {
-                                         //       cache.put(event.request, responseToCache);
-                                         //     });
-                                         //   return networkResponse;
-                                         // }
-                                         networkResponse => networkResponse // Ritorna semplicemente la risposta di rete
-                                    ).catch(error => {
-                                        console.error('Service Worker: Fetch fallito per', event.request.url, error);
-                                        // Potresti restituire una pagina offline generica qui se necessario
-                                    });
-                                })
-                        );
-                    });
-                 `;
+            const loadData = () => {
+                const savedData = localStorage.getItem('budgetBulldogDataMaterial');
+                let needsSave = false; // Flag per salvare se inizializziamo dati
+                if (savedData) {
+                    try {
+                        const parsedData = JSON.parse(savedData);
+                         // Migrazione MOLTO basilare: Se trova la vecchia struttura, la ignora
+                         // Una migrazione reale sarebbe più complessa
+                        if (parsedData && parsedData.monthHistory && parsedData.settings) {
+                            appData = parsedData;
+                            console.log("Data loaded (Material - Storico):", appData);
+                        } else {
+                             console.warn("Struttura dati vecchia o non valida rilevata. Inizializzazione con nuova struttura.");
+                             // appData rimane quella di default con monthHistory vuoto
+                             needsSave = true; // Salva la nuova struttura vuota
+                        }
 
-                 // Crea un URL per lo script del service worker da una stringa
-                 try {
-                     const swBlob = new Blob([swCodeString], { type: 'application/javascript' });
-                     const swUrl = URL.createObjectURL(swBlob);
+                    } catch (error) {
+                        console.error("Error parsing data from localStorage:", error);
+                        showNotification("Errore nel caricamento dei dati salvati. Verranno usati i valori predefiniti.", 'error', 5000);
+                         // appData rimane quella di default
+                         needsSave = true; // Salva la struttura di default
+                    }
+                } else {
+                    console.log("No saved data found, initialized default state (Material - Storico).");
+                    // appData è già quella di default
+                    needsSave = true; // Salva la struttura di default
+                }
 
-                     navigator.serviceWorker.register(swUrl)
-                         .then(registration => {
-                             console.log('ServiceWorker registrato con scope:', registration.scope);
-                         })
-                         .catch(error => {
-                             console.error('Registrazione ServiceWorker fallita:', error);
-                         });
-                 } catch (e) {
-                      console.error('Errore creazione Blob/URL per Service Worker:', e);
+                 // Assicura che settings esista sempre
+                 if (!appData.settings) {
+                     appData.settings = { theme: 'light', fixedExpensesSort: 'default' };
+                     needsSave = true;
+                 }
+                 if (!appData.monthHistory) {
+                    appData.monthHistory = {};
+                    needsSave = true;
                  }
 
-             } else {
-                 console.log('Service Worker non supportato da questo browser.');
-             }
-         }
+                // Assicura che i dati del mese corrente esistano (li crea se necessario)
+                getCurrentMonthData(true); // Forza la creazione se non esiste
+
+                if(needsSave) {
+                    saveData(); // Salva solo se abbiamo dovuto inizializzare/correggere
+                }
+            };
+
+            // --- CRYPTO FUNCTIONS (Invariate) ---
+            const getPasswordKey = async (password) => {
+                const enc = new TextEncoder();
+                const keyMaterial = await window.crypto.subtle.importKey("raw", enc.encode(password), { name: "PBKDF2" }, false, ["deriveKey"]);
+                const salt = enc.encode("BudgetBulldogSalt");
+                return window.crypto.subtle.deriveKey({ name: "PBKDF2", salt: salt, iterations: 100000, hash: "SHA-256" }, keyMaterial, { name: "AES-GCM", length: 256 }, true, ["encrypt", "decrypt"]);
+            };
+            const encryptData = async (key, data) => {
+                const enc = new TextEncoder();
+                const iv = window.crypto.getRandomValues(new Uint8Array(12));
+                const encodedData = enc.encode(JSON.stringify(data));
+                const ciphertext = await window.crypto.subtle.encrypt({ name: "AES-GCM", iv: iv }, key, encodedData);
+                 const ivString = btoa(String.fromCharCode.apply(null, iv));
+                 const cipherString = btoa(String.fromCharCode.apply(null, new Uint8Array(ciphertext)));
+                return { iv: ivString, cipher: cipherString };
+            };
+             const decryptData = async (key, encryptedPayload) => {
+                const { iv: ivString, cipher: cipherString } = encryptedPayload;
+                if (!ivString || !cipherString) throw new Error("Invalid encrypted payload structure");
+                 const iv = Uint8Array.from(atob(ivString), c => c.charCodeAt(0));
+                 const ciphertext = Uint8Array.from(atob(cipherString), c => c.charCodeAt(0)).buffer;
+                const dec = new TextDecoder();
+                try {
+                    const decrypted = await window.crypto.subtle.decrypt({ name: "AES-GCM", iv: iv }, key, ciphertext);
+                    return JSON.parse(dec.decode(decrypted));
+                } catch (error) { console.error("Decryption failed:", error); throw new Error("Decryption failed. Password errata o file corrotto."); }
+            };
 
 
-        // --- Event Listeners ---
-        aggiungiSpesaBtn.addEventListener('click', aggiungiSpesa); importoSpesaInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); aggiungiSpesa(); } }); nomeSpesaInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); categoriaSpesaInput.focus(); } }); categoriaSpesaInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); importoSpesaInput.focus(); } });
-        calcolaBtn.addEventListener('click', calcolaBilancio);
-        stipendioInput.addEventListener('input', salvaDatiInput); risparmioDesideratoInput.addEventListener('input', salvaDatiInput);
-        controlliOrdinamentoDiv.addEventListener('click', (e) => { if (e.target.tagName === 'BUTTON' && e.target.dataset.sort) { sortSpese(e.target.dataset.sort); } });
-        aggiungiDebitoBtn.addEventListener('click', aggiungiDebitoDaRiportare); importoDebitoInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); aggiungiDebitoDaRiportare(); } });
-        selezionaMeseStoricoSelect.addEventListener('change', (e) => { mostraDettaglioStorico(e.target.value); });
-        esportaBtn.addEventListener('click', esportaDatiCifrati);
-        importaBtn.addEventListener('click', () => importaFileInput.click());
-        importaFileInput.addEventListener('change', importaDatiCifrati);
+            // --- RENDERING FUNCTIONS ---
+            const renderTheme = () => {
+                if (appData.settings.theme === 'dark') {
+                    document.body.classList.add('dark-mode');
+                    themeIcon.textContent = 'dark_mode';
+                } else {
+                    document.body.classList.remove('dark-mode');
+                    themeIcon.textContent = 'light_mode';
+                }
+            };
 
-        // --- Inizializzazione ---
-        document.addEventListener('DOMContentLoaded', () => {
-            caricaDati(); // Carica dati utente
-            generateManifest(); // Genera e imposta il manifest PWA
-            registerServiceWorker(); // Registra il service worker per offline
-        });
+            // NUOVA: Renderizza lista entrate principali
+            const renderMainIncomes = () => {
+                const currentData = getCurrentMonthData(false); // Non creare se non esiste qui
+                const incomes = currentData?.mainIncomes || []; // Usa array vuoto se non ci sono dati
+                mainIncomeList.innerHTML = '';
+                let totalMain = 0;
 
+                if (incomes.length === 0) {
+                    mainIncomeList.innerHTML = '<li style="color: var(--md-text-secondary); justify-content: center;">Nessuna entrata principale inserita per questo mese.</li>';
+                    document.getElementById('main-income-total').style.display = 'none';
+                } else {
+                    incomes.forEach(income => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `
+                            <div class="item-details">
+                                <span class="item-name">${income.description || 'N/D'}</span>
+                            </div>
+                            <span class="item-amount">${formatCurrency(income.amount)}</span>
+                            <button class="btn-delete-item" data-id="${income.id}" title="Elimina">
+                                <span class="material-symbols-outlined">delete</span>
+                            </button>
+                        `;
+                        li.querySelector('button').addEventListener('click', handleDeleteMainIncome);
+                        mainIncomeList.appendChild(li);
+                        totalMain += Number(income.amount || 0);
+                    });
+                    mainIncomeTotalEl.textContent = formatCurrency(totalMain);
+                    document.getElementById('main-income-total').style.display = 'block';
+                }
+            };
+
+            // AGGIORNATA: Usa getCurrentMonthData
+            const renderFixedExpenses = () => {
+                const currentData = getCurrentMonthData(false); // Non creare se non esiste
+                const expenses = currentData?.fixedExpenses || [];
+                const sortType = appData.settings.fixedExpensesSort || 'default';
+                let sortedExpenses = [...expenses];
+
+                 if (sortType === 'name') sortedExpenses.sort((a, b) => a.name.localeCompare(b.name));
+                 else if (sortType === 'category') sortedExpenses.sort((a, b) => { const c=a.category.localeCompare(b.category); return c !== 0 ? c : a.name.localeCompare(b.name); });
+                 else if (sortType === 'amount') sortedExpenses.sort((a, b) => Number(b.amount) - Number(a.amount));
+
+                 fixedExpensesListContainer.innerHTML = '';
+                 const categories = [...new Set(expenses.map(exp => exp.category))].sort();
+                 categorySuggestions.innerHTML = categories.map(cat => `<option value="${cat}">`).join('');
+                 let totalFixed = 0;
+
+                if (sortedExpenses.length === 0) {
+                    fixedExpensesListContainer.innerHTML = '<p style="color: var(--md-text-secondary); text-align: center;">Nessuna spesa fissa inserita.</p>';
+                    document.getElementById('fixed-expenses-total').style.display = 'none';
+                } else {
+                     if (sortType === 'category') {
+                         const expensesByCategory = sortedExpenses.reduce((groups, expense) => {
+                            const category = expense.category || 'Senza Categoria';
+                            if (!groups[category]) groups[category] = { items: [], total: 0 };
+                            groups[category].items.push(expense);
+                            groups[category].total += Number(expense.amount || 0);
+                            return groups;
+                          }, {});
+                         const sortedCategories = Object.keys(expensesByCategory).sort();
+                         sortedCategories.forEach(category => {
+                            const group = expensesByCategory[category];
+                             const categoryContainer = document.createElement('div');
+                             categoryContainer.className = 'category-subtotal';
+                             categoryContainer.innerHTML = `<h4>${category}</h4>`;
+                             const ul = document.createElement('ul');
+                             ul.className = 'item-list';
+                             group.items.forEach(expense => { ul.appendChild(createFixedExpenseListItem(expense)); totalFixed += Number(expense.amount || 0); });
+                             categoryContainer.appendChild(ul);
+                             categoryContainer.innerHTML += `<div class="category-subtotal-amount">Subtotale: <span>${formatCurrency(group.total)}</span></div>`;
+                              fixedExpensesListContainer.appendChild(categoryContainer);
+                         });
+                    } else {
+                        const ul = document.createElement('ul');
+                        ul.className = 'item-list';
+                         sortedExpenses.forEach(expense => { ul.appendChild(createFixedExpenseListItem(expense)); totalFixed += Number(expense.amount || 0); });
+                         fixedExpensesListContainer.appendChild(ul);
+                     }
+                    fixedExpensesTotalEl.textContent = formatCurrency(totalFixed);
+                    document.getElementById('fixed-expenses-total').style.display = 'block';
+                }
+             };
+
+             // Helper (invariato)
+             const createFixedExpenseListItem = (expense) => {
+                const li = document.createElement('li');
+                 li.innerHTML = `
+                    <div class="item-details">
+                        <span class="item-name">${expense.name || 'N/D'}</span>
+                         ${expense.category ? `<span class="item-category">(${expense.category})</span>` : ''}
+                    </div>
+                    <span class="item-amount">${formatCurrency(expense.amount)}</span>
+                    <button class="btn-delete-item" data-id="${expense.id}" title="Elimina">
+                        <span class="material-symbols-outlined">delete</span>
+                    </button>
+                 `;
+                 li.querySelector('button').addEventListener('click', handleDeleteFixedExpense);
+                 return li;
+             };
+
+            // AGGIORNATA: Usa getCurrentMonthData
+            const renderExtraIncome = () => {
+                const currentData = getCurrentMonthData(false);
+                const incomes = currentData?.extraIncome || [];
+                extraIncomeList.innerHTML = '';
+                let totalExtra = 0;
+                if (incomes.length === 0) {
+                     extraIncomeList.innerHTML = '<li style="color: var(--md-text-secondary); justify-content: center;">Nessuna entrata extra inserita.</li>';
+                     document.getElementById('extra-income-total').style.display = 'none';
+                } else {
+                    incomes.forEach(income => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `
+                            <div class="item-details"><span class="item-name">${income.description || 'N/D'}</span></div>
+                            <span class="item-amount">${formatCurrency(income.amount)}</span>
+                            <button class="btn-delete-item" data-id="${income.id}" title="Elimina">
+                                <span class="material-symbols-outlined">delete</span>
+                            </button>`;
+                         li.querySelector('button').addEventListener('click', handleDeleteExtraIncome);
+                        extraIncomeList.appendChild(li);
+                         totalExtra += Number(income.amount || 0);
+                    });
+                    extraIncomeTotalEl.textContent = formatCurrency(totalExtra);
+                    document.getElementById('extra-income-total').style.display = 'block';
+                }
+            };
+
+            // AGGIORNATA: Usa getCurrentMonthData
+            const renderDebts = () => {
+                 const currentData = getCurrentMonthData(false);
+                 const debts = currentData?.debtsIncurred || [];
+                 debtList.innerHTML = '';
+                 let totalDebt = 0;
+                if (debts.length === 0) {
+                     debtList.innerHTML = '<li style="color: var(--md-text-secondary); justify-content: center;">Nessun debito/accantonamento per il prossimo mese inserito.</li>';
+                     document.getElementById('debt-total').style.display = 'none';
+                } else {
+                    debts.forEach(debt => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `
+                            <div class="item-details"><span class="item-name">${debt.description || 'N/D'}</span></div>
+                            <span class="item-amount">${formatCurrency(debt.amount)}</span>
+                             <button class="btn-delete-item" data-id="${debt.id}" title="Elimina">
+                                <span class="material-symbols-outlined">delete</span>
+                            </button>`;
+                        li.querySelector('button').addEventListener('click', handleDeleteDebt);
+                        debtList.appendChild(li);
+                        totalDebt += Number(debt.amount || 0);
+                    });
+                     debtTotalEl.textContent = formatCurrency(totalDebt);
+                     document.getElementById('debt-total').style.display = 'block';
+                }
+            };
+
+            // AGGIORNATA: Calcola tutto con la nuova struttura
+            const renderSummary = () => {
+                const currentData = getCurrentMonthData(false); // Prendi dati correnti (non crearli se mancano qui)
+                const currentYYYYMM = getCurrentYearMonth();
+
+                // Se non ci sono dati per il mese corrente (es. primo avvio assoluto), mostra 0
+                if (!currentData) {
+                     currentMonthDisplay.textContent = 'N/D';
+                     summarySalary.textContent = formatCurrency(0);
+                     summarySavingsGoal.textContent = formatCurrency(0);
+                     summaryFixedTotal.textContent = formatCurrency(0);
+                     summaryExtraIncome.textContent = formatCurrency(0);
+                     summaryPrevDebt.textContent = formatCurrency(0);
+                     summarySpendable.textContent = formatCurrency(0);
+                    summarySpendable.classList.remove('negative');
+                     return; // Esci se non ci sono dati per il mese
+                }
+
+                // Calcola totale entrate principali
+                const totalMainIncome = (currentData.mainIncomes || []).reduce((sum, inc) => sum + Number(inc.amount || 0), 0);
+
+                // Altri totali
+                const totalFixedExpenses = (currentData.fixedExpenses || []).reduce((sum, exp) => sum + Number(exp.amount || 0), 0);
+                const totalExtraIncome = (currentData.extraIncome || []).reduce((sum, inc) => sum + Number(inc.amount || 0), 0);
+
+                // Obiettivi
+                const savingsGoal = Number(currentData.savingsGoal) || 0;
+                const immediateDeduction = Number(currentData.immediateDeduction) || 0;
+
+                // Calcola debiti mese precedente
+                const prevYYYYMM = getPreviousYearMonth(currentYYYYMM);
+                let prevDebt = 0;
+                if (appData.monthHistory && appData.monthHistory[prevYYYYMM] && appData.monthHistory[prevYYYYMM].debtsIncurred) {
+                    prevDebt = appData.monthHistory[prevYYYYMM].debtsIncurred.reduce((sum, debt) => sum + Number(debt.amount || 0), 0);
+                }
+
+                // Calcola spendibile
+                const spendable = totalMainIncome + totalExtraIncome - savingsGoal - immediateDeduction - totalFixedExpenses - prevDebt;
+
+                // --- Aggiorna Testo Riepilogo ---
+                const nomiMesi = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
+                let displayDate = 'N/D';
+                if (currentYYYYMM && typeof currentYYYYMM === 'string') {
+                    const parts = currentYYYYMM.split('-');
+                    if (parts.length === 2) {
+                        const year = parseInt(parts[0], 10); const monthIndex = parseInt(parts[1], 10) - 1;
+                        if (!isNaN(year) && monthIndex >= 0 && monthIndex < 12) { displayDate = `${nomiMesi[monthIndex]} ${year}`; }
+                        else { displayDate = currentYYYYMM; }
+                    } else { displayDate = currentYYYYMM; }
+                }
+                currentMonthDisplay.textContent = displayDate;
+
+                // Aggiorna valori
+                summarySalary.textContent = formatCurrency(totalMainIncome);
+                summarySavingsGoal.textContent = formatCurrency(savingsGoal);
+                summaryFixedTotal.textContent = formatCurrency(totalFixedExpenses);
+                summaryExtraIncome.textContent = formatCurrency(totalExtraIncome);
+                summaryPrevDebt.textContent = formatCurrency(prevDebt);
+                summarySpendable.textContent = formatCurrency(spendable);
+                summarySpendable.classList.toggle('negative', spendable < 0);
+            };
+
+            // AGGIORNATA: Popola campi obiettivi e chiama nuovo render entrate
+            const renderAll = () => {
+                const currentData = getCurrentMonthData(false); // Prendi dati correnti (non crearli)
+
+                 // Popola i campi del form Obiettivi solo se ci sono dati per il mese
+                 if(currentData) {
+                     savingsGoalInput.value = currentData.savingsGoal || 0;
+                     immediateDeductionInput.value = currentData.immediateDeduction || 0;
+                 } else {
+                     // Se non ci sono dati per il mese, svuota i campi obiettivi
+                     savingsGoalInput.value = '';
+                     immediateDeductionInput.value = '';
+                 }
+
+                // Renderizza le altre sezioni
+                renderTheme();
+                renderMainIncomes(); // Renderizza lista entrate principali
+                renderFixedExpenses();
+                renderExtraIncome();
+                renderDebts();
+                renderSummary(); // Render summary per ultimo
+            };
+
+            // --- EVENT HANDLERS ---
+            themeSwitcher.addEventListener('click', () => {
+                appData.settings.theme = (appData.settings.theme === 'light') ? 'dark' : 'light';
+                saveData();
+                renderTheme();
+                showNotification(`Tema ${appData.settings.theme === 'dark' ? 'Scuro' : 'Chiaro'} attivato`, 'success', 1500);
+            });
+
+            // NUOVO Handler per Form Obiettivi
+            goalsForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const currentData = getCurrentMonthData(true); // Assicura che i dati mese esistano
+                currentData.savingsGoal = parseFloat(savingsGoalInput.value) || 0;
+                currentData.immediateDeduction = parseFloat(immediateDeductionInput.value) || 0;
+                saveData();
+                renderSummary();
+                showNotification("Obiettivi mensili salvati.", 'success');
+            });
+
+            // NUOVO Handler per Form Entrate Principali
+            mainIncomeForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const description = mainIncomeDescInput.value.trim();
+                const amount = parseFloat(mainIncomeAmountInput.value);
+                const currentData = getCurrentMonthData(true); // Assicura che i dati mese esistano
+
+                if (description && amount > 0) {
+                    const newIncome = { id: generateId(), description: description, amount: amount };
+                    if (!currentData.mainIncomes) currentData.mainIncomes = [];
+                    currentData.mainIncomes.push(newIncome);
+                    saveData();
+                    renderMainIncomes();
+                    renderSummary();
+                    mainIncomeForm.reset();
+                    mainIncomeDescInput.focus();
+                    showNotification("Entrata principale aggiunta.", 'success');
+                } else {
+                    showNotification("Per favore, compila descrizione e importo valido.", 'error');
+                }
+            });
+
+             // NUOVO Handler per Eliminare Entrata Principale
+             function handleDeleteMainIncome(e) {
+                const button = e.target.closest('button');
+                if (!button) return;
+                const incomeId = button.dataset.id;
+                const currentData = getCurrentMonthData(false); // Prendi dati correnti
+
+                if (currentData && currentData.mainIncomes) {
+                     currentData.mainIncomes = currentData.mainIncomes.filter(inc => inc.id !== incomeId);
+                     saveData();
+                     renderMainIncomes();
+                     renderSummary();
+                     showNotification("Entrata principale eliminata.", 'success');
+                 }
+            }
+
+
+            // Handler Spese Fisse (Form e Ordinamento invariati nel trigger, aggiornati nell'implementazione)
+            fixedExpenseForm.addEventListener('submit', (e) => {
+                 e.preventDefault();
+                 const name = fixedExpenseNameInput.value.trim();
+                 const amount = parseFloat(fixedExpenseAmountInput.value);
+                 const category = fixedExpenseCategoryInput.value.trim();
+                 const currentData = getCurrentMonthData(true); // Usa dati correnti
+
+                 if (name && amount > 0 && category) {
+                    const newExpense = { id: generateId(), name: name, amount: amount, category: category };
+                    if (!currentData.fixedExpenses) currentData.fixedExpenses = [];
+                    currentData.fixedExpenses.push(newExpense);
+                    saveData();
+                    renderFixedExpenses(); renderSummary();
+                    fixedExpenseForm.reset(); fixedExpenseNameInput.focus();
+                     showNotification("Spesa fissa aggiunta.", 'success');
+                 } else { showNotification("Per favore, compila tutti i campi della spesa fissa.", 'error'); }
+             });
+
+             sortControls.addEventListener('click', (e) => {
+                if (e.target.tagName === 'BUTTON' && e.target.dataset.sort) {
+                    appData.settings.fixedExpensesSort = e.target.dataset.sort;
+                     sortControls.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+                     e.target.classList.add('active');
+                     saveData(); // Salva preferenza sort
+                     renderFixedExpenses(); // Rerender lista
+                 }
+             });
+
+            // Handler Eliminazione Spesa Fissa (Aggiornato)
+            function handleDeleteFixedExpense(e) {
+                 const button = e.target.closest('button');
+                 if (!button) return;
+                 const expenseId = button.dataset.id;
+                 const currentData = getCurrentMonthData(false); // Usa dati correnti
+
+                 if(currentData && currentData.fixedExpenses) {
+                    currentData.fixedExpenses = currentData.fixedExpenses.filter(exp => exp.id !== expenseId);
+                    saveData();
+                    renderFixedExpenses();
+                    renderSummary();
+                    showNotification("Spesa fissa eliminata.", 'success');
+                 }
+            }
+
+             // Handler Entrate Extra (Form invariato nel trigger, aggiornato nell'implementazione)
+             extraIncomeForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                 const description = extraIncomeDescInput.value.trim();
+                 const amount = parseFloat(extraIncomeAmountInput.value);
+                 const currentData = getCurrentMonthData(true); // Usa dati correnti
+
+                 if (description && amount > 0) {
+                     const newIncome = { id: generateId(), description, amount };
+                     if (!currentData.extraIncome) currentData.extraIncome = [];
+                     currentData.extraIncome.push(newIncome);
+                     saveData(); renderExtraIncome(); renderSummary();
+                     extraIncomeForm.reset(); extraIncomeDescInput.focus();
+                      showNotification("Entrata extra aggiunta.", 'success');
+                 } else { showNotification("Per favore, compila tutti i campi dell'entrata extra.", 'error'); }
+              });
+
+            // Handler Eliminazione Entrata Extra (Aggiornato)
+            function handleDeleteExtraIncome(e) {
+                 const button = e.target.closest('button');
+                 if (!button) return;
+                const incomeId = button.dataset.id;
+                const currentData = getCurrentMonthData(false); // Usa dati correnti
+
+                if(currentData && currentData.extraIncome) {
+                    currentData.extraIncome = currentData.extraIncome.filter(inc => inc.id !== incomeId);
+                    saveData(); renderExtraIncome(); renderSummary();
+                    showNotification("Entrata extra eliminata.", 'success');
+                }
+            }
+
+             // Handler Debiti (Form invariato nel trigger, aggiornato nell'implementazione)
+             debtForm.addEventListener('submit', (e) => {
+                 e.preventDefault();
+                 const description = debtDescInput.value.trim();
+                 const amount = parseFloat(debtAmountInput.value);
+                 const currentData = getCurrentMonthData(true); // Usa dati correnti
+
+                 if (description && amount > 0) {
+                     const newDebt = { id: generateId(), description, amount };
+                     if (!currentData.debtsIncurred) currentData.debtsIncurred = [];
+                     currentData.debtsIncurred.push(newDebt);
+                     saveData(); renderDebts();
+                     debtForm.reset(); debtDescInput.focus();
+                      showNotification("Debito/Accantonamento aggiunto per il prossimo mese.", 'success');
+                 } else { showNotification("Per favore, compila tutti i campi del debito/accantonamento.", 'error'); }
+             });
+
+            // Handler Eliminazione Debito (Aggiornato)
+            function handleDeleteDebt(e) {
+                 const button = e.target.closest('button');
+                 if (!button) return;
+                const debtId = button.dataset.id;
+                const currentData = getCurrentMonthData(false); // Usa dati correnti
+
+                if(currentData && currentData.debtsIncurred) {
+                    currentData.debtsIncurred = currentData.debtsIncurred.filter(debt => debt.id !== debtId);
+                    saveData(); renderDebts();
+                    showNotification("Debito/Accantonamento eliminato.", 'success');
+                }
+            }
+
+            // Handler Export (Invariato nel concetto, esporta tutta appData)
+             exportButton.addEventListener('click', async () => {
+                 const password = backupPasswordInput.value;
+                 if (!password) { showNotification("Inserisci una password per creare il backup.", 'error'); backupPasswordInput.focus(); return; }
+                 try {
+                     const key = await getPasswordKey(password);
+                     // Esporta l'intero oggetto appData che ora contiene lo storico
+                     const encryptedPayload = await encryptData(key, appData);
+                     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(encryptedPayload));
+                     const downloadAnchorNode = document.createElement('a');
+                     const filename = `budget_bulldog_material_backup_${getCurrentYearMonth()}_${Date.now()}.bbbackup`;
+                     downloadAnchorNode.setAttribute("href", dataStr); downloadAnchorNode.setAttribute("download", filename);
+                     document.body.appendChild(downloadAnchorNode); downloadAnchorNode.click(); downloadAnchorNode.remove();
+                      showNotification("Backup esportato con successo!", 'success'); backupPasswordInput.value = '';
+                 } catch (error) { console.error("Export error:", error); showNotification(`Errore durante l'esportazione: ${error.message}`, 'error', 5000); }
+             });
+
+            // Handler Import (Invariato nel concetto, importa in appData)
+            importButton.addEventListener('click', () => {
+                 const file = importFileInpit.files[0]; const password = backupPasswordInput.value;
+                 if (!file) { showNotification("Seleziona un file di backup (.bbbackup).", 'error'); return; }
+                 if (!password) { showNotification("Inserisci la password usata per creare questo backup.", 'error'); backupPasswordInput.focus(); return; }
+                 const reader = new FileReader();
+                 reader.onload = async (event) => {
+                     try {
+                         const encryptedPayload = JSON.parse(event.target.result); const key = await getPasswordKey(password);
+                         const decryptedData = await decryptData(key, encryptedPayload);
+                         // Valida che i dati importati abbiano almeno la struttura base attesa
+                         if (decryptedData && decryptedData.monthHistory && decryptedData.settings) {
+                             appData = decryptedData; // Sovrascrive stato corrente
+                             saveData();
+                             loadData(); // Ricarica per assicurare consistenza (es. creazione dati mese corrente se mancanti)
+                             renderAll();
+                             showNotification("Dati importati con successo!", 'success');
+                             importFileInpit.value = ''; backupPasswordInput.value = '';
+                         } else { throw new Error("Il file di backup non sembra contenere dati validi (manca monthHistory o settings)."); }
+                     } catch (error) { console.error("Import error:", error); showNotification(`Errore durante l'importazione: ${error.message}`, 'error', 5000); }
+                 };
+                 reader.onerror = () => { showNotification("Errore nella lettura del file.", 'error'); };
+                 reader.readAsText(file);
+            });
+
+            // Handler Delete All (Invariato nel concetto, rimuove la chiave)
+             deleteAllButton.addEventListener('click', () => {
+                if (confirm("SEI SICURO?\nTutti i tuoi dati (incluso lo storico) verranno cancellati PERMANENTEMENTE da questo dispositivo. Questa azione non può essere annullata.")) {
+                     if (confirm("CONFERMA DEFINITIVA?\nNon ci sarà modo di recuperare i dati dopo questa conferma.")) {
+                         localStorage.removeItem('budgetBulldogDataMaterial');
+                         // Resetta lo stato in memoria a quello iniziale
+                         appData = {
+                             monthHistory: {},
+                             settings: { theme: 'light', fixedExpensesSort: 'default' }
+                         };
+                         getCurrentMonthData(true); // Crea dati vuoti per il mese corrente
+                         saveData(); // Salva lo stato resettato
+                         renderAll(); // Rirenderizza tutto (mostrerà vuoto)
+                         // Svuota anche i form non resettati automaticamente da renderAll
+                         goalsForm.reset();
+                         mainIncomeForm.reset();
+                         fixedExpenseForm.reset();
+                         extraIncomeForm.reset();
+                         debtForm.reset();
+                         backupPasswordInput.value = '';
+
+                         showNotification("Tutti i dati sono stati cancellati.", 'success', 5000);
+                     }
+                 }
+             });
+
+            // --- INITIALIZATION ---
+            loadData(); // Carica i dati (o inizializza la nuova struttura)
+            renderAll(); // Renderizza l'interfaccia iniziale
+
+             // Imposta stato iniziale bottoni sort (invariato)
+             const currentSort = appData.settings.fixedExpensesSort || 'default';
+             sortControls.querySelectorAll('button').forEach(btn => {
+                 if (btn.dataset.sort === currentSort) { btn.classList.add('active'); }
+                 else { btn.classList.remove('active'); }
+             });
+
+        }); // End DOMContentLoaded
     </script>
 
 </body>

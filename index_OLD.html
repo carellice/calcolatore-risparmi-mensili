@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📊 Calcolatore Risparmi PWA</title> <meta name="theme-color" content="#007bff"> <meta name="description" content="Calcolatore di risparmi mensili personale con storico e backup.">
+
+    <link id="manifest-link" rel="manifest">
+    <link rel="icon" href="https://em-content.zobj.net/source/apple/419/bar-chart_1f4ca.png" type="image/png">
+
+    <style>
+        /* CSS Completo (identico alla versione precedente corretta) */
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --background-color: #f8f9fa;
+            --text-color: #333;
+            --card-background: #ffffff;
+            --border-color: #dee2e6;
+            --danger-color: #dc3545;
+            --success-color: #28a745;
+            --info-color: #17a2b8;
+            --warning-color: #ffc107;
+            --light-gray: #e9ecef;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; background-color: var(--background-color); color: var(--text-color); line-height: 1.6; padding: 20px; }
+        .container { max-width: 900px; margin: 20px auto; background-color: var(--card-background); padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
+        h1 { color: var(--primary-color); margin-bottom: 25px; text-align: center; font-size: 2rem; }
+        h2 { color: var(--primary-color); margin-top: 30px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; font-size: 1.6rem; }
+        h2 span { margin-bottom: 10px; flex-grow: 1; }
+        h3 { color: var(--secondary-color); margin-top: 25px; margin-bottom: 15px; font-size: 1.3rem; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.95rem; color: var(--secondary-color); }
+        input[type="text"], input[type="number"], select { width: 100%; padding: 12px 15px; border: 1px solid var(--border-color); border-radius: 5px; font-size: 1rem; margin-bottom: 5px; transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
+        input:focus, select:focus { border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); outline: none; }
+        input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type=number] { -moz-appearance: textfield; }
+        button { display: inline-block; background-color: var(--primary-color); color: white; padding: 10px 18px; border: none; border-radius: 5px; cursor: pointer; font-size: 0.95rem; font-weight: 500; transition: background-color 0.2s ease, transform 0.1s ease; margin-top: 5px; margin-right: 5px; vertical-align: bottom; }
+        button:last-of-type { margin-right: 0; }
+        button:hover { background-color: #0056b3; transform: translateY(-1px); }
+        button:active { transform: translateY(0px); }
+        button#calcola { width: 100%; font-size: 1.15rem; padding: 12px 20px; margin-top: 25px; margin-bottom: 15px; background-color: var(--success-color); margin-right: 0; }
+        button#calcola:hover { background-color: #218838; }
+        .remove-btn { background-color: var(--danger-color); padding: 4px 8px; font-size: 0.8rem; font-weight: bold; line-height: 1; margin: 0; }
+        .remove-btn:hover { background-color: #c82333; }
+        #spese-fisse-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; align-items: end; margin-bottom: 20px; }
+        #spese-fisse-container .form-group { margin-bottom: 0; }
+        #spese-fisse-container button#aggiungi-spesa { grid-column: span 1; align-self: end; width: 100%; padding: 12px; font-size: 1rem; }
+        #controlli-ordinamento { text-align: right; margin-bottom: 10px; }
+        #controlli-ordinamento small { margin-right: 10px; font-size: 0.9em; color: var(--secondary-color); }
+        #controlli-ordinamento button { background-color: var(--secondary-color); font-size: 0.8rem; padding: 5px 10px; margin-left: 5px; vertical-align: middle; }
+        #controlli-ordinamento button:hover { background-color: #5a6268; }
+        #controlli-ordinamento button.active { background-color: var(--primary-color); font-weight: bold; }
+        #lista-spese { list-style: none; padding: 0; margin-top: 15px; }
+        #lista-spese li { display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 10px; align-items: center; padding: 12px 5px; border-bottom: 1px solid var(--border-color); margin-bottom: 5px; background-color: #fff; transition: background-color 0.2s; }
+        #lista-spese li:hover { background-color: #f8f9fa; }
+        #lista-spese li span { overflow-wrap: break-word; word-break: break-word; font-size: 0.95rem;}
+        #lista-spese li .spesa-importo { text-align: right; font-weight: 600; color: var(--primary-color); }
+        #lista-spese li .spesa-categoria { font-style: italic; color: var(--secondary-color); font-size: 0.85em; }
+        #lista-spese li .remove-btn { justify-self: end; }
+        #totale-spese-fisse { text-align: right; font-weight: bold; font-size: 1.1rem; margin-top: 15px; padding-top: 10px; border-top: 2px solid var(--primary-color); color: var(--primary-color);}
+        #riepilogo-categorie { margin-top: 25px; margin-bottom: 20px; padding: 20px; background-color: var(--light-gray); border-radius: 8px; border: 1px solid var(--border-color);}
+        #riepilogo-categorie h3 { margin-top: 0; color: var(--secondary-color); text-align: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; font-size: 1.2rem;}
+        #lista-categorie-somma { list-style: none; padding: 0; margin-top: 15px; }
+        #lista-categorie-somma li { display: flex; justify-content: space-between; padding: 10px 5px; border-bottom: 1px dotted var(--border-color); font-size: 0.95rem; }
+        #lista-categorie-somma li:last-child { border-bottom: none; }
+        #lista-categorie-somma span:last-child { font-weight: 600; color: var(--primary-color);}
+        #risultati { margin-top: 30px; padding: 25px; background-color: var(--light-gray); border-radius: 8px; border: 1px solid var(--border-color); display: none; }
+        #risultati h2#titolo-riepilogo { text-align: center; font-size: 1.5rem; color: var(--primary-color); border-bottom: none; margin-bottom: 20px; }
+        #risultati p { font-size: 1.1rem; margin-bottom: 14px; display: flex; justify-content: space-between; flex-wrap: wrap; align-items: center; padding: 5px 0; }
+        #risultati p span:first-child { color: var(--secondary-color); font-weight: 500;}
+        #risultati p span:last-child { font-weight: 600; text-align: right; margin-left: 10px; }
+        #risultati hr { border: 0; border-top: 1px solid var(--border-color); margin: 20px 0; }
+        #risultati p.debito-precedente span:last-child { color: var(--danger-color); font-style: italic; }
+        #messaggio-finale { border-top: 1px solid var(--border-color); padding-top: 15px; }
+        #debiti-mese-container { margin-top: 25px; padding: 20px; border: 1px dashed var(--info-color); border-radius: 8px; display: none; background-color: #f8fcff; }
+        #debiti-mese-container h3 { font-size: 1.2rem; color: var(--info-color); text-align: center; }
+        #form-aggiungi-debito { display: flex; gap: 15px; margin-bottom: 15px; align-items: flex-end; flex-wrap: wrap;}
+        #form-aggiungi-debito .form-group { flex: 1; min-width: 150px; margin-bottom: 0;}
+        #form-aggiungi-debito button { padding: 12px 15px; height: fit-content; background-color: var(--info-color); }
+        #form-aggiungi-debito button:hover { background-color: #138496; }
+        #debiti-mese-container h4 { font-size: 1rem; color: var(--secondary-color); margin-top: 20px; margin-bottom: 10px; }
+        #lista-debiti-riporto { list-style: none; padding: 0; max-height: 150px; overflow-y: auto; margin-bottom: 10px; border: 1px solid var(--border-color); border-radius: 5px; background-color: #fff;}
+        #lista-debiti-riporto li { display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; border-bottom: 1px dotted var(--border-color); font-size: 0.9rem;}
+        #lista-debiti-riporto li:last-child { border-bottom: none; }
+        #lista-debiti-riporto li span:first-child { flex-grow: 1; margin-right: 10px;}
+        #lista-debiti-riporto li span:nth-child(2) { font-weight: 600; color: var(--primary-color); white-space: nowrap; }
+        #lista-debiti-riporto li .remove-debito-btn { font-size: 0.7rem; padding: 3px 6px; margin-left: 10px; }
+        #totale-debiti-riporto { font-weight: bold; font-size: 1.1rem; color: var(--danger-color); }
+        #storico-container { margin-top: 30px; padding: 20px; background-color: #fff; border: 1px solid var(--border-color); border-radius: 8px; }
+        #storico-container h3 { margin-top: 0; text-align: center; color: var(--secondary-color); border-bottom: 1px solid var(--border-color); padding-bottom: 10px; font-size: 1.3rem;}
+        #seleziona-mese-storico { margin-bottom: 20px; max-width: 300px; display: block; margin-left: auto; margin-right: auto; }
+        #dettaglio-storico { background-color: var(--light-gray); padding: 20px; border-radius: 5px; display: none; margin-top: 15px; border: 1px solid var(--border-color);}
+        #dettaglio-storico h4 { text-align: center; margin-bottom: 15px; color: var(--primary-color); font-size: 1.2rem; }
+        #dettaglio-storico p { font-size: 1rem; margin-bottom: 10px; display: flex; justify-content: space-between; flex-wrap: wrap; }
+        #dettaglio-storico p span:first-child { color: var(--secondary-color); font-weight: 500;}
+        #dettaglio-storico p span:last-child { font-weight: 600; text-align: right; margin-left: 10px; }
+        #dettaglio-storico p.debito-precedente span:last-child, #dettaglio-storico p.debito-riporto span:last-child { color: var(--danger-color); font-style: italic; }
+        #dettaglio-storico hr { border: 0; border-top: 1px solid var(--border-color); margin: 15px 0; }
+        #backup-restore-container { margin-top: 30px; padding: 25px; background-color: var(--light-gray); border: 1px solid var(--border-color); border-radius: 8px; text-align: center; }
+        #backup-restore-container h3 { margin-top: 0; text-align: center; color: var(--secondary-color); border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-bottom: 20px; font-size: 1.3rem; }
+        #backup-restore-container button { margin: 10px 15px; background-color: var(--info-color); font-size: 1rem; padding: 10px 20px; }
+        #backup-restore-container button:hover { background-color: #138496; }
+        #backup-restore-container button#importa-btn { background-color: var(--warning-color); color: #333; }
+        #backup-restore-container button#importa-btn:hover { background-color: #e0a800; }
+        #importa-file-input { display: none; }
+        .backup-warning { font-size: 0.9em; color: var(--danger-color); margin-top: 20px; font-weight: 600; display: block; background-color: rgba(220, 53, 69, 0.1); padding: 10px; border-radius: 5px; border: 1px solid rgba(220, 53, 69, 0.3); }
+        .positivo { color: var(--success-color) !important; }
+        .negativo { color: var(--danger-color) !important; font-weight: bold; }
+        .warning { color: var(--warning-color) !important; font-weight: bold; }
+        @media (max-width: 768px) {
+             h1 { font-size: 1.8rem; } h2 { font-size: 1.4rem; } h3 { font-size: 1.2rem; }
+             #lista-spese li { grid-template-columns: 1fr auto; gap: 5px 15px; padding: 10px; }
+             #lista-spese li .spesa-nome { grid-column: 1 / 3; font-weight: bold; } #lista-spese li .spesa-categoria { grid-column: 1 / 1; grid-row: 2; font-size: 0.8em; }
+             #lista-spese li .spesa-importo { grid-column: 2 / 2; grid-row: 2; text-align: right; font-size: 0.9em;}
+             #lista-spese li .remove-btn { grid-column: 3 / 3; grid-row: 1 / 3; align-self: center; justify-self: end;}
+             #spese-fisse-container { grid-template-columns: 1fr; } #spese-fisse-container button#aggiungi-spesa { margin-top: 10px; }
+             #form-aggiungi-debito { flex-direction: column; align-items: stretch; } #form-aggiungi-debito .form-group { min-width: unset; }
+             #backup-restore-container button { display: block; width: 80%; margin: 10px auto; }
+        }
+        @media (max-width: 600px) {
+            .container { padding: 15px; } h1 { font-size: 1.6rem; } h2 { font-size: 1.3rem; } h3 { font-size: 1.1rem; }
+            input[type="text"], input[type="number"], select, button { font-size: 0.95rem; padding: 10px 12px; }
+            button#calcola { font-size: 1.1rem; padding: 10px 15px; } .remove-btn { padding: 3px 6px; font-size: 0.7rem;}
+            #risultati p, #dettaglio-storico p { font-size: 1rem; flex-direction: column; align-items: flex-start; margin-bottom: 15px; border-bottom: 1px dashed var(--border-color); padding-bottom: 10px; }
+            #risultati p:last-of-type, #dettaglio-storico p:last-of-type { border-bottom: none; }
+            #risultati p span:last-child, #dettaglio-storico p span:last-child { margin-top: 5px; text-align: left; margin-left: 0; font-size: 1.05em; }
+            #controlli-ordinamento { text-align: center; margin-bottom: 20px; } #controlli-ordinamento button { margin: 5px; padding: 4px 8px; font-size: 0.75rem;}
+            #riepilogo-categorie { padding: 15px; } #lista-categorie-somma li { font-size: 0.9rem;}
+            #lista-spese { font-size: 0.9rem;} #lista-spese li .spesa-importo { font-size: 0.85em;}
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>📊 Calcolatore Risparmi PWA</h1>
+
+        <div class="form-group"> <label for="stipendio">Stipendio Mensile Netto (€):</label> <input type="text" inputmode="decimal" id="stipendio" placeholder="Es: 1500 / 1500,50" required> </div>
+         <div class="form-group"> <label for="risparmio-desiderato">Quanto vuoi risparmiare (€):</label> <input type="text" inputmode="decimal" id="risparmio-desiderato" placeholder="Es: 200 / 200,00" required> </div>
+
+         <h2> <span>Spese Fisse Mensili</span> <div id="controlli-ordinamento"> <small>Ordina per:</small> <button type="button" data-sort="nome">Nome</button> <button type="button" data-sort="categoria">Categoria</button> <button type="button" data-sort="importo">Importo</button> </div> </h2>
+         <p style="margin-bottom: 15px; font-size: 0.9em; color: var(--secondary-color);">Inserisci le tue spese ricorrenti.</p>
+         <div id="spese-fisse-container"> <div class="form-group"> <label for="nome-spesa">Nome Spesa</label> <input type="text" id="nome-spesa" placeholder="Es: Affitto"> </div> <div class="form-group"> <label for="categoria-spesa">Categoria</label> <input type="text" id="categoria-spesa" placeholder="Es: Casa, Utenze"> </div> <div class="form-group"> <label for="importo-spesa">Importo (€)</label> <input type="text" inputmode="decimal" id="importo-spesa" placeholder="Es: 550,50"> </div> <button type="button" id="aggiungi-spesa">Aggiungi Spesa</button> </div>
+         <ul id="lista-spese"></ul>
+         <p id="totale-spese-fisse">Totale Spese Fisse: <span id="totale-fisse-valore">0.00</span></p>
+
+         <div id="riepilogo-categorie" style="display: none;"> <h3>Spese per Categoria</h3> <ul id="lista-categorie-somma"></ul> </div>
+
+        <button id="calcola">Calcola Bilancio Mensile</button>
+
+        <div id="risultati">
+            <h2 id="titolo-riepilogo">Riepilogo Mensile</h2>
+            <p>Stipendio Inserito: <span id="res-stipendio">0.00 €</span></p>
+            <p>Obiettivo Risparmio: <span id="res-obiettivo-risparmio">0.00 €</span></p>
+            <p>Totale Spese Fisse: <span id="res-totale-spese">0.00 €</span></p>
+            <p class="debito-precedente" style="display: none;">(-) Debiti Mese Precedente: <span id="res-debiti-precedenti">0.00 €</span></p>
+            <hr style="margin: 15px 0; border-color: var(--border-color);">
+            <p>Importo Accantonato (Risparmio): <span id="res-risparmio-effettivo" class="positivo">0.00 €</span></p>
+            <p>Importo Rimanente per Spese Variabili: <span id="res-importo-spendibile">0.00 €</span></p>
+            <p id="messaggio-finale" style="margin-top: 15px; text-align: center; font-style: italic;"></p>
+         </div>
+
+        <div id="debiti-mese-container">
+              <h3>Aggiungi Debito/Spesa da Scalare il Mese Prossimo</h3>
+              <p style="font-size: 0.9em; color: var(--secondary-color); margin-bottom: 15px;">Questi importi verranno sottratti dal budget disponibile del mese successivo.</p>
+              <div id="form-aggiungi-debito"> <div class="form-group"> <label for="descrizione-debito">Descrizione</label> <input type="text" id="descrizione-debito" placeholder="Es: Cena extra"> </div> <div class="form-group"> <label for="importo-debito">Importo (€)</label> <input type="text" inputmode="decimal" id="importo-debito" placeholder="Es: 50,00"> </div> <button type="button" id="aggiungi-debito">Aggiungi Debito</button> </div>
+              <h4>Debiti da Riportare (<span id="mese-debiti-label">Mese Corrente</span>):</h4> <ul id="lista-debiti-riporto"></ul> <p style="text-align: right; margin-top:10px; border-top: 1px solid var(--border-color); padding-top: 10px;"> Totale da Scalare il Mese Prossimo: <span id="totale-debiti-riporto">0.00 €</span> </p>
+         </div>
+
+        <div id="storico-container" style="display: none;">
+             <h3>Storico Riepiloghi Mensili</h3>
+             <div class="form-group"> <label for="seleziona-mese-storico">Visualizza Riepilogo Mese:</label> <select id="seleziona-mese-storico"> <option value="">-- Seleziona un mese --</option> </select> </div>
+             <div id="dettaglio-storico"> </div>
+         </div>
+
+        <div id="backup-restore-container">
+             <h3>Backup e Ripristino Dati</h3>
+             <button type="button" id="esporta-btn">Esporta Dati Cifrati</button>
+             <button type="button" id="importa-btn">Importa Dati Cifrati</button>
+             <input type="file" id="importa-file-input" accept=".txt,.json,.enc">
+             <small class="backup-warning">
+                 <strong>Attenzione:</strong> La cifratura usata è molto semplice (XOR) e <strong>NON SICURA</strong> per dati sensibili reali. Serve solo come offuscamento di base. Ricorda la password usata!
+             </small>
+         </div>
+
+    </div>
+
+    <script>
+        // --- Elementi DOM ---
+        const stipendioInput = document.getElementById('stipendio');
+        const risparmioDesideratoInput = document.getElementById('risparmio-desiderato');
+        const nomeSpesaInput = document.getElementById('nome-spesa');
+        const categoriaSpesaInput = document.getElementById('categoria-spesa');
+        const importoSpesaInput = document.getElementById('importo-spesa');
+        const aggiungiSpesaBtn = document.getElementById('aggiungi-spesa');
+        const listaSpeseUl = document.getElementById('lista-spese');
+        const totaleFisseValoreSpan = document.getElementById('totale-fisse-valore'); // Span per il valore
+        // Riferimento all'intero paragrafo non più necessario se si corregge l'HTML
+        // const totaleSpeseFisseP = document.getElementById('totale-spese-fisse');
+        const calcolaBtn = document.getElementById('calcola');
+        const risultatiDiv = document.getElementById('risultati');
+        const titoloRiepilogoH2 = document.getElementById('titolo-riepilogo');
+        const controlliOrdinamentoDiv = document.getElementById('controlli-ordinamento');
+        const riepilogoCategorieDiv = document.getElementById('riepilogo-categorie');
+        const listaCategorieSommaUl = document.getElementById('lista-categorie-somma');
+        const debitiMeseContainerDiv = document.getElementById('debiti-mese-container');
+        const descrizioneDebitoInput = document.getElementById('descrizione-debito');
+        const importoDebitoInput = document.getElementById('importo-debito');
+        const aggiungiDebitoBtn = document.getElementById('aggiungi-debito');
+        const listaDebitiRiportoUl = document.getElementById('lista-debiti-riporto');
+        const totaleDebitiRiportoSpan = document.getElementById('totale-debiti-riporto');
+        const meseDebitiLabelSpan = document.getElementById('mese-debiti-label');
+        const storicoContainerDiv = document.getElementById('storico-container');
+        const selezionaMeseStoricoSelect = document.getElementById('seleziona-mese-storico');
+        const dettaglioStoricoDiv = document.getElementById('dettaglio-storico');
+        const esportaBtn = document.getElementById('esporta-btn');
+        const importaBtn = document.getElementById('importa-btn');
+        const importaFileInput = document.getElementById('importa-file-input');
+        const resStipendioSpan = document.getElementById('res-stipendio');
+        const resObiettivoRisparmioSpan = document.getElementById('res-obiettivo-risparmio');
+        const resTotaleSpeseSpan = document.getElementById('res-totale-spese');
+        const resDebitiPrecedentiSpan = document.getElementById('res-debiti-precedenti');
+        const resDebitiPrecedentiP = document.querySelector('#risultati p.debito-precedente');
+        const resRisparmioEffettivoSpan = document.getElementById('res-risparmio-effettivo');
+        const resImportoSpendibileSpan = document.getElementById('res-importo-spendibile');
+        const messaggioFinaleP = document.getElementById('messaggio-finale');
+
+        // --- Stato Applicazione ---
+        let speseFisse = [];
+        let nextSpesaId = 0;
+        let currentSort = { key: 'nome', ascending: true };
+
+        // --- Chiavi Local Storage ---
+        const LS_PREFIX = 'calcolatoreRisparmiStoricoPlus_V2_';
+        const LS_STIPENDIO_KEY = LS_PREFIX + 'stipendioInput';
+        const LS_RISPARMIO_KEY = LS_PREFIX + 'risparmioInput';
+        const LS_SPESE_KEY = LS_PREFIX + 'speseFisse';
+        const LS_STORICO_RIEPILOGHI_KEY = LS_PREFIX + 'storicoRiepiloghi';
+
+        // --- Funzioni Helper ---
+        function formatCurrency(value) { const numericValue = Number(value); if (isNaN(numericValue)) return "0,00 €"; return numericValue.toLocaleString('it-IT', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+        function parseLocaleFloat(value) { if (typeof value === 'number') return isNaN(value) ? 0 : value; if (typeof value !== 'string' || value.trim() === '') return 0; let cleaned = value.trim().replace(/\s/g, '').replace('€', ''); const hasComma = cleaned.includes(','); const hasDot = cleaned.includes('.'); if (hasComma && hasDot) cleaned = cleaned.replace(/\./g, '').replace(',', '.'); else if (hasComma) cleaned = cleaned.replace(',', '.'); else if (hasDot) { const dotCount = (cleaned.match(/\./g) || []).length; if (dotCount > 1) { const lastDotIndex = cleaned.lastIndexOf('.'); cleaned = cleaned.substring(0, lastDotIndex).replace(/\./g, '') + cleaned.substring(lastDotIndex); } } const result = parseFloat(cleaned); return isNaN(result) ? 0 : result; }
+        function getCurrentMonthKey() { const now = new Date(); const year = now.getFullYear(); const month = (now.getMonth() + 1).toString().padStart(2, '0'); return `${year}-${month}`; }
+        function getDisplayDate(date = new Date()) { const monthName = date.toLocaleString('it-IT', { month: 'long' }); const year = date.getFullYear(); return `${monthName.charAt(0).toUpperCase() + monthName.slice(1)} ${year}`; }
+        function getPreviousMonthKey(currentKey) { const [year, month] = currentKey.split('-').map(Number); let prevMonth = month - 1; let prevYear = year; if (prevMonth === 0) { prevMonth = 12; prevYear--; } return `${prevYear}-${prevMonth.toString().padStart(2, '0')}`; }
+
+        // --- Cifratura XOR Semplice (NON SICURA!) ---
+        function simpleXORCipher(text, key) { if (!key) return text; let result = ''; for (let i = 0; i < text.length; i++) { result += String.fromCharCode(text.charCodeAt(i) ^ key.charCodeAt(i % key.length)); } return result; }
+        function safeBase64Encode(str) { try { return btoa(unescape(encodeURIComponent(str))); } catch (e) { console.error("Errore in safeBase64Encode:", e); return null; } }
+        function safeBase64Decode(b64) { try { return decodeURIComponent(escape(atob(b64))); } catch (e) { console.error("Errore in safeBase64Decode:", e); return null; } }
+        function encryptData(text, key) { const xorResult = simpleXORCipher(text, key); return safeBase64Encode(xorResult); }
+        function decryptData(base64Data, key) { const decodedText = safeBase64Decode(base64Data); if (decodedText === null) return null; return simpleXORCipher(decodedText, key); }
+
+        // --- Funzioni Local Storage ---
+        function salvaDatiInput() { try { localStorage.setItem(LS_STIPENDIO_KEY, stipendioInput.value); localStorage.setItem(LS_RISPARMIO_KEY, risparmioDesideratoInput.value); } catch (error) { console.error("Errore salvataggio input:", error); } }
+        function salvaSpese() { try { localStorage.setItem(LS_SPESE_KEY, JSON.stringify(speseFisse)); } catch (error) { console.error("Errore salvataggio spese:", error); } }
+        function salvaRiepilogoMensile(monthKey, summaryData) { try { let storico = JSON.parse(localStorage.getItem(LS_STORICO_RIEPILOGHI_KEY) || '{}'); storico[monthKey] = summaryData; localStorage.setItem(LS_STORICO_RIEPILOGHI_KEY, JSON.stringify(storico)); } catch (error) { console.error(`Errore salvataggio storico per ${monthKey}:`, error); } }
+
+        function caricaDati() {
+            stipendioInput.value = localStorage.getItem(LS_STIPENDIO_KEY) || '';
+            risparmioDesideratoInput.value = localStorage.getItem(LS_RISPARMIO_KEY) || '';
+            const savedSpese = localStorage.getItem(LS_SPESE_KEY);
+            if (savedSpese) { try { speseFisse = JSON.parse(savedSpese); nextSpesaId = speseFisse.reduce((maxId, spesa) => Math.max(maxId, spesa.id || 0), 0) + 1; } catch (error) { console.error("Errore caricamento spese:", error); speseFisse = []; localStorage.removeItem(LS_SPESE_KEY); } } else { speseFisse = []; }
+            sortSpese();
+            aggiornaTotaleSpeseFisse(); // Aggiorna il totale
+            calcolaESmostraSommeCategorie();
+            risultatiDiv.style.display = 'none';
+
+            // Gestione Visibilità Sezione Debiti al caricamento (LOGICA AGGIORNATA)
+            const currentMonthKey = getCurrentMonthKey();
+            const storico = JSON.parse(localStorage.getItem(LS_STORICO_RIEPILOGHI_KEY) || '{}');
+            if (storico[currentMonthKey]) {
+                console.log(`Trovato riepilogo per ${currentMonthKey}, mostro sezione debiti.`);
+                renderDebitiDaRiportareUI(currentMonthKey); // Mostra debiti esistenti
+                debitiMeseContainerDiv.style.display = 'block'; // Mostra sezione
+            } else {
+                console.log(`Nessun riepilogo per ${currentMonthKey}, sezione debiti nascosta.`);
+                debitiMeseContainerDiv.style.display = 'none'; // Tieni nascosta
+            }
+
+            caricaStorico();
+        }
+
+        // --- Funzioni Gestione Spese e Categorie ---
+        function aggiornaTotaleSpeseFisse() {
+            const totale = speseFisse.reduce((sum, spesa) => sum + (spesa.importo || 0), 0);
+            // Aggiorna solo lo span del valore, l'HTML è stato corretto
+            totaleFisseValoreSpan.textContent = formatCurrency(totale);
+            return totale;
+        }
+        function renderListaSpese() { listaSpeseUl.innerHTML = ''; if (speseFisse.length === 0) { listaSpeseUl.innerHTML = '<li style="font-style: italic; color: var(--secondary-color); border: none; display: block; text-align: center;">Nessuna spesa fissa inserita.</li>'; return; } speseFisse.forEach(spesa => { const li = document.createElement('li'); const categoriaText = spesa.categoria ? spesa.categoria : '-'; li.innerHTML = `<span class="spesa-nome">${spesa.nome}</span> <span class="spesa-categoria">${categoriaText}</span> <span class="spesa-importo">${formatCurrency(spesa.importo)}</span> <button class="remove-btn" data-id="${spesa.id}" aria-label="Rimuovi ${spesa.nome}">X</button>`; listaSpeseUl.appendChild(li); li.querySelector('.remove-btn').addEventListener('click', (e) => { rimuoviSpesa(parseInt(e.target.dataset.id)); }); }); }
+        function calcolaESmostraSommeCategorie() { const sommeCategorie = {}; speseFisse.forEach(spesa => { if (spesa.categoria && spesa.categoria.trim() !== '') { const catKey = spesa.categoria.trim(); sommeCategorie[catKey] = (sommeCategorie[catKey] || 0) + spesa.importo; } }); const categorieOrdinate = Object.keys(sommeCategorie).sort((a, b) => a.localeCompare(b, 'it')); listaCategorieSommaUl.innerHTML = ''; if (categorieOrdinate.length > 0) { categorieOrdinate.forEach(cat => { const li = document.createElement('li'); li.innerHTML = `<span>${cat}</span> <span>${formatCurrency(sommeCategorie[cat])}</span>`; listaCategorieSommaUl.appendChild(li); }); riepilogoCategorieDiv.style.display = 'block'; } else { riepilogoCategorieDiv.style.display = 'none'; } }
+        function aggiungiSpesa() { const nome = nomeSpesaInput.value.trim(); const categoria = categoriaSpesaInput.value.trim(); const importo = parseLocaleFloat(importoSpesaInput.value); if (nome === '' || isNaN(importo) || importo <= 0) { alert('Inserisci nome e importo valido.'); return; } const nuovaSpesa = { id: nextSpesaId++, nome, categoria, importo }; speseFisse.push(nuovaSpesa); salvaSpese(); sortSpese(); aggiornaTotaleSpeseFisse(); calcolaESmostraSommeCategorie(); nomeSpesaInput.value = ''; categoriaSpesaInput.value = ''; importoSpesaInput.value = ''; nomeSpesaInput.focus(); risultatiDiv.style.display = 'none'; debitiMeseContainerDiv.style.display = 'none'; }
+        function rimuoviSpesa(id) { speseFisse = speseFisse.filter(spesa => spesa.id !== id); salvaSpese(); sortSpese(); aggiornaTotaleSpeseFisse(); calcolaESmostraSommeCategorie(); risultatiDiv.style.display = 'none'; debitiMeseContainerDiv.style.display = 'none'; }
+
+
+        // --- Funzioni Gestione Debiti da Riportare ---
+        function renderDebitiDaRiportareUI(monthKey) {
+             listaDebitiRiportoUl.innerHTML = ''; let totaleDebiti = 0; let storico = JSON.parse(localStorage.getItem(LS_STORICO_RIEPILOGHI_KEY) || '{}');
+             const debitiQuestoMese = storico[monthKey]?.debitiDaRiportare || [];
+             debitiQuestoMese.forEach(debito => { const li = document.createElement('li'); li.innerHTML = `<span>${debito.descrizione || 'N/D'}</span> <span>${formatCurrency(debito.importo)}</span> <button class="remove-btn remove-debito-btn" data-id="${debito.id}" data-monthkey="${monthKey}" aria-label="Rimuovi ${debito.descrizione}">X</button>`; listaDebitiRiportoUl.appendChild(li); totaleDebiti += debito.importo; li.querySelector('.remove-debito-btn').addEventListener('click', (e) => { rimuoviDebitoDaRiportare(e.target.dataset.monthkey, parseInt(e.target.dataset.id)); }); });
+             totaleDebitiRiportoSpan.textContent = formatCurrency(totaleDebiti);
+             const [year, month] = monthKey.split('-'); meseDebitiLabelSpan.textContent = getDisplayDate(new Date(year, month - 1, 1));
+        }
+        function aggiungiDebitoDaRiportare() {
+            const descrizione = descrizioneDebitoInput.value.trim(); const importo = parseLocaleFloat(importoDebitoInput.value); const currentMonthKey = getCurrentMonthKey();
+            if (importo <= 0) { alert("Importo debito non valido."); return; }
+            let storico = JSON.parse(localStorage.getItem(LS_STORICO_RIEPILOGHI_KEY) || '{}');
+            if (!storico[currentMonthKey]) { alert("Calcola prima il bilancio per questo mese."); return; }
+            const nuovoDebito = { id: Date.now(), descrizione: descrizione || `Debito del ${new Date().toLocaleDateString('it-IT')}`, importo: importo };
+            if (!Array.isArray(storico[currentMonthKey].debitiDaRiportare)) { storico[currentMonthKey].debitiDaRiportare = []; }
+            storico[currentMonthKey].debitiDaRiportare.push(nuovoDebito);
+            localStorage.setItem(LS_STORICO_RIEPILOGHI_KEY, JSON.stringify(storico));
+            renderDebitiDaRiportareUI(currentMonthKey);
+            descrizioneDebitoInput.value = ''; importoDebitoInput.value = ''; descrizioneDebitoInput.focus();
+        }
+         function rimuoviDebitoDaRiportare(monthKey, debitoId) {
+             let storico = JSON.parse(localStorage.getItem(LS_STORICO_RIEPILOGHI_KEY) || '{}');
+             if (storico[monthKey]?.debitiDaRiportare) {
+                 storico[monthKey].debitiDaRiportare = storico[monthKey].debitiDaRiportare.filter(d => d.id !== debitoId);
+                 localStorage.setItem(LS_STORICO_RIEPILOGHI_KEY, JSON.stringify(storico));
+                 if (monthKey === getCurrentMonthKey()) { renderDebitiDaRiportareUI(monthKey); }
+             } else { console.error(`Impossibile rimuovere debito: dati non trovati per ${monthKey}`); }
+         }
+
+        // --- Funzioni Ordinamento ---
+        function updateSortButtonsUI() { controlliOrdinamentoDiv.querySelectorAll('button').forEach(btn => { btn.classList.toggle('active', btn.dataset.sort === currentSort.key); }); }
+        function sortSpese(sortKey = currentSort.key) { if (sortKey === currentSort.key) currentSort.ascending = !currentSort.ascending; else { currentSort.key = sortKey; currentSort.ascending = true; } const direction = currentSort.ascending ? 1 : -1; speseFisse.sort((a, b) => { let valA, valB; switch (currentSort.key) { case 'categoria': valA = (a.categoria || '').toLowerCase(); valB = (b.categoria || '').toLowerCase(); break; case 'importo': valA = a.importo || 0; valB = b.importo || 0; break; default: valA = (a.nome || '').toLowerCase(); valB = (b.nome || '').toLowerCase(); break; } if (valA < valB) return -1 * direction; if (valA > valB) return 1 * direction; if (currentSort.key !== 'nome') { const nameA = (a.nome || '').toLowerCase(); const nameB = (b.nome || '').toLowerCase(); if (nameA < nameB) return -1 * direction; if (nameA > nameB) return 1 * direction; } return 0; }); updateSortButtonsUI(); renderListaSpese(); }
+
+        // --- Funzione Calcolo Principale ---
+        function calcolaBilancio() {
+            messaggioFinaleP.className = '';
+            const stipendio = parseLocaleFloat(stipendioInput.value); const risparmioDesiderato = parseLocaleFloat(risparmioDesideratoInput.value);
+            if (stipendio <= 0) { alert('Inserisci stipendio valido.'); return; } if (risparmioDesiderato < 0 || isNaN(risparmioDesiderato)) { alert('Inserisci obiettivo risparmio valido.'); return; }
+            const currentMonthKey = getCurrentMonthKey(); const previousMonthKey = getPreviousMonthKey(currentMonthKey);
+            let debitoPrecedente = 0; let storico = JSON.parse(localStorage.getItem(LS_STORICO_RIEPILOGHI_KEY) || '{}');
+            if (storico[previousMonthKey]?.debitiDaRiportare) { debitoPrecedente = (storico[previousMonthKey].debitiDaRiportare || []).reduce((sum, debito) => sum + (debito.importo || 0), 0); }
+            const totaleSpese = aggiornaTotaleSpeseFisse(); const risparmioEffettivo = risparmioDesiderato; const importoSpendibile = stipendio - risparmioEffettivo - totaleSpese - debitoPrecedente;
+            const displayDate = getDisplayDate(); titoloRiepilogoH2.textContent = `Riepilogo Mensile - ${displayDate}`;
+            resStipendioSpan.textContent = formatCurrency(stipendio); resObiettivoRisparmioSpan.textContent = formatCurrency(risparmioDesiderato); resTotaleSpeseSpan.textContent = formatCurrency(totaleSpese);
+            if (debitoPrecedente > 0) { resDebitiPrecedentiSpan.textContent = formatCurrency(debitoPrecedente); resDebitiPrecedentiP.style.display = 'flex'; } else { resDebitiPrecedentiP.style.display = 'none'; }
+            resRisparmioEffettivoSpan.textContent = formatCurrency(risparmioEffettivo); resRisparmioEffettivoSpan.className = risparmioEffettivo > 0 ? 'positivo' : '';
+            resImportoSpendibileSpan.textContent = formatCurrency(importoSpendibile); resImportoSpendibileSpan.className = importoSpendibile >= 0 ? 'positivo' : 'negativo';
+            if (importoSpendibile >= 0) { messaggioFinaleP.textContent = "✅ Budget disponibile."; messaggioFinaleP.className = 'positivo'; if (importoSpendibile === 0 && (totaleSpese > 0 || risparmioEffettivo > 0 || debitoPrecedente > 0)) { messaggioFinaleP.textContent = "⚠️ Budget a zero."; messaggioFinaleP.className = 'warning'; } } else { messaggioFinaleP.className = 'negativo'; messaggioFinaleP.textContent = stipendio < totaleSpese + debitoPrecedente ? "🛑 Spese+debiti sup. stipendio." : "📉 Budget insufficiente."; }
+            const debitiDaRiportareSalvati = storico[currentMonthKey]?.debitiDaRiportare || [];
+            const riepilogoCorrente = { displayDate, stipendio, obiettivoRisparmio: risparmioDesiderato, totaleSpese, debitoPrecedente, risparmioEffettivo, importoSpendibile, resStipendioStr: resStipendioSpan.textContent, resObiettivoRisparmioStr: resObiettivoRisparmioSpan.textContent, resTotaleSpeseStr: resTotaleSpeseSpan.textContent, resDebitoPrecedenteStr: formatCurrency(debitoPrecedente), resRisparmioEffettivoStr: resRisparmioEffettivoSpan.textContent, resImportoSpendibileStr: resImportoSpendibileSpan.textContent, messaggioFinale: messaggioFinaleP.textContent, messaggioClass: messaggioFinaleP.className, debitiDaRiportare: debitiDaRiportareSalvati, timestamp: Date.now() };
+            salvaRiepilogoMensile(currentMonthKey, riepilogoCorrente);
+            risultatiDiv.style.display = 'block';
+            renderDebitiDaRiportareUI(currentMonthKey);
+            debitiMeseContainerDiv.style.display = 'block';
+            calcolaESmostraSommeCategorie();
+            caricaStorico();
+        }
+
+        // --- Funzioni Storico ---
+        function caricaStorico() { try { let storico = JSON.parse(localStorage.getItem(LS_STORICO_RIEPILOGHI_KEY) || '{}'); const mesiSalvati = Object.keys(storico).sort().reverse(); selezionaMeseStoricoSelect.innerHTML = '<option value="">-- Seleziona un mese --</option>'; if (mesiSalvati.length > 0) { mesiSalvati.forEach(monthKey => { const option = document.createElement('option'); option.value = monthKey; const [year, month] = monthKey.split('-'); const dateFromKey = new Date(year, month - 1, 1); option.textContent = getDisplayDate(dateFromKey); selezionaMeseStoricoSelect.appendChild(option); }); storicoContainerDiv.style.display = 'block'; } else { storicoContainerDiv.style.display = 'none'; } } catch (error) { console.error("Errore caricamento storico:", error); storicoContainerDiv.style.display = 'none'; } }
+        function mostraDettaglioStorico(monthKey) { if (!monthKey) { dettaglioStoricoDiv.style.display = 'none'; return; } try { let storico = JSON.parse(localStorage.getItem(LS_STORICO_RIEPILOGHI_KEY) || '{}'); const datiMese = storico[monthKey]; if (datiMese) { const totaleDebitiRiportatiDaMese = (datiMese.debitiDaRiportare || []).reduce((sum, d) => sum + (d.importo || 0), 0); dettaglioStoricoDiv.innerHTML = `<h4>Riepilogo ${datiMese.displayDate || monthKey}</h4><p>Stipendio: <span>${datiMese.resStipendioStr || 'N/A'}</span></p><p>Obiettivo Risparmio: <span>${datiMese.resObiettivoRisparmioStr || 'N/A'}</span></p><p>Totale Spese Fisse: <span>${datiMese.resTotaleSpeseStr || 'N/A'}</span></p>${datiMese.debitoPrecedente > 0 ? `<p class="debito-precedente">(-) Debiti Mese Prec.: <span>${formatCurrency(datiMese.debitoPrecedente)}</span></p>` : ''}<hr><p>Risparmio Effettivo: <span class="${datiMese.risparmioEffettivo > 0 ? 'positivo' : ''}">${datiMese.resRisparmioEffettivoStr || 'N/A'}</span></p><p>Importo Spendibile: <span class="${datiMese.importoSpendibile >= 0 ? 'positivo' : 'negativo'}">${datiMese.resImportoSpendibileStr || 'N/A'}</span></p>${totaleDebitiRiportatiDaMese > 0 ? `<p class="debito-riporto">(-) Debiti Riportati al Mese Succ.: <span>${formatCurrency(totaleDebitiRiportatiDaMese)}</span></p>` : ''}<p style="text-align:center; font-style: italic; margin-top: 10px;" class="${datiMese.messaggioClass || ''}">${datiMese.messaggioFinale || ''}</p>`; dettaglioStoricoDiv.style.display = 'block'; } else { dettaglioStoricoDiv.innerHTML = '<p>Dati non trovati.</p>'; dettaglioStoricoDiv.style.display = 'block'; } } catch (error) { console.error("Errore visualizzazione storico:", error); dettaglioStoricoDiv.innerHTML = '<p>Errore caricamento dati.</p>'; dettaglioStoricoDiv.style.display = 'block'; } }
+
+        // --- Funzioni Backup/Restore ---
+        function esportaDatiCifrati() {
+            const password = prompt("Crea una password per cifrare il backup (RICORDALA!):", "");
+            if (!password) { alert("Esportazione annullata."); return; }
+            const datiDaEsportare = { version: 1, inputs: { stipendio: stipendioInput.value, risparmio: risparmioDesideratoInput.value }, spese: speseFisse, storico: JSON.parse(localStorage.getItem(LS_STORICO_RIEPILOGHI_KEY) || '{}') };
+            try {
+                const jsonData = JSON.stringify(datiDaEsportare); const encryptedData = encryptData(jsonData, password);
+                if (!encryptedData) throw new Error("Encryption failed");
+                const blob = new Blob([encryptedData], { type: 'text/plain;charset=utf-8' }); const link = document.createElement('a'); link.href = URL.createObjectURL(blob);
+                const timestamp = new Date().toISOString().slice(0, 10).replace(/-/g, ''); link.download = `backup_calcolatore_risparmi_${timestamp}.txt`;
+                link.style.display = 'none'; document.body.appendChild(link); link.click(); document.body.removeChild(link); URL.revokeObjectURL(link.href);
+                alert("Dati esportati con successo!");
+            } catch (error) { console.error("Errore esportazione:", error); alert("Errore durante l'esportazione."); }
+        }
+        function importaDatiCifrati(event) {
+            const file = event.target.files[0]; if (!file) { return; }
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const encryptedData = e.target.result; const password = prompt("Inserisci la password del file di backup:", "");
+                if (!password) { importaFileInput.value = ''; return; }
+                try {
+                    const decryptedJson = decryptData(encryptedData, password);
+                    if (!decryptedJson) throw new Error("Decryption failed (password errata?).");
+                    const datiImportati = JSON.parse(decryptedJson);
+                    if (!datiImportati?.inputs || !datiImportati?.spese || !datiImportati?.storico) throw new Error("Formato file non valido.");
+                    const conferma = confirm("ATTENZIONE: Sovrascrivere tutti i dati attuali? Continuare?");
+                    if (!conferma) { importaFileInput.value = ''; return; }
+                    stipendioInput.value = datiImportati.inputs.stipendio || ''; risparmioDesideratoInput.value = datiImportati.inputs.risparmio || '';
+                    speseFisse = Array.isArray(datiImportati.spese) ? datiImportati.spese : [];
+                    const storicoImportato = typeof datiImportati.storico === 'object' && datiImportati.storico !== null ? datiImportati.storico : {};
+                    localStorage.setItem(LS_STIPENDIO_KEY, stipendioInput.value); localStorage.setItem(LS_RISPARMIO_KEY, risparmioDesideratoInput.value); localStorage.setItem(LS_SPESE_KEY, JSON.stringify(speseFisse)); localStorage.setItem(LS_STORICO_RIEPILOGHI_KEY, JSON.stringify(storicoImportato));
+                    alert("Dati importati! L'applicazione verrà ricaricata."); location.reload();
+                } catch (error) { console.error("Errore importazione:", error); alert(`Errore importazione: ${error.message}.`); importaFileInput.value = ''; }
+            };
+            reader.onerror = function() { alert("Errore lettura file."); importaFileInput.value = ''; };
+            reader.readAsText(file);
+        }
+
+         // --- Funzioni PWA ---
+         function generateManifest() {
+            // Crea un'icona SVG semplice con l'emoji
+            const emoji = "📊";
+            const iconSize = 512; // Dimensione desiderata per SVG
+            const svgIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${iconSize} ${iconSize}" width="${iconSize}" height="${iconSize}">
+                                <rect width="100%" height="100%" fill="#007bff"/> <text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-size="${iconSize * 0.7}" fill="#ffffff">${emoji}</text>
+                             </svg>`;
+            // Codifica l'SVG in Base64 per usarlo come Data URI
+            const svgIconBase64 = btoa(unescape(encodeURIComponent(svgIcon)));
+            const iconDataUri = `data:image/svg+xml;base64,${svgIconBase64}`;
+
+            const manifest = {
+                "name": "Calcolatore Risparmi Personale",
+                "short_name": "Risparmi",
+                "description": "Calcolatore di risparmi mensili personale con storico e backup.",
+                "start_url": ".", // Inizia dalla directory corrente
+                "display": "standalone", // Aspetto da app
+                "background_color": "#ffffff",
+                "theme_color": "#007bff", // Colore primario
+                "icons": [
+                    {
+                        "src": iconDataUri,
+                        "sizes": "192x192", // Dimensione comune per Android
+                        "type": "image/svg+xml",
+                        "purpose": "any maskable" // Adatta a forme diverse
+                    },
+                     {
+                        "src": iconDataUri,
+                        "sizes": "512x512", // Dimensione più grande
+                        "type": "image/svg+xml",
+                        "purpose": "any maskable"
+                    }
+                ]
+            };
+            // Crea il Data URI per il manifest
+            const manifestJsonString = JSON.stringify(manifest);
+            const manifestBase64 = btoa(unescape(encodeURIComponent(manifestJsonString)));
+            const manifestDataUri = `data:application/manifest+json;base64,${manifestBase64}`;
+
+            // Imposta l'href del link nel <head>
+            const manifestLink = document.getElementById('manifest-link');
+            if (manifestLink) {
+                 manifestLink.setAttribute('href', manifestDataUri);
+                 console.log("Manifest link impostato.");
+            } else {
+                console.error("Elemento link manifest non trovato.");
+            }
+         }
+
+         function registerServiceWorker() {
+             if ('serviceWorker' in navigator) {
+                 // Definisci il codice del Service Worker come stringa
+                  const swCodeString = `
+                    const CACHE_NAME = 'risparmi-app-cache-v1';
+                    // Aggiungi qui l'URL/nome del file HTML stesso se vuoi che funzioni offline
+                    // Assumendo che il file si chiami 'index.html' o sia alla radice '/'
+                    const urlsToCache = [
+                        './' // Cache della pagina principale
+                        // Aggiungi qui altri asset se li avessi (es. CSS esterni, JS esterni - ma non è il caso)
+                    ];
+
+                    self.addEventListener('install', event => {
+                        console.log('Service Worker: Installazione...');
+                        event.waitUntil(
+                            caches.open(CACHE_NAME)
+                                .then(cache => {
+                                    console.log('Service Worker: Cache aperta, aggiungo URLS:', urlsToCache);
+                                    // Usa addAll che fallisce se anche un solo URL non è raggiungibile
+                                    // Usa cache.add() per singolo URL se serve più controllo
+                                    return cache.addAll(urlsToCache).catch(error => {
+                                        console.error('Service Worker: Impossibile aggiungere alla cache durante install:', error);
+                                        // Potresti voler gestire questo errore in modo specifico
+                                    });
+                                })
+                                .then(() => {
+                                     console.log('Service Worker: Installazione completata.');
+                                     // Forza l'attivazione del nuovo SW subito (utile per aggiornamenti)
+                                     return self.skipWaiting();
+                                })
+                        );
+                    });
+
+                     self.addEventListener('activate', event => {
+                         console.log('Service Worker: Attivazione...');
+                         // Rimuovi vecchie cache se necessario (non implementato qui per semplicità)
+                         // Forza il controllo delle pagine aperte da parte del nuovo SW
+                         event.waitUntil(self.clients.claim());
+                         console.log('Service Worker: Attivazione completata.');
+                     });
+
+
+                    self.addEventListener('fetch', event => {
+                         // Strategia: Cache first, poi network
+                         // console.log('Service Worker: Fetching', event.request.url);
+                         // Ignora richieste non GET (es. POST per backup non va cachato)
+                         if (event.request.method !== 'GET') {
+                            return;
+                         }
+                         // Ignora richieste a domini esterni se non vuoi cacharle
+                         // if (!event.request.url.startsWith(self.location.origin)) {
+                         //    return;
+                         // }
+
+                        event.respondWith(
+                            caches.match(event.request)
+                                .then(response => {
+                                    if (response) {
+                                        // console.log('Service Worker: Trovato nella cache:', event.request.url);
+                                        return response; // Servi dalla cache
+                                    }
+                                    // console.log('Service Worker: Non trovato in cache, fetching dal network:', event.request.url);
+                                    return fetch(event.request).then(
+                                         // Opzionale: Aggiungi alla cache la risposta di rete se vuoi aggiornare la cache dinamicamente
+                                         // function(networkResponse) {
+                                         //   if(!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+                                         //     return networkResponse;
+                                         //   }
+                                         //   var responseToCache = networkResponse.clone();
+                                         //   caches.open(CACHE_NAME)
+                                         //     .then(function(cache) {
+                                         //       cache.put(event.request, responseToCache);
+                                         //     });
+                                         //   return networkResponse;
+                                         // }
+                                         networkResponse => networkResponse // Ritorna semplicemente la risposta di rete
+                                    ).catch(error => {
+                                        console.error('Service Worker: Fetch fallito per', event.request.url, error);
+                                        // Potresti restituire una pagina offline generica qui se necessario
+                                    });
+                                })
+                        );
+                    });
+                 `;
+
+                 // Crea un URL per lo script del service worker da una stringa
+                 try {
+                     const swBlob = new Blob([swCodeString], { type: 'application/javascript' });
+                     const swUrl = URL.createObjectURL(swBlob);
+
+                     navigator.serviceWorker.register(swUrl)
+                         .then(registration => {
+                             console.log('ServiceWorker registrato con scope:', registration.scope);
+                         })
+                         .catch(error => {
+                             console.error('Registrazione ServiceWorker fallita:', error);
+                         });
+                 } catch (e) {
+                      console.error('Errore creazione Blob/URL per Service Worker:', e);
+                 }
+
+             } else {
+                 console.log('Service Worker non supportato da questo browser.');
+             }
+         }
+
+
+        // --- Event Listeners ---
+        aggiungiSpesaBtn.addEventListener('click', aggiungiSpesa); importoSpesaInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); aggiungiSpesa(); } }); nomeSpesaInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); categoriaSpesaInput.focus(); } }); categoriaSpesaInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); importoSpesaInput.focus(); } });
+        calcolaBtn.addEventListener('click', calcolaBilancio);
+        stipendioInput.addEventListener('input', salvaDatiInput); risparmioDesideratoInput.addEventListener('input', salvaDatiInput);
+        controlliOrdinamentoDiv.addEventListener('click', (e) => { if (e.target.tagName === 'BUTTON' && e.target.dataset.sort) { sortSpese(e.target.dataset.sort); } });
+        aggiungiDebitoBtn.addEventListener('click', aggiungiDebitoDaRiportare); importoDebitoInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); aggiungiDebitoDaRiportare(); } });
+        selezionaMeseStoricoSelect.addEventListener('change', (e) => { mostraDettaglioStorico(e.target.value); });
+        esportaBtn.addEventListener('click', esportaDatiCifrati);
+        importaBtn.addEventListener('click', () => importaFileInput.click());
+        importaFileInput.addEventListener('change', importaDatiCifrati);
+
+        // --- Inizializzazione ---
+        document.addEventListener('DOMContentLoaded', () => {
+            caricaDati(); // Carica dati utente
+            generateManifest(); // Genera e imposta il manifest PWA
+            registerServiceWorker(); // Registra il service worker per offline
+        });
+
+    </script>
+
+</body>
+</html>
