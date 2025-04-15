@@ -22,315 +22,61 @@
             --spacing-l: 24px;
             --spacing-xl: 32px;
 
-            /* Light Theme Palette (Example: Blue & Amber) */
-            --md-primary: #1976D2; /* Blue 700 */
-            --md-primary-dark: #0D47A1; /* Blue 900 */
-            --md-primary-light: #64B5F6; /* Blue 300 */
-            --md-accent: #FFAB00; /* Amber A400 */
-            --md-text-primary: rgba(0, 0, 0, 0.87);
-            --md-text-secondary: rgba(0, 0, 0, 0.60);
-            --md-text-disabled: rgba(0, 0, 0, 0.38);
-            --md-divider: rgba(0, 0, 0, 0.12);
-            --md-background: #F5F5F5; /* Grey 100 */
-            --md-surface: #FFFFFF; /* Card background */
-            --md-error: #D32F2F; /* Red 700 */
-            --md-on-primary: #FFFFFF;
-            --md-on-secondary: #FFFFFF;
-            --md-on-accent: rgba(0,0,0,0.87); /* Text on accent */
-            --md-on-surface: rgba(0, 0, 0, 0.87);
-            --md-on-error: #FFFFFF;
-            --md-input-fill: rgba(0, 0, 0, 0.06); /* Filled input background */
-            --md-input-border-hover: rgba(0, 0, 0, 0.42);
-            --md-input-border-focus: var(--md-primary);
-             --md-mascot-fill: #8D6E63; /* Brown 400 */
+            /* Light Theme Palette */
+            --md-primary: #1976D2; --md-primary-dark: #0D47A1; --md-primary-light: #64B5F6; --md-accent: #FFAB00; --md-text-primary: rgba(0, 0, 0, 0.87); --md-text-secondary: rgba(0, 0, 0, 0.60); --md-text-disabled: rgba(0, 0, 0, 0.38); --md-divider: rgba(0, 0, 0, 0.12); --md-background: #F5F5F5; --md-surface: #FFFFFF; --md-error: #D32F2F; --md-on-primary: #FFFFFF; --md-on-secondary: #FFFFFF; --md-on-accent: rgba(0,0,0,0.87); --md-on-surface: rgba(0, 0, 0, 0.87); --md-on-error: #FFFFFF; --md-input-fill: rgba(0, 0, 0, 0.06); --md-input-border-hover: rgba(0, 0, 0, 0.42); --md-input-border-focus: var(--md-primary); --md-mascot-fill: #8D6E63;
 
-            /* Elevations (Box Shadows) */
-            --elevation-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-            --elevation-2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-            --elevation-4: 0 4px 8px rgba(0,0,0,0.19), 0 3px 6px rgba(0,0,0,0.23); /* App Bar */
-            --elevation-8: 0 8px 17px rgba(0,0,0,0.2), 0 6px 6px rgba(0,0,0,0.23); /* Raised button hover */
+            /* Elevations */
+            --elevation-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); --elevation-2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); --elevation-4: 0 4px 8px rgba(0,0,0,0.19), 0 3px 6px rgba(0,0,0,0.23); --elevation-8: 0 8px 17px rgba(0,0,0,0.2), 0 6px 6px rgba(0,0,0,0.23);
         }
 
         body.dark-mode {
              /* Dark Theme Palette */
-            --md-primary: #90CAF9; /* Blue 200 */
-            --md-primary-dark: #64B5F6; /* Blue 300 */
-            --md-primary-light: #E3F2FD; /* Blue 50 */
-            --md-accent: #FFD180; /* Amber A100 */
-            --md-text-primary: rgba(255, 255, 255, 0.87);
-            --md-text-secondary: rgba(255, 255, 255, 0.60);
-            --md-text-disabled: rgba(255, 255, 255, 0.38);
-            --md-divider: rgba(255, 255, 255, 0.12);
-            --md-background: #121212; /* Standard dark background */
-            --md-surface: #1E1E1E; /* Card background (slightly lighter dark) */
-            --md-error: #EF9A9A; /* Red 200 */
-            --md-on-primary: rgba(0, 0, 0, 0.87); /* Text on light primary */
-            --md-on-secondary: rgba(0, 0, 0, 0.87);
-            --md-on-accent: rgba(0,0,0,0.87);
-            --md-on-surface: rgba(255, 255, 255, 0.87);
-            --md-on-error: rgba(0, 0, 0, 0.87);
-             --md-input-fill: rgba(255, 255, 255, 0.09);
-             --md-input-border-hover: rgba(255, 255, 255, 0.7);
-             --md-input-border-focus: var(--md-primary);
-             --md-mascot-fill: #BCAAA4; /* Brown 200 */
+            --md-primary: #90CAF9; --md-primary-dark: #64B5F6; --md-primary-light: #E3F2FD; --md-accent: #FFD180; --md-text-primary: rgba(255, 255, 255, 0.87); --md-text-secondary: rgba(255, 255, 255, 0.60); --md-text-disabled: rgba(255, 255, 255, 0.38); --md-divider: rgba(255, 255, 255, 0.12); --md-background: #121212; --md-surface: #1E1E1E; --md-error: #EF9A9A; --md-on-primary: rgba(0, 0, 0, 0.87); --md-on-secondary: rgba(0, 0, 0, 0.87); --md-on-accent: rgba(0,0,0,0.87); --md-on-surface: rgba(255, 255, 255, 0.87); --md-on-error: rgba(0, 0, 0, 0.87); --md-input-fill: rgba(255, 255, 255, 0.09); --md-input-border-hover: rgba(255, 255, 255, 0.7); --md-input-border-focus: var(--md-primary); --md-mascot-fill: #BCAAA4;
 
-             /* Dark Elevations (subtler shadows, often rely on surface brightness) */
-            --elevation-1: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.4); /* Darker shadows */
-            --elevation-2: 0 3px 6px rgba(0,0,0,0.3), 0 3px 6px rgba(0,0,0,0.4);
-            --elevation-4: 0 4px 8px rgba(0,0,0,0.4), 0 3px 6px rgba(0,0,0,0.4);
-            --elevation-8: 0 8px 17px rgba(0,0,0,0.5), 0 6px 6px rgba(0,0,0,0.4);
+             /* Dark Elevations */
+            --elevation-1: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.4); --elevation-2: 0 3px 6px rgba(0,0,0,0.3), 0 3px 6px rgba(0,0,0,0.4); --elevation-4: 0 4px 8px rgba(0,0,0,0.4), 0 3px 6px rgba(0,0,0,0.4); --elevation-8: 0 8px 17px rgba(0,0,0,0.5), 0 6px 6px rgba(0,0,0,0.4);
         }
 
         /* --- Base Styles --- */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            font-size: 16px; /* Base font size */
-             scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: var(--font-family);
-            background-color: var(--md-background);
-            color: var(--md-text-primary);
-            line-height: 1.5; /* Material default */
-            transition: background-color 0.3s ease, color 0.3s ease;
-            padding-top: 72px; /* Space for fixed AppBar (56px + padding) */
-            padding-bottom: var(--spacing-xl);
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-weight: 500; /* Medium weight for headers */
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { font-size: 16px; scroll-behavior: smooth; }
+        body { font-family: var(--font-family); background-color: var(--md-background); color: var(--md-text-primary); line-height: 1.5; transition: background-color 0.3s ease, color 0.3s ease; padding-top: 72px; padding-bottom: var(--spacing-xl); }
+        h1, h2, h3, h4, h5, h6 { font-weight: 500; }
 
         /* --- Layout & Containers --- */
-        .app-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 var(--spacing-m);
-        }
+        .app-container { max-width: 1000px; margin: 0 auto; padding: 0 var(--spacing-m); }
+        .app-bar { background-color: var(--md-primary); color: var(--md-on-primary); padding: var(--spacing-s) var(--spacing-m); display: flex; justify-content: space-between; align-items: center; box-shadow: var(--elevation-4); position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 56px; }
+        .app-bar h1 { font-size: 1.25rem; font-weight: 500; display: flex; align-items: center; gap: var(--spacing-s); }
+        .mascot { width: 32px; height: 32px; fill: var(--md-mascot-fill); background-color: var(--md-on-primary); padding: 2px; border-radius: 50%; object-fit: contain; }
 
-        .app-bar {
-            background-color: var(--md-primary);
-            color: var(--md-on-primary);
-            padding: var(--spacing-s) var(--spacing-m);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: var(--elevation-4);
-            position: fixed; /* Fixed App Bar */
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            height: 56px; /* Standard height */
-        }
-
-        .app-bar h1 {
-            font-size: 1.25rem; /* 20sp */
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: var(--spacing-s);
-        }
-
-        .mascot { /* Applied to IMG or SVG */
-            width: 32px;
-            height: 32px;
-            fill: var(--md-mascot-fill); /* Fill for SVG */
-            background-color: var(--md-on-primary); /* Circle behind mascot (IMG/SVG) */
-            padding: 2px;
-            border-radius: 50%;
-            object-fit: contain; /* Helps if PNG is not square */
-        }
-
-        /* --- Material Icon Button --- */
-        .btn-icon {
-            background-color: transparent;
-            border: none;
-            border-radius: 50%;
-            padding: var(--spacing-s); /* 8dp padding for 40dp touch target */
-            cursor: pointer;
-            color: var(--md-on-primary); /* Icon color on primary background */
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            outline: none;
-            position: relative;
-            overflow: hidden; /* For ripple */
-             transition: background-color 0.2s ease;
-        }
-         .btn-icon:hover {
-            background-color: rgba(255, 255, 255, 0.1); /* Subtle hover for dark icons */
-         }
-         body.dark-mode .btn-icon:hover {
-             background-color: rgba(0, 0, 0, 0.1); /* Subtle hover for light icons */
-         }
-
-        .btn-icon .material-symbols-outlined {
-            font-size: 24px; /* Standard icon size */
-            pointer-events: none; /* Prevent icon stealing clicks */
-        }
-
+        /* --- Icon Button --- */
+        .btn-icon { background-color: transparent; border: none; border-radius: 50%; padding: var(--spacing-s); cursor: pointer; color: var(--md-on-primary); display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; outline: none; position: relative; overflow: hidden; transition: background-color 0.2s ease; }
+         .btn-icon:hover { background-color: rgba(255, 255, 255, 0.1); }
+         body.dark-mode .btn-icon:hover { background-color: rgba(0, 0, 0, 0.1); }
+        .btn-icon .material-symbols-outlined { font-size: 24px; pointer-events: none; }
 
         /* --- Cards --- */
-        .card {
-            background-color: var(--md-surface);
-            color: var(--md-on-surface);
-            border-radius: var(--border-radius); /* Usa la variabile aggiornata (15px) */
-            padding: var(--spacing-l);
-            margin-bottom: var(--spacing-l);
-            box-shadow: var(--elevation-1);
-            transition: background-color 0.3s ease, box-shadow 0.2s ease;
-        }
-        .card:hover {
-             /* Optional: slightly raise card on hover */
-             /* box-shadow: var(--elevation-2); */
-        }
+        .card { background-color: var(--md-surface); color: var(--md-on-surface); border-radius: var(--border-radius); padding: var(--spacing-l); margin-bottom: var(--spacing-l); box-shadow: var(--elevation-1); transition: background-color 0.3s ease, box-shadow 0.2s ease; }
+        .card h2 { font-size: 1.25rem; font-weight: 500; margin-bottom: var(--spacing-m); padding-bottom: var(--spacing-s); border-bottom: 1px solid var(--md-divider); color: var(--md-primary); }
+        body.dark-mode .card h2 { color: var(--md-primary-light); }
 
-        .card h2 {
-            font-size: 1.25rem; /* 20sp */
-            font-weight: 500;
-            margin-bottom: var(--spacing-m);
-            padding-bottom: var(--spacing-s);
-             border-bottom: 1px solid var(--md-divider);
-            color: var(--md-primary); /* Use primary color for header */
-        }
-        body.dark-mode .card h2 {
-            color: var(--md-primary-light);
-        }
-
-        /* --- Forms & Text Fields (Simulated Filled Style) --- */
-        .form-group {
-            /* Imposta lo spazio verticale tra i gruppi di input/label */
-            margin-bottom: var(--spacing-l); /* Spazio standard (24px) tra i fieldset */
-            position: relative;
-        }
-
-        /* Label sopra l'input */
-        .form-group label {
-            display: block;
-            margin-bottom: var(--spacing-xs);
-            font-size: 0.75rem; /* 12sp */
-            color: var(--md-text-secondary);
-            padding-left: var(--spacing-m); /* Align with input padding */
-        }
-
-        .text-field-container {
-             background-color: var(--md-input-fill);
-             border-top-left-radius: var(--border-radius); /* Usa la variabile aggiornata (15px) */
-             border-top-right-radius: var(--border-radius); /* Usa la variabile aggiornata (15px) */
-             padding: var(--spacing-s) var(--spacing-m); /* Padding standard dentro il campo */
-             border-bottom: 1px solid var(--md-input-border-hover);
-             transition: border-color 0.2s ease, background-color 0.3s ease;
-             position: relative;
-             overflow: hidden;
-        }
-        .text-field-container:hover {
-            border-bottom-color: var(--md-text-primary);
-        }
-        .text-field-container input:focus + .underline {
-             transform: scaleX(1);
-        }
-
-
-         input[type="text"],
-         input[type="number"],
-         input[type="password"],
-         input[type="file"],
-         select {
-             display: block;
-             width: 100%;
-             padding: var(--spacing-s) 0; /* Padding verticale dentro l'input effettivo */
-             border: none;
-             background-color: transparent; /* Input è trasparente */
-             color: var(--md-on-surface);
-             font-size: 1rem; /* 16sp */
-             outline: none;
-             line-height: 1.5;
-             appearance: none; /* Remove default styling */
-             border-radius: 0; /* Assicurati che l'input stesso non sia arrotondato */
-         }
-         /* Style select arrow */
-         select {
-             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23${(getComputedStyle(document.documentElement).getPropertyValue('--md-text-secondary') || '000000').substring(1)}'%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E");
-             background-repeat: no-repeat;
-             background-position: right var(--spacing-m) center;
-             background-size: 1.5em;
-             padding-right: calc(var(--spacing-m) * 2 + 1.5em); /* Make space for arrow */
-         }
-
-         /* Underline for focus indicator */
-         .underline {
-             position: absolute;
-             bottom: 0;
-             left: 0;
-             right: 0;
-             height: 2px;
-             background-color: var(--md-input-border-focus);
-             transform: scaleX(0);
-             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-         }
-
-         /* Basic file input styling */
-         input[type="file"] {
-            color: var(--md-text-secondary);
-            padding: var(--spacing-s) 0;
-         }
-         input[type="file"]::file-selector-button {
-             padding: var(--spacing-xs) var(--spacing-s);
-             border: 1px solid var(--md-divider);
-             border-radius: var(--border-radius); /* Usa la variabile aggiornata (15px) */
-             background-color: var(--md-surface);
-             color: var(--md-primary);
-             font-weight: 500;
-             cursor: pointer;
-             margin-right: var(--spacing-m);
-         }
-         input[type="file"]::file-selector-button:hover {
-            background-color: rgba(0,0,0,0.04);
-         }
-         body.dark-mode input[type="file"]::file-selector-button {
-            background-color: var(--md-input-fill);
-            border-color: var(--md-divider);
-            color: var(--md-primary-light);
-         }
-          body.dark-mode input[type="file"]::file-selector-button:hover {
-             background-color: rgba(255,255,255,0.1);
-          }
-
+        /* --- Forms & Text Fields --- */
+        .form-group { margin-bottom: var(--spacing-l); position: relative; }
+        .form-group label { display: block; margin-bottom: var(--spacing-xs); font-size: 0.75rem; color: var(--md-text-secondary); padding-left: var(--spacing-m); }
+        .text-field-container { background-color: var(--md-input-fill); border-top-left-radius: var(--border-radius); border-top-right-radius: var(--border-radius); padding: var(--spacing-s) var(--spacing-m); border-bottom: 1px solid var(--md-input-border-hover); transition: border-color 0.2s ease, background-color 0.3s ease; position: relative; overflow: hidden; }
+        .text-field-container:hover { border-bottom-color: var(--md-text-primary); }
+        .text-field-container input:focus + .underline, .text-field-container select:focus + .underline { transform: scaleX(1); } /* Aggiunto select */
+         input[type="text"], input[type="number"], input[type="password"], input[type="file"], select { display: block; width: 100%; padding: var(--spacing-s) 0; border: none; background-color: transparent; color: var(--md-on-surface); font-size: 1rem; outline: none; line-height: 1.5; appearance: none; border-radius: 0; }
+         select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23${(getComputedStyle(document.documentElement).getPropertyValue('--md-text-secondary') || '000000').substring(1)}'%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right var(--spacing-m) center; background-size: 1.5em; padding-right: calc(var(--spacing-m) * 2 + 1.5em); cursor: pointer; }
+         .underline { position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background-color: var(--md-input-border-focus); transform: scaleX(0); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: none; /* Evita che copra il select */ }
+         input[type="file"] { color: var(--md-text-secondary); padding: var(--spacing-s) 0; }
+         input[type="file"]::file-selector-button { padding: var(--spacing-xs) var(--spacing-s); border: 1px solid var(--md-divider); border-radius: var(--border-radius); background-color: var(--md-surface); color: var(--md-primary); font-weight: 500; cursor: pointer; margin-right: var(--spacing-m); }
+         input[type="file"]::file-selector-button:hover { background-color: rgba(0,0,0,0.04); }
+         body.dark-mode input[type="file"]::file-selector-button { background-color: var(--md-input-fill); border-color: var(--md-divider); color: var(--md-primary-light); }
+          body.dark-mode input[type="file"]::file-selector-button:hover { background-color: rgba(255,255,255,0.1); }
 
         /* --- Buttons --- */
-        .btn {
-            display: inline-block;
-            min-width: 64px;
-            padding: 0 var(--spacing-m);
-            height: 36px;
-            line-height: 36px;
-            border: none;
-            border-radius: var(--border-radius); /* Usa la variabile aggiornata (15px) */
-            cursor: pointer;
-            font-size: 0.875rem;
-            font-weight: 500;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 0.089em;
-            transition: background-color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-            outline: none;
-            vertical-align: middle;
-            margin-right: var(--spacing-s);
-            margin-top: var(--spacing-s);
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Ripple Effect Placeholder */
+        .btn { display: inline-block; min-width: 64px; padding: 0 var(--spacing-m); height: 36px; line-height: 36px; border: none; border-radius: var(--border-radius); cursor: pointer; font-size: 0.875rem; font-weight: 500; text-align: center; text-transform: uppercase; letter-spacing: 0.089em; transition: background-color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; outline: none; vertical-align: middle; margin-right: var(--spacing-s); margin-top: var(--spacing-s); position: relative; overflow: hidden; }
         .btn::after { content: ''; position: absolute; top: 50%; left: 50%; width: 5px; height: 5px; background: rgba(255, 255, 255, 0.3); opacity: 0; border-radius: 100%; transform: scale(1, 1) translate(-50%); transform-origin: 50% 50%; }
         .btn:focus:not(:active)::after { animation: ripple-focus 1s ease-out infinite; }
         .btn:active::after { animation: ripple 0.5s ease-out; }
@@ -338,17 +84,13 @@
         @keyframes ripple { 0% { transform: scale(0, 0) translate(-50%); opacity: 1; } 100% { transform: scale(20, 20) translate(-50%); opacity: 0; } }
         @keyframes ripple-focus { 0% { transform: scale(1, 1) translate(-50%); background: rgba(255, 255, 255, 0.1); opacity: 1; } 50% { transform: scale(1.2, 1.2) translate(-50%); background: rgba(255, 255, 255, 0.15); opacity: 0.5; } 100% { transform: scale(1, 1) translate(-50%); background: rgba(255, 255, 255, 0.1); opacity: 1; } }
         body.dark-mode @keyframes ripple-focus { 0% { transform: scale(1, 1) translate(-50%); background: rgba(0, 0, 0, 0.1); opacity: 1; } 50% { transform: scale(1.2, 1.2) translate(-50%); background: rgba(0, 0, 0, 0.15); opacity: 0.5; } 100% { transform: scale(1, 1) translate(-50%); background: rgba(0, 0, 0, 0.1); opacity: 1; } }
-
-        /* Raised Button */
         .btn-raised { box-shadow: var(--elevation-2); background-color: var(--md-primary); color: var(--md-on-primary); }
         .btn-raised:hover { box-shadow: var(--elevation-4); background-color: var(--md-primary-dark); }
         .btn-raised:active { box-shadow: var(--elevation-8); }
          .btn-raised.btn-secondary { background-color: var(--md-accent); color: var(--md-on-accent); }
-         .btn-raised.btn-secondary:hover { background-color: #FFA000; } /* Amber 700 approx */
+         .btn-raised.btn-secondary:hover { background-color: #FFA000; }
          .btn-raised.btn-danger { background-color: var(--md-error); color: var(--md-on-error); }
-         .btn-raised.btn-danger:hover { background-color: #C62828; } /* Red 800 approx */
-
-         /* Outlined Button */
+         .btn-raised.btn-danger:hover { background-color: #C62828; }
          .btn-outline { background-color: transparent; border: 1px solid var(--md-divider); color: var(--md-primary); padding: 0 calc(var(--spacing-m) - 1px); }
          .btn-outline:hover { background-color: rgba(var(--md-primary-rgb, 25, 118, 210), 0.04); border-color: var(--md-primary); }
          body.dark-mode .btn-outline:hover { background-color: rgba(var(--md-primary-rgb-dark, 144, 202, 249), 0.08); border-color: var(--md-primary); }
@@ -356,23 +98,19 @@
           .btn-outline.btn-danger:hover { background-color: rgba(var(--md-error-rgb, 211, 47, 47), 0.04); }
           body.dark-mode .btn-outline.btn-danger { border-color: var(--md-error); color: var(--md-error); }
            body.dark-mode .btn-outline.btn-danger:hover { background-color: rgba(var(--md-error-rgb-dark, 239, 154, 154), 0.08); }
-
-         /* Text Button (for sorting) */
          .btn-text { background-color: transparent; color: var(--md-primary); min-width: auto; padding: 0 var(--spacing-s); }
          .btn-text:hover { background-color: rgba(var(--md-primary-rgb, 25, 118, 210), 0.04); }
          body.dark-mode .btn-text:hover { background-color: rgba(var(--md-primary-rgb-dark, 144, 202, 249), 0.08); }
           .btn-text.active { background-color: rgba(var(--md-primary-rgb, 25, 118, 210), 0.12); font-weight: 700; }
            body.dark-mode .btn-text.active { background-color: rgba(var(--md-primary-rgb-dark, 144, 202, 249), 0.16); }
 
-
         /* --- Summary Section --- */
         .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--spacing-m); text-align: center; }
-        .summary-item { background-color: var(--md-input-fill); padding: var(--spacing-m); border-radius: var(--border-radius); /* Usa la variabile aggiornata (15px) */ color: var(--md-on-surface); }
+        .summary-item { background-color: var(--md-input-fill); padding: var(--spacing-m); border-radius: var(--border-radius); color: var(--md-on-surface); }
         .summary-item h3 { font-size: 0.875rem; color: var(--md-text-secondary); margin-bottom: var(--spacing-xs); font-weight: 400; }
         .summary-item p { font-size: 1.5rem; font-weight: 500; color: var(--md-primary); }
         body.dark-mode .summary-item p { color: var(--md-primary-light); }
          .summary-item p.negative { color: var(--md-error); }
-
 
         /* --- Lists & Tables --- */
         .item-list { list-style: none; padding: 0; margin-top: var(--spacing-m); }
@@ -386,10 +124,8 @@
          .item-list .btn-delete-item:hover { background-color: rgba(var(--md-error-rgb, 211, 47, 47), 0.1); color: var(--md-error); }
           body.dark-mode .item-list .btn-delete-item:hover { background-color: rgba(var(--md-error-rgb-dark, 239, 154, 154), 0.15); }
          .item-list .btn-delete-item .material-symbols-outlined { font-size: 20px; }
-
         .list-total { text-align: right; margin-top: var(--spacing-m); font-size: 1.1rem; font-weight: 500; padding-top: var(--spacing-m); border-top: 1px solid var(--md-divider); color: var(--md-text-secondary); }
          .list-total span { font-weight: 700; color: var(--md-text-primary); }
-
         .category-subtotal { margin-top: var(--spacing-m); padding-top: var(--spacing-s); border-top: 1px dashed var(--md-divider); }
         .category-subtotal h4 { font-size: 0.875rem; font-weight: 700; margin-bottom: var(--spacing-xs); color: var(--md-text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
         .category-subtotal .item-list { margin-top: 0; }
@@ -401,9 +137,8 @@
         .sort-controls span { font-weight: 500; margin-right: var(--spacing-s); font-size: 0.875rem; color: var(--md-text-secondary); }
          .sort-controls .btn-text { margin: 0; }
 
-
         /* --- Snackbar Notification --- */
-        #notification { position: fixed; bottom: var(--spacing-l); left: var(--spacing-l); background-color: #323232; color: rgba(255, 255, 255, 0.87); padding: var(--spacing-m) var(--spacing-l); border-radius: var(--border-radius); /* Usa la variabile aggiornata (15px) */ box-shadow: var(--elevation-4); z-index: 1000; opacity: 0; transform: translateY(100%); transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: none; font-size: 0.875rem; max-width: calc(100% - var(--spacing-l) * 2); }
+        #notification { position: fixed; bottom: var(--spacing-l); left: var(--spacing-l); background-color: #323232; color: rgba(255, 255, 255, 0.87); padding: var(--spacing-m) var(--spacing-l); border-radius: var(--border-radius); box-shadow: var(--elevation-4); z-index: 1000; opacity: 0; transform: translateY(100%); transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: none; font-size: 0.875rem; max-width: calc(100% - var(--spacing-l) * 2); }
         #notification.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
          #notification.error { background-color: var(--md-error); color: var(--md-on-error); }
          #notification.success { background-color: #4CAF50; color: #FFFFFF; }
@@ -416,16 +151,10 @@
              .card { padding: var(--spacing-m); }
              .summary-grid { grid-template-columns: 1fr 1fr; }
 
-             /* Rimosse regole per #form-id > div { flex-direction: column; } */
-             /* Rimosse regole specifiche per #form-id .form-group { margin-bottom: ... } dentro questa media query */
-             /* La spaziatura verticale è ora gestita dalla regola globale .form-group */
+             /* Rimosse regole media query per layout flessibile dei form interni */
 
-             /* Riduci padding interno dei campi di testo su mobile per compattezza */
-             /* Manteniamo questo perché migliora la densità su mobile */
-             #main-income-form .text-field-container,
-             #fixed-expense-form .text-field-container,
-             #extra-income-form .text-field-container,
-             #debt-form .text-field-container {
+             /* Riduci padding interno dei campi di testo su mobile */
+             .text-field-container { /* Applicato globalmente su mobile ora */
                  padding-top: var(--spacing-xs);    /* 4px */
                  padding-bottom: var(--spacing-xs); /* 4px */
              }
@@ -438,19 +167,16 @@
              .card { padding: var(--spacing-m); margin-bottom: var(--spacing-m); }
              .summary-grid { grid-template-columns: 1fr; }
              .btn { width: 100%; margin-right: 0; margin-bottom: var(--spacing-m); }
-             .btn-icon, .sort-controls .btn-text, .item-list .btn-delete-item { width: auto; margin-bottom: var(--spacing-s); /* Reset margin bottom for inline buttons */ }
+             .btn-icon, .sort-controls .btn-text, .item-list .btn-delete-item { width: auto; margin-bottom: var(--spacing-s); }
              .sort-controls { justify-content: center; }
              #notification { left: var(--spacing-m); bottom: var(--spacing-m); width: calc(100% - var(--spacing-m) * 2); }
              .item-list .item-details { width: calc(100% - 50px); margin-right: var(--spacing-s); }
              .item-list .item-amount { padding-left: var(--spacing-s); }
              .item-list .btn-delete-item { margin-left: var(--spacing-xs); }
-
-             /* Assicurati che il margine globale si applichi anche qui */
-             /* La regola globale .form-group { margin-bottom: var(--spacing-l); } è sufficiente */
-             /* .form-group { margin-bottom: var(--spacing-l); } */ /* Non serve ripetere se globale è già --spacing-l */
+             /* La regola .form-group globale gestisce il margine qui */
         }
 
-        /* Helper to get RGB values for rgba backgrounds */
+        /* Helper RGB */
         :root { --md-primary-rgb: 25, 118, 210; --md-error-rgb: 211, 47, 47; }
         body.dark-mode { --md-primary-rgb-dark: 144, 202, 249; --md-error-rgb-dark: 239, 154, 154; }
 
@@ -460,8 +186,7 @@
 
     <header class="app-bar">
         <h1>
-            <img src="https://i.ibb.co/Nd1mmfK0/Minimalist-Material-Design-web-app-icon-featuring-a-stylized-bulldog-head-front-view-The-head-is-a.png" alt="Icona Budget Bulldog" class="mascot">
-            <span>Budget Bulldog</span>
+             <img src="https://i.ibb.co/Nd1mmfK0/Minimalist-Material-Design-web-app-icon-featuring-a-stylized-bulldog-head-front-view-The-head-is-a.png" alt="Icona Budget Bulldog" class="mascot"> <span>Budget Bulldog</span>
         </h1>
         <button class="btn-icon" id="theme-switcher" title="Cambia Tema">
             <span class="material-symbols-outlined" id="theme-icon">light_mode</span>
@@ -470,12 +195,23 @@
 
     <div class="app-container">
 
+         <div class="card" style="margin-bottom: var(--spacing-m); padding: var(--spacing-m);">
+             <div class="form-group" style="margin-bottom: 0;">
+                 <label for="month-selector" style="font-weight: 500;">Visualizza Mese:</label>
+                 <div class="text-field-container">
+                     <select id="month-selector">
+                         <option value="">Caricamento...</option>
+                         </select>
+                     </div>
+             </div>
+        </div>
         <main>
             <section class="card">
                 <h2>Riepilogo Mensile (<span id="current-month-display"></span>)</h2>
                 <div class="summary-grid">
                     <div class="summary-item">
-                        <h3>💰 Entrate Princ. Tot.</h3> <p id="summary-salary">€ 0.00</p>
+                        <h3>💰 Entrate Princ. Tot.</h3>
+                        <p id="summary-salary">€ 0.00</p>
                     </div>
                      <div class="summary-item">
                         <h3>🏦 Risparmio Prev.</h3>
@@ -506,77 +242,82 @@
                      <div class="form-group">
                         <label for="savings-goal">Quanto vuoi Risparmiare questo mese (€)</label>
                          <div class="text-field-container">
-                            <input type="number" id="savings-goal" step="0.01" min="0" required> <div class="underline"></div>
+                            <input type="number" id="savings-goal" step="0.01" min="0" required>
+                             <div class="underline"></div>
                          </div>
                     </div>
                      <div class="form-group">
                         <label for="immediate-deduction">Importo da "Mettere da Parte" subito (€)</label>
                          <div class="text-field-container">
-                            <input type="number" id="immediate-deduction" step="0.01" min="0" required> <div class="underline"></div>
+                            <input type="number" id="immediate-deduction" step="0.01" min="0" required>
+                             <div class="underline"></div>
                          </div>
                          <small style="color: var(--md-text-secondary); display: block; margin-top: 4px; font-size: 0.75rem; padding-left: var(--spacing-m);">Questo importo viene sottratto dallo 'Spendibile' ma non è considerato risparmio formale.</small>
                     </div>
-                    <button type="submit" class="btn btn-raised btn-secondary">Salva Obiettivi</button>
-                </form>
+                    <button type="submit" class="btn btn-raised btn-secondary">Salva Obiettivi Mese Visualizzato</button> </form>
             </section>
-            <section class="card">
-                <h2>💰 Gestione Entrate Principali</h2>
-                <form id="main-income-form">
-                     <div class="form-group"> <label for="main-income-desc">Descrizione Entrata (es. Stipendio, Tredicesima)</label>
+
+             <section class="card">
+                <h2>💰 Gestione Entrate Principali (Mese Corrente)</h2> <form id="main-income-form">
+                     <div class="form-group">
+                        <label for="main-income-desc">Descrizione Entrata (es. Stipendio, Tredicesima)</label>
                          <div class="text-field-container">
                             <input type="text" id="main-income-desc" required>
                              <div class="underline"></div>
                          </div>
                     </div>
-                    <div class="form-group"> <label for="main-income-amount">Importo (€)</label>
+                    <div class="form-group">
+                        <label for="main-income-amount">Importo (€)</label>
                         <div class="text-field-container">
                             <input type="number" id="main-income-amount" step="0.01" min="0" required>
                              <div class="underline"></div>
                          </div>
                     </div>
-                    <button type="submit" class="btn btn-raised btn-primary">Aggiungi Entrata Principale</button>
-                </form>
-                <ul id="main-income-list" class="item-list" style="margin-top: var(--spacing-l);">
+                    <button type="submit" class="btn btn-raised btn-primary">Aggiungi Entrata Principale al Mese Corrente</button> </form>
+                <h3 style="font-size: 1rem; font-weight: 500; margin-top: var(--spacing-l); padding-top: var(--spacing-m); border-top: 1px solid var(--md-divider);">Entrate Principali Mese Visualizzato</h3>
+                <ul id="main-income-list" class="item-list">
                     <li style="color: var(--md-text-secondary); justify-content: center;">Nessuna entrata principale inserita per questo mese.</li>
                 </ul>
                 <div id="main-income-total" class="list-total" style="display: none;">
                     Totale Entrate Principali: <span>€ 0.00</span>
                  </div>
             </section>
+
             <section class="card">
-                <h2>Spese Fisse Mensili</h2>
-                <form id="fixed-expense-form">
-                     <div class="form-group"> <label for="fixed-expense-name">Nome Spesa</label>
+                <h2>Spese Fisse Mensili (Mese Corrente)</h2> <form id="fixed-expense-form">
+                     <div class="form-group">
+                        <label for="fixed-expense-name">Nome Spesa</label>
                          <div class="text-field-container">
                             <input type="text" id="fixed-expense-name" required>
                              <div class="underline"></div>
                          </div>
                     </div>
-                     <div class="form-group"> <label for="fixed-expense-amount">Importo (€)</label>
+                     <div class="form-group">
+                        <label for="fixed-expense-amount">Importo (€)</label>
                          <div class="text-field-container">
                             <input type="number" id="fixed-expense-amount" step="0.01" min="0" required>
                              <div class="underline"></div>
                         </div>
                     </div>
-                    <div class="form-group"> <label for="fixed-expense-category">Categoria</label>
+                    <div class="form-group">
+                        <label for="fixed-expense-category">Categoria</label>
                          <div class="text-field-container">
                             <input type="text" id="fixed-expense-category" list="category-suggestions" required>
                              <div class="underline"></div>
                          </div>
                          <datalist id="category-suggestions">
-                             </datalist>
+                         </datalist>
                     </div>
-                    <button type="submit" class="btn btn-raised btn-primary">Aggiungi Spesa Fissa</button>
-                </form>
+                    <button type="submit" class="btn btn-raised btn-primary">Aggiungi Spesa Fissa al Mese Corrente</button> </form>
 
                 <div class="sort-controls" style="margin-top: var(--spacing-l);">
-                    <span>Ordina per:</span>
+                    <span>Ordina per (Mese Visualizzato):</span>
                     <button class="btn btn-text" data-sort="name">Nome</button>
                     <button class="btn btn-text" data-sort="category">Categoria</button>
                     <button class="btn btn-text" data-sort="amount">Costo</button>
                      <button class="btn btn-text" data-sort="default">Default</button>
                 </div>
-
+                <h3 style="font-size: 1rem; font-weight: 500; margin-top: var(--spacing-l); padding-top: var(--spacing-m); border-top: 1px solid var(--md-divider);">Spese Fisse Mese Visualizzato</h3>
                 <div id="fixed-expenses-list-container">
                     <p style="color: var(--md-text-secondary); text-align: center;">Nessuna spesa fissa inserita.</p>
                 </div>
@@ -586,22 +327,23 @@
             </section>
 
             <section class="card">
-                <h2>Entrate Extra del Mese</h2>
-                <form id="extra-income-form">
-                    <div class="form-group"> <label for="extra-income-desc">Descrizione</label>
+                <h2>Entrate Extra del Mese (Mese Corrente)</h2> <form id="extra-income-form">
+                    <div class="form-group">
+                        <label for="extra-income-desc">Descrizione</label>
                          <div class="text-field-container">
                             <input type="text" id="extra-income-desc" required>
                              <div class="underline"></div>
                          </div>
                     </div>
-                    <div class="form-group"> <label for="extra-income-amount">Importo (€)</label>
+                    <div class="form-group">
+                        <label for="extra-income-amount">Importo (€)</label>
                         <div class="text-field-container">
                             <input type="number" id="extra-income-amount" step="0.01" min="0" required>
                              <div class="underline"></div>
                          </div>
                     </div>
-                    <button type="submit" class="btn btn-raised btn-primary">Aggiungi Entrata Extra</button>
-                </form>
+                    <button type="submit" class="btn btn-raised btn-primary">Aggiungi Entrata Extra al Mese Corrente</button> </form>
+                <h3 style="font-size: 1rem; font-weight: 500; margin-top: var(--spacing-l); padding-top: var(--spacing-m); border-top: 1px solid var(--md-divider);">Entrate Extra Mese Visualizzato</h3>
                 <ul id="extra-income-list" class="item-list">
                     <li style="color: var(--md-text-secondary); justify-content: center;">Nessuna entrata extra inserita.</li>
                 </ul>
@@ -611,25 +353,26 @@
             </section>
 
             <section class="card">
-                <h2>Debiti/Accantonamenti per il Mese Prossimo</h2>
-                 <p style="color: var(--md-text-secondary); font-size: 0.875rem; margin-bottom: var(--spacing-m);">
+                <h2>Debiti/Accantonamenti per il Mese Prossimo (Mese Corrente)</h2> <p style="color: var(--md-text-secondary); font-size: 0.875rem; margin-bottom: var(--spacing-m);">
                      Inserisci qui importi spesi o promessi questo mese che verranno detratti dallo stipendio del *prossimo* mese (es. un prestito a breve termine, un acquisto importante da coprire dopo).
                  </p>
                 <form id="debt-form">
-                    <div class="form-group"> <label for="debt-desc">Descrizione Debito/Accantonamento</label>
+                    <div class="form-group">
+                        <label for="debt-desc">Descrizione Debito/Accantonamento</label>
                         <div class="text-field-container">
                             <input type="text" id="debt-desc" required>
                              <div class="underline"></div>
                          </div>
                     </div>
-                    <div class="form-group"> <label for="debt-amount">Importo (€)</label>
+                    <div class="form-group">
+                        <label for="debt-amount">Importo (€)</label>
                         <div class="text-field-container">
                             <input type="number" id="debt-amount" step="0.01" min="0" required>
                              <div class="underline"></div>
                          </div>
                     </div>
-                    <button type="submit" class="btn btn-raised btn-primary">Aggiungi Debito/Acc.</button>
-                </form>
+                    <button type="submit" class="btn btn-raised btn-primary">Aggiungi Debito/Acc. al Mese Corrente</button> </form>
+                 <h3 style="font-size: 1rem; font-weight: 500; margin-top: var(--spacing-l); padding-top: var(--spacing-m); border-top: 1px solid var(--md-divider);">Debiti/Acc. Creati nel Mese Visualizzato</h3>
                 <ul id="debt-list" class="item-list">
                      <li style="color: var(--md-text-secondary); justify-content: center;">Nessun debito/accantonamento per il prossimo mese inserito.</li>
                 </ul>
@@ -649,7 +392,7 @@
                     <small style="color: var(--md-text-secondary); display: block; margin-top: 4px; font-size: 0.75rem; padding-left: var(--spacing-m);">Necessaria per cifrare/decifrare il file di backup. Conservala!</small>
                 </div>
                  <div class="form-group">
-                    <button id="export-data" class="btn btn-outline">Esporta Backup Cifrato</button>
+                    <button id="export-data" class="btn btn-outline">Esporta Backup Cifrato (Include Storico)</button>
                  </div>
                  <hr style="border:none; border-bottom: 1px solid var(--md-divider); margin: var(--spacing-l) 0;">
                 <div class="form-group">
@@ -658,11 +401,11 @@
                          <input type="file" id="import-file" accept=".bbbackup">
                      </div>
                 </div>
-                 <button id="import-data" class="btn btn-outline">Importa Dati</button>
+                 <button id="import-data" class="btn btn-outline">Importa Dati (Sovrascrive Tutto)</button>
 
                 <hr style="border: none; border-bottom: 1px solid var(--md-divider); margin: var(--spacing-l) 0;">
 
-                <button id="delete-all-data" class="btn btn-raised btn-danger">Cancella Tutti i Dati</button>
+                <button id="delete-all-data" class="btn btn-raised btn-danger">Cancella Tutti i Dati (Incluso Storico)</button>
                 <small style="color: var(--md-error); display: block; margin-top: var(--spacing-s); font-weight: bold; font-size: 0.875rem;">Attenzione: Questa azione è irreversibile!</small>
             </section>
         </main>
@@ -671,29 +414,34 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // --- STATE ---
+            let appData = { monthHistory: {}, settings: { theme: 'light', fixedExpensesSort: 'default' } };
+            let viewingMonthYear = null; // AAAA-MM del mese visualizzato
+
             // --- ELEMENT REFERENCES ---
             const themeSwitcher = document.getElementById('theme-switcher');
             const themeIcon = document.getElementById('theme-icon');
-            const currentMonthDisplay = document.getElementById('current-month-display');
+            const monthSelector = document.getElementById('month-selector'); // Nuovo select
+            const currentMonthDisplay = document.getElementById('current-month-display'); // Nel riepilogo
 
             // Summary elements
-            const summarySalary = document.getElementById('summary-salary'); // Ora mostra Totale Entrate Principali
+            const summarySalary = document.getElementById('summary-salary');
             const summarySavingsGoal = document.getElementById('summary-savings-goal');
             const summaryFixedTotal = document.getElementById('summary-fixed-total');
             const summaryExtraIncome = document.getElementById('summary-extra-income');
             const summaryPrevDebt = document.getElementById('summary-prev-debt');
             const summarySpendable = document.getElementById('summary-spendable');
 
-            // Forms & Inputs (Aggiornati)
-            const goalsForm = document.getElementById('goals-form'); // Nuovo form
-            const savingsGoalInput = document.getElementById('savings-goal'); // Spostato
-            const immediateDeductionInput = document.getElementById('immediate-deduction'); // Spostato
+            // Forms & Inputs
+            const goalsForm = document.getElementById('goals-form');
+            const savingsGoalInput = document.getElementById('savings-goal');
+            const immediateDeductionInput = document.getElementById('immediate-deduction');
 
-            const mainIncomeForm = document.getElementById('main-income-form'); // Nuovo form entrate principali
+            const mainIncomeForm = document.getElementById('main-income-form');
             const mainIncomeDescInput = document.getElementById('main-income-desc');
             const mainIncomeAmountInput = document.getElementById('main-income-amount');
-            const mainIncomeList = document.getElementById('main-income-list'); // Nuova lista
-            const mainIncomeTotalEl = document.getElementById('main-income-total').querySelector('span'); // Nuovo totale
+            const mainIncomeList = document.getElementById('main-income-list');
+            const mainIncomeTotalEl = document.getElementById('main-income-total').querySelector('span');
 
             const fixedExpenseForm = document.getElementById('fixed-expense-form');
             const fixedExpenseNameInput = document.getElementById('fixed-expense-name');
@@ -716,168 +464,90 @@
             const debtList = document.getElementById('debt-list');
             const debtTotalEl = document.getElementById('debt-total').querySelector('span');
 
-            // Settings & Data elements
             const backupPasswordInput = document.getElementById('backup-password');
             const exportButton = document.getElementById('export-data');
-            const importFileInpit = document.getElementById('import-file'); // Typo nella variabile originale, corretto qui
+            const importFileInput = document.getElementById('import-file'); // Nome corretto
             const importButton = document.getElementById('import-data');
             const deleteAllButton = document.getElementById('delete-all-data');
 
-            // Notification element
             const notification = document.getElementById('notification');
 
-             // --- FOCUS/BLUR for Underline Animation ---
-             const inputs = document.querySelectorAll('.text-field-container input');
-             inputs.forEach(input => {
-                 input.addEventListener('focus', () => {
-                    input.parentElement.classList.add('focused'); // Classe non usata, ma potenzialmente utile
-                    input.parentElement.querySelector('.underline')?.classList.add('active'); // Anima linea
-                 });
-                 input.addEventListener('blur', () => {
-                     input.parentElement.classList.remove('focused');
-                     input.parentElement.querySelector('.underline')?.classList.remove('active'); // Rimuovi animazione linea
-                 });
-             });
-
-
-            // --- APPLICATION STATE (Nuova Struttura) ---
-            let appData = {
-                monthHistory: {}, // Oggetto per storico { "AAAA-MM": { dati mese } }
-                settings: {
-                    theme: 'light',
-                    fixedExpensesSort: 'default',
-                }
-            };
-
-             // --- UTILITY FUNCTIONS (Invariate) ---
-            const formatCurrency = (amount) => {
-                return new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(amount || 0);
-            };
-
-            const generateId = () => {
-                return Date.now().toString(36) + Math.random().toString(36).substring(2);
-            };
-
-             const showNotification = (message, type = 'info', duration = 3000) => {
+            // --- UTILITY & HELPER FUNCTIONS ---
+            const formatCurrency = (amount) => new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(amount || 0);
+            const generateId = () => Date.now().toString(36) + Math.random().toString(36).substring(2);
+            const showNotification = (message, type = 'info', duration = 3000) => {
                 notification.textContent = message;
-                notification.className = '';
-                notification.classList.add('show');
+                notification.className = ''; notification.classList.add('show');
                 if (type === 'error') { notification.classList.add('error'); }
                 else if (type === 'success') { notification.classList.add('success'); }
                 setTimeout(() => { notification.classList.remove('show'); }, duration);
             };
-
-            // --- HELPER FUNCTIONS per la Nuova Struttura ---
             const getCurrentYearMonth = () => {
                 const now = new Date();
                 return `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}`;
             };
-
-             const getPreviousYearMonth = (currentYYYYMM) => {
+            const getPreviousYearMonth = (currentYYYYMM) => {
                 if (!currentYYYYMM || typeof currentYYYYMM !== 'string' || !currentYYYYMM.includes('-')) { return null; }
                 const parts = currentYYYYMM.split('-');
-                let year = parseInt(parts[0], 10);
-                let month = parseInt(parts[1], 10);
-                month--;
-                if (month === 0) { month = 12; year--; }
+                let year = parseInt(parts[0], 10); let month = parseInt(parts[1], 10);
+                month--; if (month === 0) { month = 12; year--; }
                 return `${year}-${month.toString().padStart(2, '0')}`;
             };
-
-             const getCurrentMonthData = (createIfNeeded = true) => {
-                const currentYYYYMM = getCurrentYearMonth();
-                if (!appData.monthHistory) { appData.monthHistory = {}; } // Sicurezza extra
-
-                if (!appData.monthHistory[currentYYYYMM] && createIfNeeded) {
-                    appData.monthHistory[currentYYYYMM] = {
-                        mainIncomes: [], savingsGoal: 0, immediateDeduction: 0,
-                        fixedExpenses: [], extraIncome: [], debtsIncurred: []
-                    };
-                    console.log(`Inizializzati dati per il mese: ${currentYYYYMM}`);
-
-                    // Copia spese fisse dal mese precedente se esiste
-                    const prevYYYYMM = getPreviousYearMonth(currentYYYYMM);
-                    if (appData.monthHistory[prevYYYYMM] && appData.monthHistory[prevYYYYMM].fixedExpenses) {
-                        try {
-                            // Deep copy JSON per evitare riferimento diretto all'array precedente
-                             appData.monthHistory[currentYYYYMM].fixedExpenses = JSON.parse(JSON.stringify(appData.monthHistory[prevYYYYMM].fixedExpenses));
-                             console.log(`Copiate ${appData.monthHistory[currentYYYYMM].fixedExpenses.length} spese fisse da ${prevYYYYMM}`);
-                        } catch (e) {
-                             console.error("Errore nella copia profonda delle spese fisse:", e);
-                             appData.monthHistory[currentYYYYMM].fixedExpenses = []; // Fallback a vuoto
+             const getMonthData = (yearMonth, createIfNeeded = false) => {
+                if (!yearMonth) return undefined;
+                if (!appData.monthHistory) { appData.monthHistory = {}; }
+                if (!appData.monthHistory[yearMonth] && createIfNeeded) {
+                    appData.monthHistory[yearMonth] = { mainIncomes: [], savingsGoal: 0, immediateDeduction: 0, fixedExpenses: [], extraIncome: [], debtsIncurred: [] };
+                    console.log(`Inizializzati dati per il mese: ${yearMonth}`);
+                    // Copia spese fisse dal mese precedente solo se stiamo creando il mese ATTUALE
+                    if (yearMonth === getCurrentYearMonth()) {
+                        const prevYYYYMM = getPreviousYearMonth(yearMonth);
+                        if (appData.monthHistory[prevYYYYMM] && appData.monthHistory[prevYYYYMM].fixedExpenses) {
+                            try {
+                                appData.monthHistory[yearMonth].fixedExpenses = JSON.parse(JSON.stringify(appData.monthHistory[prevYYYYMM].fixedExpenses));
+                                console.log(`Copiate ${appData.monthHistory[yearMonth].fixedExpenses.length} spese fisse da ${prevYYYYMM}`);
+                            } catch (e) { console.error("Errore copia spese fisse:", e); }
                         }
                     }
                 }
-                // Ritorna i dati del mese corrente (o undefined se non esiste e createIfNeeded è false)
-                return appData.monthHistory[currentYYYYMM];
+                return appData.monthHistory[yearMonth];
             };
 
-
-            // --- DATA PERSISTENCE (LocalStorage - Invariato nel concetto) ---
+             // --- DATA PERSISTENCE ---
             const saveData = () => {
-                try {
-                    localStorage.setItem('budgetBulldogDataMaterial', JSON.stringify(appData));
-                    console.log("Data saved successfully (Material - Storico).");
-                } catch (error) {
-                    console.error("Error saving data to localStorage:", error);
-                    showNotification("Errore nel salvataggio dei dati!", 'error');
-                }
+                try { localStorage.setItem('budgetBulldogDataMaterial', JSON.stringify(appData)); console.log("Data saved (Storico)."); }
+                catch (error) { console.error("Errore salvataggio:", error); showNotification("Errore salvataggio dati!", 'error'); }
             };
-
             const loadData = () => {
                 const savedData = localStorage.getItem('budgetBulldogDataMaterial');
-                let needsSave = false; // Flag per salvare se inizializziamo dati
+                let needsSave = false;
                 if (savedData) {
                     try {
                         const parsedData = JSON.parse(savedData);
-                         // Migrazione MOLTO basilare: Se trova la vecchia struttura, la ignora
-                         // Una migrazione reale sarebbe più complessa
                         if (parsedData && parsedData.monthHistory && parsedData.settings) {
-                            appData = parsedData;
-                            console.log("Data loaded (Material - Storico):", appData);
-                        } else {
-                             console.warn("Struttura dati vecchia o non valida rilevata. Inizializzazione con nuova struttura.");
-                             // appData rimane quella di default con monthHistory vuoto
-                             needsSave = true; // Salva la nuova struttura vuota
-                        }
+                            appData = parsedData; console.log("Data loaded (Storico):", appData);
+                        } else { needsSave = true; console.warn("Struttura dati vecchia/invalida, inizializzo."); }
+                    } catch (error) { needsSave = true; console.error("Errore parsing:", error); showNotification("Errore caricamento dati.", 'error', 5000); }
+                } else { needsSave = true; console.log("Nessun dato salvato, inizializzo."); }
+                if (!appData.settings) { appData.settings = { theme: 'light', fixedExpensesSort: 'default' }; needsSave = true; }
+                if (!appData.monthHistory) { appData.monthHistory = {}; needsSave = true; }
 
-                    } catch (error) {
-                        console.error("Error parsing data from localStorage:", error);
-                        showNotification("Errore nel caricamento dei dati salvati. Verranno usati i valori predefiniti.", 'error', 5000);
-                         // appData rimane quella di default
-                         needsSave = true; // Salva la struttura di default
-                    }
-                } else {
-                    console.log("No saved data found, initialized default state (Material - Storico).");
-                    // appData è già quella di default
-                    needsSave = true; // Salva la struttura di default
-                }
+                // Assicura che il mese corrente esista e imposta viewingMonthYear
+                const currentActualMonth = getCurrentYearMonth();
+                getMonthData(currentActualMonth, true); // Crea se non esiste
+                viewingMonthYear = currentActualMonth; // Imposta visualizzazione iniziale
 
-                 // Assicura che settings esista sempre
-                 if (!appData.settings) {
-                     appData.settings = { theme: 'light', fixedExpensesSort: 'default' };
-                     needsSave = true;
-                 }
-                 if (!appData.monthHistory) {
-                    appData.monthHistory = {};
-                    needsSave = true;
-                 }
-
-                // Assicura che i dati del mese corrente esistano (li crea se necessario)
-                getCurrentMonthData(true); // Forza la creazione se non esiste
-
-                if(needsSave) {
-                    saveData(); // Salva solo se abbiamo dovuto inizializzare/correggere
-                }
+                if(needsSave) { saveData(); }
             };
 
-            // --- CRYPTO FUNCTIONS (Invariate) ---
-            const getPasswordKey = async (password) => {
+             // --- CRYPTO FUNCTIONS (Invariate) ---
+             const getPasswordKey = async (password) => { /* ... codice crypto ... */
                 const enc = new TextEncoder();
                 const keyMaterial = await window.crypto.subtle.importKey("raw", enc.encode(password), { name: "PBKDF2" }, false, ["deriveKey"]);
                 const salt = enc.encode("BudgetBulldogSalt");
                 return window.crypto.subtle.deriveKey({ name: "PBKDF2", salt: salt, iterations: 100000, hash: "SHA-256" }, keyMaterial, { name: "AES-GCM", length: 256 }, true, ["encrypt", "decrypt"]);
             };
-            const encryptData = async (key, data) => {
+            const encryptData = async (key, data) => { /* ... codice crypto ... */
                 const enc = new TextEncoder();
                 const iv = window.crypto.getRandomValues(new Uint8Array(12));
                 const encodedData = enc.encode(JSON.stringify(data));
@@ -886,512 +556,348 @@
                  const cipherString = btoa(String.fromCharCode.apply(null, new Uint8Array(ciphertext)));
                 return { iv: ivString, cipher: cipherString };
             };
-             const decryptData = async (key, encryptedPayload) => {
+             const decryptData = async (key, encryptedPayload) => { /* ... codice crypto ... */
                 const { iv: ivString, cipher: cipherString } = encryptedPayload;
                 if (!ivString || !cipherString) throw new Error("Invalid encrypted payload structure");
                  const iv = Uint8Array.from(atob(ivString), c => c.charCodeAt(0));
                  const ciphertext = Uint8Array.from(atob(cipherString), c => c.charCodeAt(0)).buffer;
                 const dec = new TextDecoder();
-                try {
-                    const decrypted = await window.crypto.subtle.decrypt({ name: "AES-GCM", iv: iv }, key, ciphertext);
-                    return JSON.parse(dec.decode(decrypted));
-                } catch (error) { console.error("Decryption failed:", error); throw new Error("Decryption failed. Password errata o file corrotto."); }
+                try { const decrypted = await window.crypto.subtle.decrypt({ name: "AES-GCM", iv: iv }, key, ciphertext); return JSON.parse(dec.decode(decrypted)); }
+                catch (error) { console.error("Decryption failed:", error); throw new Error("Decryption failed. Password errata o file corrotto."); }
             };
 
-
-            // --- RENDERING FUNCTIONS ---
-            const renderTheme = () => {
-                if (appData.settings.theme === 'dark') {
-                    document.body.classList.add('dark-mode');
-                    themeIcon.textContent = 'dark_mode';
-                } else {
-                    document.body.classList.remove('dark-mode');
-                    themeIcon.textContent = 'light_mode';
-                }
+             // --- RENDERING FUNCTIONS ---
+            const renderTheme = () => { /* ... invariato ... */
+                if (appData.settings.theme === 'dark') { document.body.classList.add('dark-mode'); themeIcon.textContent = 'dark_mode'; }
+                else { document.body.classList.remove('dark-mode'); themeIcon.textContent = 'light_mode'; }
             };
 
-            // NUOVA: Renderizza lista entrate principali
-            const renderMainIncomes = () => {
-                const currentData = getCurrentMonthData(false); // Non creare se non esiste qui
-                const incomes = currentData?.mainIncomes || []; // Usa array vuoto se non ci sono dati
-                mainIncomeList.innerHTML = '';
-                let totalMain = 0;
-
-                if (incomes.length === 0) {
-                    mainIncomeList.innerHTML = '<li style="color: var(--md-text-secondary); justify-content: center;">Nessuna entrata principale inserita per questo mese.</li>';
-                    document.getElementById('main-income-total').style.display = 'none';
-                } else {
-                    incomes.forEach(income => {
-                        const li = document.createElement('li');
-                        li.innerHTML = `
-                            <div class="item-details">
-                                <span class="item-name">${income.description || 'N/D'}</span>
-                            </div>
-                            <span class="item-amount">${formatCurrency(income.amount)}</span>
-                            <button class="btn-delete-item" data-id="${income.id}" title="Elimina">
-                                <span class="material-symbols-outlined">delete</span>
-                            </button>
-                        `;
-                        li.querySelector('button').addEventListener('click', handleDeleteMainIncome);
-                        mainIncomeList.appendChild(li);
-                        totalMain += Number(income.amount || 0);
-                    });
-                    mainIncomeTotalEl.textContent = formatCurrency(totalMain);
-                    document.getElementById('main-income-total').style.display = 'block';
-                }
-            };
-
-            // AGGIORNATA: Usa getCurrentMonthData
-            const renderFixedExpenses = () => {
-                const currentData = getCurrentMonthData(false); // Non creare se non esiste
-                const expenses = currentData?.fixedExpenses || [];
-                const sortType = appData.settings.fixedExpensesSort || 'default';
-                let sortedExpenses = [...expenses];
-
-                 if (sortType === 'name') sortedExpenses.sort((a, b) => a.name.localeCompare(b.name));
-                 else if (sortType === 'category') sortedExpenses.sort((a, b) => { const c=a.category.localeCompare(b.category); return c !== 0 ? c : a.name.localeCompare(b.name); });
-                 else if (sortType === 'amount') sortedExpenses.sort((a, b) => Number(b.amount) - Number(a.amount));
-
-                 fixedExpensesListContainer.innerHTML = '';
-                 const categories = [...new Set(expenses.map(exp => exp.category))].sort();
-                 categorySuggestions.innerHTML = categories.map(cat => `<option value="${cat}">`).join('');
-                 let totalFixed = 0;
-
-                if (sortedExpenses.length === 0) {
-                    fixedExpensesListContainer.innerHTML = '<p style="color: var(--md-text-secondary); text-align: center;">Nessuna spesa fissa inserita.</p>';
-                    document.getElementById('fixed-expenses-total').style.display = 'none';
-                } else {
-                     if (sortType === 'category') {
-                         const expensesByCategory = sortedExpenses.reduce((groups, expense) => {
-                            const category = expense.category || 'Senza Categoria';
-                            if (!groups[category]) groups[category] = { items: [], total: 0 };
-                            groups[category].items.push(expense);
-                            groups[category].total += Number(expense.amount || 0);
-                            return groups;
-                          }, {});
-                         const sortedCategories = Object.keys(expensesByCategory).sort();
-                         sortedCategories.forEach(category => {
-                            const group = expensesByCategory[category];
-                             const categoryContainer = document.createElement('div');
-                             categoryContainer.className = 'category-subtotal';
-                             categoryContainer.innerHTML = `<h4>${category}</h4>`;
-                             const ul = document.createElement('ul');
-                             ul.className = 'item-list';
-                             group.items.forEach(expense => { ul.appendChild(createFixedExpenseListItem(expense)); totalFixed += Number(expense.amount || 0); });
-                             categoryContainer.appendChild(ul);
-                             categoryContainer.innerHTML += `<div class="category-subtotal-amount">Subtotale: <span>${formatCurrency(group.total)}</span></div>`;
-                              fixedExpensesListContainer.appendChild(categoryContainer);
-                         });
-                    } else {
-                        const ul = document.createElement('ul');
-                        ul.className = 'item-list';
-                         sortedExpenses.forEach(expense => { ul.appendChild(createFixedExpenseListItem(expense)); totalFixed += Number(expense.amount || 0); });
-                         fixedExpensesListContainer.appendChild(ul);
-                     }
-                    fixedExpensesTotalEl.textContent = formatCurrency(totalFixed);
-                    document.getElementById('fixed-expenses-total').style.display = 'block';
-                }
-             };
-
-             // Helper (invariato)
-             const createFixedExpenseListItem = (expense) => {
-                const li = document.createElement('li');
-                 li.innerHTML = `
-                    <div class="item-details">
-                        <span class="item-name">${expense.name || 'N/D'}</span>
-                         ${expense.category ? `<span class="item-category">(${expense.category})</span>` : ''}
-                    </div>
-                    <span class="item-amount">${formatCurrency(expense.amount)}</span>
-                    <button class="btn-delete-item" data-id="${expense.id}" title="Elimina">
-                        <span class="material-symbols-outlined">delete</span>
-                    </button>
-                 `;
-                 li.querySelector('button').addEventListener('click', handleDeleteFixedExpense);
-                 return li;
-             };
-
-            // AGGIORNATA: Usa getCurrentMonthData
-            const renderExtraIncome = () => {
-                const currentData = getCurrentMonthData(false);
-                const incomes = currentData?.extraIncome || [];
-                extraIncomeList.innerHTML = '';
-                let totalExtra = 0;
-                if (incomes.length === 0) {
-                     extraIncomeList.innerHTML = '<li style="color: var(--md-text-secondary); justify-content: center;">Nessuna entrata extra inserita.</li>';
-                     document.getElementById('extra-income-total').style.display = 'none';
-                } else {
-                    incomes.forEach(income => {
-                        const li = document.createElement('li');
-                        li.innerHTML = `
-                            <div class="item-details"><span class="item-name">${income.description || 'N/D'}</span></div>
-                            <span class="item-amount">${formatCurrency(income.amount)}</span>
-                            <button class="btn-delete-item" data-id="${income.id}" title="Elimina">
-                                <span class="material-symbols-outlined">delete</span>
-                            </button>`;
-                         li.querySelector('button').addEventListener('click', handleDeleteExtraIncome);
-                        extraIncomeList.appendChild(li);
-                         totalExtra += Number(income.amount || 0);
-                    });
-                    extraIncomeTotalEl.textContent = formatCurrency(totalExtra);
-                    document.getElementById('extra-income-total').style.display = 'block';
-                }
-            };
-
-            // AGGIORNATA: Usa getCurrentMonthData
-            const renderDebts = () => {
-                 const currentData = getCurrentMonthData(false);
-                 const debts = currentData?.debtsIncurred || [];
-                 debtList.innerHTML = '';
-                 let totalDebt = 0;
-                if (debts.length === 0) {
-                     debtList.innerHTML = '<li style="color: var(--md-text-secondary); justify-content: center;">Nessun debito/accantonamento per il prossimo mese inserito.</li>';
-                     document.getElementById('debt-total').style.display = 'none';
-                } else {
-                    debts.forEach(debt => {
-                        const li = document.createElement('li');
-                        li.innerHTML = `
-                            <div class="item-details"><span class="item-name">${debt.description || 'N/D'}</span></div>
-                            <span class="item-amount">${formatCurrency(debt.amount)}</span>
-                             <button class="btn-delete-item" data-id="${debt.id}" title="Elimina">
-                                <span class="material-symbols-outlined">delete</span>
-                            </button>`;
-                        li.querySelector('button').addEventListener('click', handleDeleteDebt);
-                        debtList.appendChild(li);
-                        totalDebt += Number(debt.amount || 0);
-                    });
-                     debtTotalEl.textContent = formatCurrency(totalDebt);
-                     document.getElementById('debt-total').style.display = 'block';
-                }
-            };
-
-            // AGGIORNATA: Calcola tutto con la nuova struttura
-            const renderSummary = () => {
-                const currentData = getCurrentMonthData(false); // Prendi dati correnti (non crearli se mancano qui)
-                const currentYYYYMM = getCurrentYearMonth();
-
-                // Se non ci sono dati per il mese corrente (es. primo avvio assoluto), mostra 0
-                if (!currentData) {
-                     currentMonthDisplay.textContent = 'N/D';
-                     summarySalary.textContent = formatCurrency(0);
-                     summarySavingsGoal.textContent = formatCurrency(0);
-                     summaryFixedTotal.textContent = formatCurrency(0);
-                     summaryExtraIncome.textContent = formatCurrency(0);
-                     summaryPrevDebt.textContent = formatCurrency(0);
-                     summarySpendable.textContent = formatCurrency(0);
-                    summarySpendable.classList.remove('negative');
-                     return; // Esci se non ci sono dati per il mese
-                }
-
-                // Calcola totale entrate principali
-                const totalMainIncome = (currentData.mainIncomes || []).reduce((sum, inc) => sum + Number(inc.amount || 0), 0);
-
-                // Altri totali
-                const totalFixedExpenses = (currentData.fixedExpenses || []).reduce((sum, exp) => sum + Number(exp.amount || 0), 0);
-                const totalExtraIncome = (currentData.extraIncome || []).reduce((sum, inc) => sum + Number(inc.amount || 0), 0);
-
-                // Obiettivi
-                const savingsGoal = Number(currentData.savingsGoal) || 0;
-                const immediateDeduction = Number(currentData.immediateDeduction) || 0;
-
-                // Calcola debiti mese precedente
-                const prevYYYYMM = getPreviousYearMonth(currentYYYYMM);
-                let prevDebt = 0;
-                if (appData.monthHistory && appData.monthHistory[prevYYYYMM] && appData.monthHistory[prevYYYYMM].debtsIncurred) {
-                    prevDebt = appData.monthHistory[prevYYYYMM].debtsIncurred.reduce((sum, debt) => sum + Number(debt.amount || 0), 0);
-                }
-
-                // Calcola spendibile
-                const spendable = totalMainIncome + totalExtraIncome - savingsGoal - immediateDeduction - totalFixedExpenses - prevDebt;
-
-                // --- Aggiorna Testo Riepilogo ---
+            const populateMonthSelector = () => {
+                const currentSelectedMonth = viewingMonthYear || getCurrentYearMonth();
+                monthSelector.innerHTML = '';
                 const nomiMesi = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
-                let displayDate = 'N/D';
-                if (currentYYYYMM && typeof currentYYYYMM === 'string') {
-                    const parts = currentYYYYMM.split('-');
-                    if (parts.length === 2) {
-                        const year = parseInt(parts[0], 10); const monthIndex = parseInt(parts[1], 10) - 1;
-                        if (!isNaN(year) && monthIndex >= 0 && monthIndex < 12) { displayDate = `${nomiMesi[monthIndex]} ${year}`; }
-                        else { displayDate = currentYYYYMM; }
-                    } else { displayDate = currentYYYYMM; }
-                }
-                currentMonthDisplay.textContent = displayDate;
-
-                // Aggiorna valori
-                summarySalary.textContent = formatCurrency(totalMainIncome);
-                summarySavingsGoal.textContent = formatCurrency(savingsGoal);
-                summaryFixedTotal.textContent = formatCurrency(totalFixedExpenses);
-                summaryExtraIncome.textContent = formatCurrency(totalExtraIncome);
-                summaryPrevDebt.textContent = formatCurrency(prevDebt);
-                summarySpendable.textContent = formatCurrency(spendable);
-                summarySpendable.classList.toggle('negative', spendable < 0);
-            };
-
-            // AGGIORNATA: Popola campi obiettivi e chiama nuovo render entrate
-            const renderAll = () => {
-                const currentData = getCurrentMonthData(false); // Prendi dati correnti (non crearli)
-
-                 // Popola i campi del form Obiettivi solo se ci sono dati per il mese
-                 if(currentData) {
-                     savingsGoalInput.value = currentData.savingsGoal || 0;
-                     immediateDeductionInput.value = currentData.immediateDeduction || 0;
-                 } else {
-                     // Se non ci sono dati per il mese, svuota i campi obiettivi
-                     savingsGoalInput.value = '';
-                     immediateDeductionInput.value = '';
+                const availableMonths = Object.keys(appData.monthHistory || {}).sort((a, b) => b.localeCompare(a)); // Ordine inverso
+                const currentMonthStr = getCurrentYearMonth();
+                if (!availableMonths.includes(currentMonthStr)) { // Assicura mese corrente
+                   getMonthData(currentMonthStr, true); // Crea dati se mancanti
+                    availableMonths.unshift(currentMonthStr); // Metti in cima
                  }
 
-                // Renderizza le altre sezioni
+                availableMonths.forEach(yearMonth => {
+                    const option = document.createElement('option');
+                    option.value = yearMonth;
+                    let displayText = yearMonth;
+                    try { const parts = yearMonth.split('-'); const year = parseInt(parts[0], 10); const monthIndex = parseInt(parts[1], 10) - 1; if (!isNaN(year) && monthIndex >= 0 && monthIndex < 12) { displayText = `${nomiMesi[monthIndex]} ${year}`; } } catch(e) {}
+                    option.textContent = displayText;
+                    if (yearMonth === currentSelectedMonth) { option.selected = true; }
+                    monthSelector.appendChild(option);
+                });
+            };
+
+            // --- Funzioni di Rendering Liste (usano viewingMonthYear) ---
+            const renderMainIncomes = () => {
+                const monthDataToView = getMonthData(viewingMonthYear, false);
+                const incomes = monthDataToView?.mainIncomes || [];
+                mainIncomeList.innerHTML = ''; let totalMain = 0;
+                if (incomes.length === 0) { mainIncomeList.innerHTML = '<li style="color: var(--md-text-secondary); justify-content: center;">Nessuna entrata principale inserita.</li>'; document.getElementById('main-income-total').style.display = 'none'; }
+                else { incomes.forEach(income => { /* ... crea li ... */
+                    const li = document.createElement('li'); li.innerHTML = `...`; // Usa codice da sopra
+                    li.innerHTML = `<div class="item-details"><span class="item-name">${income.description || 'N/D'}</span></div> <span class="item-amount">${formatCurrency(income.amount)}</span> <button class="btn-delete-item" data-id="${income.id}" title="Elimina"><span class="material-symbols-outlined">delete</span></button>`;
+                    li.querySelector('button').addEventListener('click', handleDeleteMainIncome); mainIncomeList.appendChild(li); totalMain += Number(income.amount || 0); });
+                    mainIncomeTotalEl.textContent = formatCurrency(totalMain); document.getElementById('main-income-total').style.display = 'block'; }
+            };
+            const renderFixedExpenses = () => {
+                const monthDataToView = getMonthData(viewingMonthYear, false);
+                const expenses = monthDataToView?.fixedExpenses || [];
+                const sortType = appData.settings.fixedExpensesSort || 'default';
+                let sortedExpenses = [...expenses]; // Clona per ordinare
+                // ... logica di ordinamento (invariata)...
+                if (sortType === 'name') sortedExpenses.sort((a, b) => a.name.localeCompare(b.name));
+                else if (sortType === 'category') sortedExpenses.sort((a, b) => { const c=a.category.localeCompare(b.category); return c !== 0 ? c : a.name.localeCompare(b.name); });
+                else if (sortType === 'amount') sortedExpenses.sort((a, b) => Number(b.amount) - Number(a.amount));
+
+                fixedExpensesListContainer.innerHTML = '';
+                const categories = [...new Set(expenses.map(exp => exp.category))].sort();
+                categorySuggestions.innerHTML = categories.map(cat => `<option value="${cat}">`).join('');
+                let totalFixed = 0;
+                if (sortedExpenses.length === 0) { fixedExpensesListContainer.innerHTML = '<p style="color: var(--md-text-secondary); text-align: center;">Nessuna spesa fissa inserita.</p>'; document.getElementById('fixed-expenses-total').style.display = 'none'; }
+                else { if (sortType === 'category') { /* ... codice raggruppamento e display subtotali ... */
+                        const expensesByCategory = sortedExpenses.reduce((groups, expense) => { const category = expense.category || 'Senza Categoria'; if (!groups[category]) groups[category] = { items: [], total: 0 }; groups[category].items.push(expense); groups[category].total += Number(expense.amount || 0); return groups; }, {});
+                        const sortedCategories = Object.keys(expensesByCategory).sort();
+                        sortedCategories.forEach(category => { const group = expensesByCategory[category]; const categoryContainer = document.createElement('div'); categoryContainer.className = 'category-subtotal'; categoryContainer.innerHTML = `<h4>${category}</h4>`; const ul = document.createElement('ul'); ul.className = 'item-list'; group.items.forEach(expense => { ul.appendChild(createFixedExpenseListItem(expense)); totalFixed += Number(expense.amount || 0); }); categoryContainer.appendChild(ul); categoryContainer.innerHTML += `<div class="category-subtotal-amount">Subtotale: <span>${formatCurrency(group.total)}</span></div>`; fixedExpensesListContainer.appendChild(categoryContainer); });
+                    } else { const ul = document.createElement('ul'); ul.className = 'item-list'; sortedExpenses.forEach(expense => { ul.appendChild(createFixedExpenseListItem(expense)); totalFixed += Number(expense.amount || 0); }); fixedExpensesListContainer.appendChild(ul); }
+                    fixedExpensesTotalEl.textContent = formatCurrency(totalFixed); document.getElementById('fixed-expenses-total').style.display = 'block'; }
+            };
+            const createFixedExpenseListItem = (expense) => { /* ... invariato ... */
+                const li = document.createElement('li'); li.innerHTML = `<div class="item-details"><span class="item-name">${expense.name || 'N/D'}</span> ${expense.category ? `<span class="item-category">(${expense.category})</span>` : ''}</div> <span class="item-amount">${formatCurrency(expense.amount)}</span> <button class="btn-delete-item" data-id="${expense.id}" title="Elimina"><span class="material-symbols-outlined">delete</span></button>`;
+                 li.querySelector('button').addEventListener('click', handleDeleteFixedExpense); return li;
+            };
+             const renderExtraIncome = () => {
+                const monthDataToView = getMonthData(viewingMonthYear, false);
+                const incomes = monthDataToView?.extraIncome || [];
+                extraIncomeList.innerHTML = ''; let totalExtra = 0;
+                if (incomes.length === 0) { extraIncomeList.innerHTML = '<li style="color: var(--md-text-secondary); justify-content: center;">Nessuna entrata extra inserita.</li>'; document.getElementById('extra-income-total').style.display = 'none'; }
+                else { incomes.forEach(income => { /* ... crea li ... */
+                    const li = document.createElement('li'); li.innerHTML = `<div class="item-details"><span class="item-name">${income.description || 'N/D'}</span></div> <span class="item-amount">${formatCurrency(income.amount)}</span> <button class="btn-delete-item" data-id="${income.id}" title="Elimina"><span class="material-symbols-outlined">delete</span></button>`;
+                    li.querySelector('button').addEventListener('click', handleDeleteExtraIncome); extraIncomeList.appendChild(li); totalExtra += Number(income.amount || 0); });
+                    extraIncomeTotalEl.textContent = formatCurrency(totalExtra); document.getElementById('extra-income-total').style.display = 'block'; }
+            };
+             const renderDebts = () => {
+                const monthDataToView = getMonthData(viewingMonthYear, false);
+                const debts = monthDataToView?.debtsIncurred || [];
+                 debtList.innerHTML = ''; let totalDebt = 0;
+                if (debts.length === 0) { debtList.innerHTML = '<li style="color: var(--md-text-secondary); justify-content: center;">Nessun debito/acc. creato in questo mese.</li>'; document.getElementById('debt-total').style.display = 'none'; }
+                else { debts.forEach(debt => { /* ... crea li ... */
+                     const li = document.createElement('li'); li.innerHTML = `<div class="item-details"><span class="item-name">${debt.description || 'N/D'}</span></div> <span class="item-amount">${formatCurrency(debt.amount)}</span> <button class="btn-delete-item" data-id="${debt.id}" title="Elimina"><span class="material-symbols-outlined">delete</span></button>`;
+                     li.querySelector('button').addEventListener('click', handleDeleteDebt); debtList.appendChild(li); totalDebt += Number(debt.amount || 0); });
+                     debtTotalEl.textContent = formatCurrency(totalDebt); document.getElementById('debt-total').style.display = 'block'; }
+            };
+
+            const renderSummary = () => {
+                const dataToView = getMonthData(viewingMonthYear, false);
+                if (!dataToView) { /* ... codice gestione mese vuoto ... */
+                     currentMonthDisplay.textContent = 'N/D'; summarySalary.textContent = formatCurrency(0); summarySavingsGoal.textContent = formatCurrency(0); summaryFixedTotal.textContent = formatCurrency(0); summaryExtraIncome.textContent = formatCurrency(0); summaryPrevDebt.textContent = formatCurrency(0); summarySpendable.textContent = formatCurrency(0); summarySpendable.classList.remove('negative'); return;
+                 }
+                const totalMainIncome = (dataToView.mainIncomes || []).reduce((s, i) => s + Number(i.amount || 0), 0);
+                const totalFixedExpenses = (dataToView.fixedExpenses || []).reduce((s, e) => s + Number(e.amount || 0), 0);
+                const totalExtraIncome = (dataToView.extraIncome || []).reduce((s, i) => s + Number(i.amount || 0), 0);
+                const savingsGoal = Number(dataToView.savingsGoal) || 0;
+                const immediateDeduction = Number(dataToView.immediateDeduction) || 0;
+                const prevViewingMonth = getPreviousYearMonth(viewingMonthYear); let prevDebt = 0;
+                if (prevViewingMonth && appData.monthHistory[prevViewingMonth]?.debtsIncurred) { prevDebt = appData.monthHistory[prevViewingMonth].debtsIncurred.reduce((s, d) => s + Number(d.amount || 0), 0); }
+                const spendable = totalMainIncome + totalExtraIncome - savingsGoal - immediateDeduction - totalFixedExpenses - prevDebt;
+                const nomiMesi = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"]; let displayDate = 'N/D';
+                if (viewingMonthYear) { try { const p=viewingMonthYear.split('-'); const y=parseInt(p[0],10); const m=parseInt(p[1],10)-1; if(!isNaN(y)&&m>=0&&m<12){displayDate=`${nomiMesi[m]} ${y}`;} else{displayDate=viewingMonthYear;} } catch(e){displayDate=viewingMonthYear;} }
+                currentMonthDisplay.textContent = displayDate;
+                summarySalary.textContent = formatCurrency(totalMainIncome); summarySavingsGoal.textContent = formatCurrency(savingsGoal); summaryFixedTotal.textContent = formatCurrency(totalFixedExpenses); summaryExtraIncome.textContent = formatCurrency(totalExtraIncome); summaryPrevDebt.textContent = formatCurrency(prevDebt); summarySpendable.textContent = formatCurrency(spendable); summarySpendable.classList.toggle('negative', spendable < 0);
+            };
+
+            // AGGIORNATA: Non ripopola campi Obiettivi e li svuota sempre al render
+            const renderAll = () => {
+                const dataToRender = getMonthData(viewingMonthYear, false); // Prendi dati del mese DA VISUALIZZARE
+
+                // --- Popola i campi del form Obiettivi --- MODIFICATO ---
+                // Rimuovi o commenta la logica di popolamento dai dati salvati
+                /*
+                if (dataToRender) {
+                    savingsGoalInput.value = dataToRender.savingsGoal || 0;
+                    immediateDeductionInput.value = dataToRender.immediateDeduction || 0;
+                } else {
+                    savingsGoalInput.value = '';
+                    immediateDeductionInput.value = '';
+                }
+                */
+                // Assicura che i campi siano SEMPRE vuoti all'inizio del rendering della pagina
+                savingsGoalInput.value = '';
+                immediateDeductionInput.value = '';
+                // --- FINE MODIFICA ---
+                
+                // Renderizza le altre sezioni (invariato)
                 renderTheme();
-                renderMainIncomes(); // Renderizza lista entrate principali
+                renderMainIncomes();
                 renderFixedExpenses();
                 renderExtraIncome();
                 renderDebts();
-                renderSummary(); // Render summary per ultimo
+                renderSummary();
+                populateMonthSelector(); // Aggiorna anche il selettore
             };
 
+
             // --- EVENT HANDLERS ---
-            themeSwitcher.addEventListener('click', () => {
-                appData.settings.theme = (appData.settings.theme === 'light') ? 'dark' : 'light';
-                saveData();
-                renderTheme();
-                showNotification(`Tema ${appData.settings.theme === 'dark' ? 'Scuro' : 'Chiaro'} attivato`, 'success', 1500);
+            themeSwitcher.addEventListener('click', () => { /* ... invariato ... */
+                 appData.settings.theme = (appData.settings.theme === 'light') ? 'dark' : 'light'; saveData(); renderTheme(); showNotification(`Tema ${appData.settings.theme === 'dark' ? 'Scuro' : 'Chiaro'} attivato`, 'success', 1500);
             });
 
-            // NUOVO Handler per Form Obiettivi
+            monthSelector.addEventListener('change', (e) => { // Nuovo listener
+                const selectedMonth = e.target.value;
+                if (selectedMonth && getMonthData(selectedMonth, false)) { // Controlla se i dati esistono
+                    viewingMonthYear = selectedMonth;
+                    console.log(`Visualizzazione cambiata a: ${viewingMonthYear}`);
+                    renderAll();
+                } else {
+                     console.warn(`Mese selezionato non trovato nello storico: ${selectedMonth}`);
+                     viewingMonthYear = getCurrentYearMonth(); // Torna al corrente
+                     monthSelector.value = viewingMonthYear;
+                     renderAll();
+                     showNotification(`Dati per ${selectedMonth} non trovati.`, 'error');
+                }
+            });
+
+            // Handler Obiettivi (Salva sul MESE VISUALIZZATO)
             goalsForm.addEventListener('submit', (e) => {
                 e.preventDefault();
-                const currentData = getCurrentMonthData(true); // Assicura che i dati mese esistano
-                currentData.savingsGoal = parseFloat(savingsGoalInput.value) || 0;
-                currentData.immediateDeduction = parseFloat(immediateDeductionInput.value) || 0;
+                const dataToModify = getMonthData(viewingMonthYear, true); // Crea se non esiste (es. primo setting per mese futuro?)
+                if (!dataToModify) { showNotification("Impossibile trovare i dati per il mese selezionato.", "error"); return; }
+                dataToModify.savingsGoal = parseFloat(savingsGoalInput.value) || 0;
+                dataToModify.immediateDeduction = parseFloat(immediateDeductionInput.value) || 0;
                 saveData();
-                renderSummary();
-                showNotification("Obiettivi mensili salvati.", 'success');
+                renderSummary(); // Aggiorna il riepilogo del mese visualizzato
+                showNotification("Obiettivi salvati per " + viewingMonthYear, 'success');
+                goalsForm.reset();
             });
 
-            // NUOVO Handler per Form Entrate Principali
+            // Handler Aggiunta Entrata Principale (SOLO SU MESE CORRENTE)
             mainIncomeForm.addEventListener('submit', (e) => {
                 e.preventDefault();
                 const description = mainIncomeDescInput.value.trim();
                 const amount = parseFloat(mainIncomeAmountInput.value);
-                const currentData = getCurrentMonthData(true); // Assicura che i dati mese esistano
+                const currentActualMonth = getCurrentYearMonth();
+                const currentData = getMonthData(currentActualMonth, true); // AGGIUNGE AL MESE CORRENTE
 
                 if (description && amount > 0) {
                     const newIncome = { id: generateId(), description: description, amount: amount };
                     if (!currentData.mainIncomes) currentData.mainIncomes = [];
                     currentData.mainIncomes.push(newIncome);
                     saveData();
-                    renderMainIncomes();
-                    renderSummary();
-                    mainIncomeForm.reset();
-                    mainIncomeDescInput.focus();
-                    showNotification("Entrata principale aggiunta.", 'success');
-                } else {
-                    showNotification("Per favore, compila descrizione e importo valido.", 'error');
-                }
+                    // Aggiorna la UI solo se stiamo visualizzando il mese corrente
+                    if (viewingMonthYear === currentActualMonth) {
+                         renderMainIncomes();
+                    } else {
+                         // Opzionale: Popola di nuovo il selector se il mese corrente era nuovo
+                         populateMonthSelector();
+                    }
+                     renderSummary(); // Aggiorna riepilogo (del mese visualizzato)
+                    mainIncomeForm.reset(); mainIncomeDescInput.focus();
+                    showNotification("Entrata principale aggiunta al mese corrente.", 'success');
+                } else { showNotification("Per favore, compila descrizione e importo valido.", 'error'); }
             });
 
-             // NUOVO Handler per Eliminare Entrata Principale
-             function handleDeleteMainIncome(e) {
-                const button = e.target.closest('button');
-                if (!button) return;
-                const incomeId = button.dataset.id;
-                const currentData = getCurrentMonthData(false); // Prendi dati correnti
-
-                if (currentData && currentData.mainIncomes) {
-                     currentData.mainIncomes = currentData.mainIncomes.filter(inc => inc.id !== incomeId);
-                     saveData();
-                     renderMainIncomes();
-                     renderSummary();
-                     showNotification("Entrata principale eliminata.", 'success');
-                 }
-            }
-
-
-            // Handler Spese Fisse (Form e Ordinamento invariati nel trigger, aggiornati nell'implementazione)
-            fixedExpenseForm.addEventListener('submit', (e) => {
+            // Handler Aggiunta Spesa Fissa (SOLO SU MESE CORRENTE)
+             fixedExpenseForm.addEventListener('submit', (e) => {
                  e.preventDefault();
-                 const name = fixedExpenseNameInput.value.trim();
-                 const amount = parseFloat(fixedExpenseAmountInput.value);
-                 const category = fixedExpenseCategoryInput.value.trim();
-                 const currentData = getCurrentMonthData(true); // Usa dati correnti
+                 const name = fixedExpenseNameInput.value.trim(); const amount = parseFloat(fixedExpenseAmountInput.value); const category = fixedExpenseCategoryInput.value.trim();
+                 const currentActualMonth = getCurrentYearMonth();
+                 const currentData = getMonthData(currentActualMonth, true); // AGGIUNGE AL MESE CORRENTE
 
                  if (name && amount > 0 && category) {
                     const newExpense = { id: generateId(), name: name, amount: amount, category: category };
                     if (!currentData.fixedExpenses) currentData.fixedExpenses = [];
-                    currentData.fixedExpenses.push(newExpense);
-                    saveData();
-                    renderFixedExpenses(); renderSummary();
-                    fixedExpenseForm.reset(); fixedExpenseNameInput.focus();
-                     showNotification("Spesa fissa aggiunta.", 'success');
-                 } else { showNotification("Per favore, compila tutti i campi della spesa fissa.", 'error'); }
+                    currentData.fixedExpenses.push(newExpense); saveData();
+                     if (viewingMonthYear === currentActualMonth) { renderFixedExpenses(); }
+                     else { populateMonthSelector(); }
+                     renderSummary(); fixedExpenseForm.reset(); fixedExpenseNameInput.focus();
+                     showNotification("Spesa fissa aggiunta al mese corrente.", 'success');
+                 } else { showNotification("Per favore, compila tutti i campi.", 'error'); }
              });
 
+            // Handler Aggiunta Entrata Extra (SOLO SU MESE CORRENTE)
+              extraIncomeForm.addEventListener('submit', (e) => {
+                 e.preventDefault();
+                 const description = extraIncomeDescInput.value.trim(); const amount = parseFloat(extraIncomeAmountInput.value);
+                 const currentActualMonth = getCurrentYearMonth();
+                 const currentData = getMonthData(currentActualMonth, true); // AGGIUNGE AL MESE CORRENTE
+
+                 if (description && amount > 0) {
+                     const newIncome = { id: generateId(), description, amount };
+                     if (!currentData.extraIncome) currentData.extraIncome = [];
+                     currentData.extraIncome.push(newIncome); saveData();
+                     if (viewingMonthYear === currentActualMonth) { renderExtraIncome(); }
+                      else { populateMonthSelector(); }
+                     renderSummary(); extraIncomeForm.reset(); extraIncomeDescInput.focus();
+                      showNotification("Entrata extra aggiunta al mese corrente.", 'success');
+                 } else { showNotification("Per favore, compila tutti i campi.", 'error'); }
+              });
+
+            // Handler Aggiunta Debito (SOLO SU MESE CORRENTE)
+            debtForm.addEventListener('submit', (e) => {
+                 e.preventDefault();
+                 const description = debtDescInput.value.trim(); const amount = parseFloat(debtAmountInput.value);
+                 const currentActualMonth = getCurrentYearMonth();
+                 const currentData = getMonthData(currentActualMonth, true); // AGGIUNGE AL MESE CORRENTE
+
+                 if (description && amount > 0) {
+                     const newDebt = { id: generateId(), description, amount };
+                     if (!currentData.debtsIncurred) currentData.debtsIncurred = [];
+                     currentData.debtsIncurred.push(newDebt); saveData();
+                      if (viewingMonthYear === currentActualMonth) { renderDebts(); }
+                       else { populateMonthSelector(); }
+                     // renderSummary(); // L'aggiunta di debiti non cambia il summary corrente
+                     debtForm.reset(); debtDescInput.focus();
+                      showNotification("Debito/Acc. aggiunto al mese corrente.", 'success');
+                 } else { showNotification("Per favore, compila tutti i campi.", 'error'); }
+             });
+
+             // Handler Ordinamento (Applica al MESE VISUALIZZATO)
              sortControls.addEventListener('click', (e) => {
                 if (e.target.tagName === 'BUTTON' && e.target.dataset.sort) {
                     appData.settings.fixedExpensesSort = e.target.dataset.sort;
                      sortControls.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
                      e.target.classList.add('active');
-                     saveData(); // Salva preferenza sort
-                     renderFixedExpenses(); // Rerender lista
+                     saveData(); // Salva preferenza (globale)
+                     renderFixedExpenses(); // Rirenderizza lista MESE VISUALIZZATO con nuovo ordine
                  }
              });
 
-            // Handler Eliminazione Spesa Fissa (Aggiornato)
+
+            // --- Handlers Eliminazione (Agiscono sul MESE VISUALIZZATO) ---
+            function handleDeleteMainIncome(e) {
+                const button = e.target.closest('button'); if (!button) return; const incomeId = button.dataset.id;
+                const dataToModify = getMonthData(viewingMonthYear, false);
+                if (dataToModify?.mainIncomes) { dataToModify.mainIncomes = dataToModify.mainIncomes.filter(i => i.id !== incomeId); saveData(); renderMainIncomes(); renderSummary(); showNotification("Entrata principale eliminata.", 'success'); }
+            }
             function handleDeleteFixedExpense(e) {
-                 const button = e.target.closest('button');
-                 if (!button) return;
-                 const expenseId = button.dataset.id;
-                 const currentData = getCurrentMonthData(false); // Usa dati correnti
-
-                 if(currentData && currentData.fixedExpenses) {
-                    currentData.fixedExpenses = currentData.fixedExpenses.filter(exp => exp.id !== expenseId);
-                    saveData();
-                    renderFixedExpenses();
-                    renderSummary();
-                    showNotification("Spesa fissa eliminata.", 'success');
-                 }
+                 const button = e.target.closest('button'); if (!button) return; const expenseId = button.dataset.id;
+                 const dataToModify = getMonthData(viewingMonthYear, false);
+                 if(dataToModify?.fixedExpenses) { dataToModify.fixedExpenses = dataToModify.fixedExpenses.filter(ex => ex.id !== expenseId); saveData(); renderFixedExpenses(); renderSummary(); showNotification("Spesa fissa eliminata.", 'success'); }
             }
-
-             // Handler Entrate Extra (Form invariato nel trigger, aggiornato nell'implementazione)
-             extraIncomeForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                 const description = extraIncomeDescInput.value.trim();
-                 const amount = parseFloat(extraIncomeAmountInput.value);
-                 const currentData = getCurrentMonthData(true); // Usa dati correnti
-
-                 if (description && amount > 0) {
-                     const newIncome = { id: generateId(), description, amount };
-                     if (!currentData.extraIncome) currentData.extraIncome = [];
-                     currentData.extraIncome.push(newIncome);
-                     saveData(); renderExtraIncome(); renderSummary();
-                     extraIncomeForm.reset(); extraIncomeDescInput.focus();
-                      showNotification("Entrata extra aggiunta.", 'success');
-                 } else { showNotification("Per favore, compila tutti i campi dell'entrata extra.", 'error'); }
-              });
-
-            // Handler Eliminazione Entrata Extra (Aggiornato)
             function handleDeleteExtraIncome(e) {
-                 const button = e.target.closest('button');
-                 if (!button) return;
-                const incomeId = button.dataset.id;
-                const currentData = getCurrentMonthData(false); // Usa dati correnti
-
-                if(currentData && currentData.extraIncome) {
-                    currentData.extraIncome = currentData.extraIncome.filter(inc => inc.id !== incomeId);
-                    saveData(); renderExtraIncome(); renderSummary();
-                    showNotification("Entrata extra eliminata.", 'success');
-                }
+                 const button = e.target.closest('button'); if (!button) return; const incomeId = button.dataset.id;
+                 const dataToModify = getMonthData(viewingMonthYear, false);
+                 if(dataToModify?.extraIncome) { dataToModify.extraIncome = dataToModify.extraIncome.filter(i => i.id !== incomeId); saveData(); renderExtraIncome(); renderSummary(); showNotification("Entrata extra eliminata.", 'success'); }
             }
-
-             // Handler Debiti (Form invariato nel trigger, aggiornato nell'implementazione)
-             debtForm.addEventListener('submit', (e) => {
-                 e.preventDefault();
-                 const description = debtDescInput.value.trim();
-                 const amount = parseFloat(debtAmountInput.value);
-                 const currentData = getCurrentMonthData(true); // Usa dati correnti
-
-                 if (description && amount > 0) {
-                     const newDebt = { id: generateId(), description, amount };
-                     if (!currentData.debtsIncurred) currentData.debtsIncurred = [];
-                     currentData.debtsIncurred.push(newDebt);
-                     saveData(); renderDebts();
-                     debtForm.reset(); debtDescInput.focus();
-                      showNotification("Debito/Accantonamento aggiunto per il prossimo mese.", 'success');
-                 } else { showNotification("Per favore, compila tutti i campi del debito/accantonamento.", 'error'); }
-             });
-
-            // Handler Eliminazione Debito (Aggiornato)
             function handleDeleteDebt(e) {
-                 const button = e.target.closest('button');
-                 if (!button) return;
-                const debtId = button.dataset.id;
-                const currentData = getCurrentMonthData(false); // Usa dati correnti
-
-                if(currentData && currentData.debtsIncurred) {
-                    currentData.debtsIncurred = currentData.debtsIncurred.filter(debt => debt.id !== debtId);
-                    saveData(); renderDebts();
-                    showNotification("Debito/Accantonamento eliminato.", 'success');
-                }
+                 const button = e.target.closest('button'); if (!button) return; const debtId = button.dataset.id;
+                 const dataToModify = getMonthData(viewingMonthYear, false);
+                 if(dataToModify?.debtsIncurred) { dataToModify.debtsIncurred = dataToModify.debtsIncurred.filter(d => d.id !== debtId); saveData(); renderDebts(); renderSummary(); /* Il summary del mese successivo cambierà */ showNotification("Debito/Acc. eliminato.", 'success'); }
             }
 
-            // Handler Export (Invariato nel concetto, esporta tutta appData)
-             exportButton.addEventListener('click', async () => {
-                 const password = backupPasswordInput.value;
-                 if (!password) { showNotification("Inserisci una password per creare il backup.", 'error'); backupPasswordInput.focus(); return; }
-                 try {
-                     const key = await getPasswordKey(password);
-                     // Esporta l'intero oggetto appData che ora contiene lo storico
-                     const encryptedPayload = await encryptData(key, appData);
-                     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(encryptedPayload));
-                     const downloadAnchorNode = document.createElement('a');
-                     const filename = `budget_bulldog_material_backup_${getCurrentYearMonth()}_${Date.now()}.bbbackup`;
-                     downloadAnchorNode.setAttribute("href", dataStr); downloadAnchorNode.setAttribute("download", filename);
-                     document.body.appendChild(downloadAnchorNode); downloadAnchorNode.click(); downloadAnchorNode.remove();
-                      showNotification("Backup esportato con successo!", 'success'); backupPasswordInput.value = '';
-                 } catch (error) { console.error("Export error:", error); showNotification(`Errore durante l'esportazione: ${error.message}`, 'error', 5000); }
+            // Handler Export/Import/Delete All (Agiscono sull'intera appData)
+             exportButton.addEventListener('click', async () => { /* ... invariato nel concetto ... */
+                const password = backupPasswordInput.value; if (!password) { showNotification("Inserisci password.", 'error'); return; }
+                 try { const key = await getPasswordKey(password); const encPayload = await encryptData(key, appData); const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(encPayload)); const dl = document.createElement('a'); const fn = `budget_bulldog_material_backup_${getCurrentYearMonth()}_${Date.now()}.bbbackup`; dl.setAttribute("href", dataStr); dl.setAttribute("download", fn); document.body.appendChild(dl); dl.click(); dl.remove(); showNotification("Backup esportato!", 'success'); backupPasswordInput.value = ''; }
+                 catch (error) { showNotification(`Errore export: ${error.message}`, 'error', 5000); }
              });
-
-            // Handler Import (Invariato nel concetto, importa in appData)
-            importButton.addEventListener('click', () => {
-                 const file = importFileInpit.files[0]; const password = backupPasswordInput.value;
-                 if (!file) { showNotification("Seleziona un file di backup (.bbbackup).", 'error'); return; }
-                 if (!password) { showNotification("Inserisci la password usata per creare questo backup.", 'error'); backupPasswordInput.focus(); return; }
-                 const reader = new FileReader();
+             importButton.addEventListener('click', () => { /* ... invariato nel concetto ... */
+                const file = importFileInput.files[0]; const password = backupPasswordInput.value; if (!file || !password) { showNotification("Seleziona file e inserisci password.", 'error'); return; } const reader = new FileReader();
                  reader.onload = async (event) => {
-                     try {
-                         const encryptedPayload = JSON.parse(event.target.result); const key = await getPasswordKey(password);
-                         const decryptedData = await decryptData(key, encryptedPayload);
-                         // Valida che i dati importati abbiano almeno la struttura base attesa
-                         if (decryptedData && decryptedData.monthHistory && decryptedData.settings) {
-                             appData = decryptedData; // Sovrascrive stato corrente
-                             saveData();
-                             loadData(); // Ricarica per assicurare consistenza (es. creazione dati mese corrente se mancanti)
-                             renderAll();
-                             showNotification("Dati importati con successo!", 'success');
-                             importFileInpit.value = ''; backupPasswordInput.value = '';
-                         } else { throw new Error("Il file di backup non sembra contenere dati validi (manca monthHistory o settings)."); }
-                     } catch (error) { console.error("Import error:", error); showNotification(`Errore durante l'importazione: ${error.message}`, 'error', 5000); }
-                 };
-                 reader.onerror = () => { showNotification("Errore nella lettura del file.", 'error'); };
-                 reader.readAsText(file);
+                     try { const encPayload = JSON.parse(event.target.result); const key = await getPasswordKey(password); const decData = await decryptData(key, encPayload);
+                         if (decData && decData.monthHistory && decData.settings) { appData = decData; saveData(); viewingMonthYear = getCurrentYearMonth(); populateMonthSelector(); renderAll(); showNotification("Dati importati!", 'success'); importFileInput.value = ''; backupPasswordInput.value = ''; }
+                         else { throw new Error("File backup non valido."); }
+                     } catch (error) { showNotification(`Errore import: ${error.message}`, 'error', 5000); }
+                 }; reader.onerror = () => { showNotification("Errore lettura file.", 'error'); }; reader.readAsText(file);
             });
-
-            // Handler Delete All (Invariato nel concetto, rimuove la chiave)
-             deleteAllButton.addEventListener('click', () => {
-                if (confirm("SEI SICURO?\nTutti i tuoi dati (incluso lo storico) verranno cancellati PERMANENTEMENTE da questo dispositivo. Questa azione non può essere annullata.")) {
-                     if (confirm("CONFERMA DEFINITIVA?\nNon ci sarà modo di recuperare i dati dopo questa conferma.")) {
+             deleteAllButton.addEventListener('click', () => { /* ... invariato nel concetto ... */
+                if (confirm("SEI SICURO? Cancella TUTTI i dati (incluso storico).")) { if (confirm("CONFERMA DEFINITIVA? Azione IRREVERSIBILE.")) {
                          localStorage.removeItem('budgetBulldogDataMaterial');
-                         // Resetta lo stato in memoria a quello iniziale
-                         appData = {
-                             monthHistory: {},
-                             settings: { theme: 'light', fixedExpensesSort: 'default' }
-                         };
-                         getCurrentMonthData(true); // Crea dati vuoti per il mese corrente
-                         saveData(); // Salva lo stato resettato
-                         renderAll(); // Rirenderizza tutto (mostrerà vuoto)
-                         // Svuota anche i form non resettati automaticamente da renderAll
-                         goalsForm.reset();
-                         mainIncomeForm.reset();
-                         fixedExpenseForm.reset();
-                         extraIncomeForm.reset();
-                         debtForm.reset();
-                         backupPasswordInput.value = '';
-
-                         showNotification("Tutti i dati sono stati cancellati.", 'success', 5000);
-                     }
-                 }
+                         appData = { monthHistory: {}, settings: { theme: 'light', fixedExpensesSort: 'default' } };
+                         viewingMonthYear = getCurrentYearMonth(); // Reimposta vista
+                         getMonthData(viewingMonthYear, true); // Crea dati mese corrente vuoti
+                         saveData();
+                          populateMonthSelector(); // Aggiorna selector (mostrerà solo mese corrente)
+                         renderAll(); // Rirenderizza tutto
+                         goalsForm.reset(); mainIncomeForm.reset(); fixedExpenseForm.reset(); extraIncomeForm.reset(); debtForm.reset(); backupPasswordInput.value = '';
+                         showNotification("Tutti i dati cancellati.", 'success', 5000); } }
              });
 
             // --- INITIALIZATION ---
-            loadData(); // Carica i dati (o inizializza la nuova struttura)
-            renderAll(); // Renderizza l'interfaccia iniziale
+            loadData();
+            populateMonthSelector();
+            renderAll();
 
-             // Imposta stato iniziale bottoni sort (invariato)
+            // Setup iniziale bottoni sort
              const currentSort = appData.settings.fixedExpensesSort || 'default';
              sortControls.querySelectorAll('button').forEach(btn => {
                  if (btn.dataset.sort === currentSort) { btn.classList.add('active'); }
                  else { btn.classList.remove('active'); }
              });
+
+              // Setup iniziale underline per input esistenti (se ce ne sono)
+               inputs.forEach(input => {
+                   const container = input.closest('.text-field-container');
+                   if(input.value && container) {
+                       // Potrebbe essere utile aggiungere una classe "has-value" per stili futuri
+                   }
+               });
 
         }); // End DOMContentLoaded
     </script>
